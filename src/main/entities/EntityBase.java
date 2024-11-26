@@ -12,6 +12,17 @@ public abstract class EntityBase extends Rectangle {
     /**The velocity on the x and y axis**/
     double vX,vY;
 
+    public int speed;
+
+    /** Stuff for sprite direction and counters */
+    public String direction;
+	public int spriteCounter = 0;
+	public int SpriteNum = 1;
+
+    /** Stuff for collisions */
+	public Rectangle solidArea;
+	public boolean collisionOn = false;
+
     int health;
     /**An identifier for this entity, every entity must have a unique ID
      *  **/
