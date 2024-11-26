@@ -7,19 +7,19 @@ public abstract class EntityBase extends Rectangle {
 
     /** x and y coords for anything related with movement
      * use the normal x and y from Rectangle otherwise **/
-    double mX, mY;
+	protected double mX, mY;
 
     /**The velocity on the x and y axis**/
-    double vX,vY;
+    protected double vX,vY;
 
-    int health;
+    protected int health;
     /**An identifier for this entity, every entity must have a unique ID
      *  **/
-    int id;
+    protected int id;
 
-    boolean damageable;
+    protected boolean damageable;
 
-    BufferedImage texture;
+    protected BufferedImage texture;
 
     /**
      * What this entity does once it is killed or despawned
