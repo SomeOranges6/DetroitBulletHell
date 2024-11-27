@@ -2,6 +2,7 @@ package main;
 
 import main.entities.EntityBase;
 import main.entities.interfaces.IUpdatable;
+import main.gameplay.Player;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -15,6 +16,7 @@ public class BulletHellLogic {
 	public ArrayList<IUpdatable> entitiestoUpdate;
 	public static int tick = 0;
 	Random rand = new Random();
+	public static Player player;
 
 	public Timer centralTick = new Timer(50, new CentralClock());
 
