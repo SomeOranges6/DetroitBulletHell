@@ -8,7 +8,7 @@ public class Main {
     	//set up frame
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setResizable(true);
+        window.setResizable(false);
         window.setTitle("Game Prototype");
         //set up panel
         GamePanel gamepanel = new GamePanel();
@@ -18,6 +18,7 @@ public class Main {
         //more panel stuff
         window.setLocationRelativeTo(null);
         window.setVisible(true);
+        gamepanel.startGame();
 
     }
 
