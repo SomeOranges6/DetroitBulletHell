@@ -26,6 +26,7 @@ hs_err_pid*
 replay_pid*
 /bin/
 /shelf/
+/.idea/
 /workspace.xml
 /misc.xml
 /modules.xml
