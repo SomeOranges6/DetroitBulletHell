@@ -10,6 +10,7 @@ public class EnemyBase extends EntityBase implements IUpdatable {
 	Player player;
 	
     public EnemyBase(int x, int y){
+        super(x,y);
         damageable = true;
     }
     

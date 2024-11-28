@@ -1,9 +1,28 @@
 package main.gameplay;
 
-import java.awt.image.BufferedImage;
-import java.util.concurrent.Callable;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
+import main.entities.EntityBase;
 
-public record Weapon(BufferedImage texture, BiConsumer<Integer, Integer> onShoot){}
+import java.awt.image.BufferedImage;
+
+public class Weapon {
+
+    EntityBase shooter;
+    int damage, firerate;
+
+    BufferedImage texture;
+
+    int maxAmmo, ammo;
+
+    public Weapon(int damage, int firerate, int maxAmmo, BufferedImage texture){
+        this.damage = damage;
+        this.firerate = firerate;
+        this.maxAmmo = maxAmmo;
+        this.texture = texture;
+    }
+
+    public void onShoot(){
+
+    }
+
+
+}

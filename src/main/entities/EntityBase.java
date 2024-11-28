@@ -28,10 +28,12 @@ public abstract class EntityBase extends Rectangle {
      * Measured in radians, use the methods in the Math class to convert it to degrees**/
     public double facingAngle;
 
-
-
     public EntityBase(int x, int y, int width, int height){
         super(x, y, width, height);
+    }
+
+    public EntityBase(int x, int y){
+        super(x, y);
     }
 
     /**
