@@ -11,11 +11,11 @@ public abstract class EntityBase extends Rectangle {
 
     /**The velocity on the x and y axis**/
     public double vX,vY;
-    
-    /**distance to a point * speed = velocities**/
+
     public double speed;
 
     public int health;
+
     /**An identifier for this entity, every entity must have a unique ID
      *  **/
     public int id;
@@ -23,6 +23,18 @@ public abstract class EntityBase extends Rectangle {
     public boolean damageable;
 
     public BufferedImage texture;
+
+    /**Which angle this entity is pointing to, used for rendering the sprite and projectiles
+     * Measured in radians, use the methods in the Math class to convert it to degrees**/
+    public double facingAngle;
+
+    public EntityBase(int x, int y, int width, int height){
+        super(x, y, width, height);
+    }
+
+    public EntityBase(int x, int y){
+        super(x, y);
+    }
 
     /**
      * What this entity does once it is killed or despawned
@@ -42,6 +54,10 @@ public abstract class EntityBase extends Rectangle {
 
     public abstract void render(Graphics2D g);
 
+    /**Sets the angle, measured in radians **/
+    public void setFacingAngle(double angle){
+        facingAngle = angle;
+    }
 
 
 

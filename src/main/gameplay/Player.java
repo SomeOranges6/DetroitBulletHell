@@ -4,13 +4,19 @@ import main.entities.EntityBase;
 import main.entities.interfaces.IUpdatable;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 public class Player extends EntityBase implements IUpdatable, KeyListener{
+
 	Character character;
-	int x;
-	int y;
+
+	ArrayList<Weapon> weapons = new ArrayList<>();
+	Weapon currentWeapon;
+	int lastWeaponIndex = 0;
 	
     public Player(int x, int y, Character character) {
+		//TODO: remember actual player width
+		super(x,y, )
     	health = character.health();
     	this.character = character; 
     	this.x = x;
@@ -39,31 +45,36 @@ public class Player extends EntityBase implements IUpdatable, KeyListener{
 		int playerMovement = e.getKeyCode();
 		//player moves up
 		if (playerMovement == KeyEvent.VK_W) {
-			mY -= vY; 
+			mY -= vY;
 			player.y = (int)mY;
 		}
 		//player moves left
-		else if (playerMovement == KeyEvent.VK_A) {
-			mX -= vX; 
+		if (playerMovement == KeyEvent.VK_A) {
+			mX -= vX;
 			player.x = (int) mX;
 		}
 		//player moves down
-		else if (playerMovement == KeyEvent.VK_S) {
-			mY += vY; 
+		if (playerMovement == KeyEvent.VK_S) {
+			mY += vY;
 			player.y = (int)mY;
 		}
 		//player moves right
-		else if (playerMovement == KeyEvent.VK_D) {
-			mY += vX; 
+		if (playerMovement == KeyEvent.VK_D) {
+			mX += vX;
 			player.x = (int) mX;
 		}
 		//player uses an ability
-		else if (playerMovement == KeyEvent.VK_Q) {
+		if (playerMovement == KeyEvent.VK_Q) {
 			character.onAbilityUse(this); 
 		}
-		//player will attack (no method for this currently)
-		else if (playerMovement == KeyEvent.VK_E) {
-			//null
+		//player will attack
+		if (playerMovement == KeyEvent.VK_E) {
+			currentWeapon.onShoot();
+		}
+		//player will switch weapon
+		else if (playerMovement == KeyEvent.VK_R) {
+			int weaponIndex = lastWeaponIndex + 1 > weapons.size() ? 0 : lastWeaponIndex++;
+			currentWeapon = weapons.get(weaponIndex);
 		}
 	}
 

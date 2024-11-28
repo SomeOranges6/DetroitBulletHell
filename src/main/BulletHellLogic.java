@@ -37,4 +37,10 @@ public class BulletHellLogic {
 			}
 		}
 	}
+
+	public static void spawnEntity(EntityBase entity){
+		if(entity instanceof  IUpdatable){
+
+		}
+	}
 }
