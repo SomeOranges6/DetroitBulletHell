@@ -1,4 +1,4 @@
-package Games;
+package main;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -16,8 +16,8 @@ public class Player extends EntityBase{
 		this.gp = gp;
 		this.keyH = keyH;
 		//variables to keep player in the center
-		screenX = gp.screenWidth/2 - (gp.tileSize/2);
-		screenY = gp.screenHeight/2 - (gp.tileSize/2);
+		screenX = BulletHellLogic.screenWidth/2 - (BulletHellLogic.tileSize/2);
+		screenY = BulletHellLogic.screenHeight/2 - (BulletHellLogic.tileSize/2);
 		
 		solidArea = new Rectangle(0, 0, 48, 48);
 		solidArea.x = 8;
@@ -29,10 +29,10 @@ public class Player extends EntityBase{
 		getPlayerImage();
 	}
 	public void setDefaultValues() {
-		int worldX = gp.tileSize * 8;
-		int worldY = gp.tileSize * 6;
+		x = BulletHellLogic.tileSize * 8;
+		y = BulletHellLogic.tileSize * 6;
 
-		speed = 4*gp.scale;
+		speed = 4*BulletHellLogic.scale;
 		direction = "down";
 		
 	}
@@ -63,7 +63,7 @@ public class Player extends EntityBase{
 
 	    // Collision detection
 	    collisionOn = false;
-	    gp.cChecker.checkTile(this);
+	    BulletHellLogic.cChecker.checkTile(this);
 
 	    // If no collision, move the player
 	    if (!collisionOn) {
@@ -106,7 +106,7 @@ public class Player extends EntityBase{
 	public void draw(Graphics2D g2) {
         // Draw the player
         g2.setColor(Color.white);
-        g2.fillRect(screenX, screenY, gp.tileSize/2, gp.tileSize/2);
+        g2.fillRect(screenX, screenY, BulletHellLogic.tileSize/2, BulletHellLogic.tileSize/2);
 	}
 
 }

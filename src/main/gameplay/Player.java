@@ -1,5 +1,6 @@
 package main.gameplay;
 
+import main.BulletHellLogic;
 import main.entities.EntityBase;
 import main.entities.interfaces.IUpdatable;
 import java.awt.*;
@@ -9,6 +10,9 @@ import java.util.ArrayList;
 public class Player extends EntityBase implements IUpdatable, KeyListener{
 
 	Character character;
+
+	public int screenX = BulletHellLogic.screenWidth/2 - (BulletHellLogic.tileSize/2);
+	public int screenY = BulletHellLogic.screenHeight/2 - (BulletHellLogic.tileSize/2);
 
 	ArrayList<Weapon> weapons = new ArrayList<>();
 	Weapon currentWeapon;
@@ -21,6 +25,7 @@ public class Player extends EntityBase implements IUpdatable, KeyListener{
     	this.character = character; 
     	this.x = x;
     	this.y = y;
+
     }
 
     @Override

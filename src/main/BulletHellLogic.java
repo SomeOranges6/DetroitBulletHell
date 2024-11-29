@@ -55,13 +55,13 @@ public class BulletHellLogic {
         window.setResizable(false);
         window.setTitle("Game Prototype");
         //set up panel
-        window.add(gamepanel);
+        window.add(gPanel);
         //fit the panel to the size of the windowssssssssssssss
         window.pack();
         //more panel stuff
         window.setLocationRelativeTo(null);
         window.setVisible(true);
-        gamepanel.startGame();
+        gPanel.startGame();
 	}
 
 	static class CentralClock implements ActionListener{
