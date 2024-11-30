@@ -19,8 +19,7 @@ public class Player extends EntityBase implements IUpdatable, KeyListener{
 	int lastWeaponIndex = 0;
 	
     public Player(int x, int y, Character character) {
-		//TODO: remember actual player width
-		super(x,y, )
+		super(x,y,BulletHellLogic.originalTileSize, BulletHellLogic.originalTileSize);
     	health = character.health();
     	this.character = character; 
     	this.x = x;

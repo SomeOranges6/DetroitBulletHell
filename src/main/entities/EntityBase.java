@@ -1,5 +1,7 @@
 package main.entities;
 
+import main.BulletHellLogic;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -49,7 +51,7 @@ public abstract class EntityBase extends Rectangle {
      * What this entity does once it is killed or despawned
      */
     public void onDead (){
-
+        BulletHellLogic.removeEntity(this);
     }
 
     /**
@@ -67,7 +69,4 @@ public abstract class EntityBase extends Rectangle {
     public void setFacingAngle(double angle){
         facingAngle = angle;
     }
-
-
-
 }

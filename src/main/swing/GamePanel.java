@@ -3,24 +3,12 @@ package main.swing;
 import javax.swing.*;
 
 import main.BulletHellLogic;
-import main.world.CollisionChecker;
-import main.world.TileManager;
+import main.entities.EntityBase;
 
 import java.awt.*;
 
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel {
-
-    // FPS
-    final int FPS = 60;
-    final int delay = 1000 / FPS; // Delay in milliseconds
-
-    // Declare variables for loading tiles and handling input
-
-    // Default player position
-    int playerX = 100;
-    int playerY = 100;
-    int playerSpeed = 6*scale;
 
     // Constructor
     public GamePanel() {
@@ -32,15 +20,8 @@ public class GamePanel extends JPanel {
         this.setFocusable(true);
     }
 
-    // Start the game loop using Timer
-    public void startGame() {
-        Timer timer = new Timer(delay, e -> {
-            if (running) {
-                update();
-                repaint();
-            }
-        });
-        timer.start();
+    public void onUpdate(){
+        repaint();
     }
 
     // Paint graphics
@@ -48,11 +29,12 @@ public class GamePanel extends JPanel {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
-        // Call TileManager draw method
+        // Render the map
         BulletHellLogic.tileM.draw(g2);
-        player.draw(g2);
 
-
+        for(EntityBase entity : BulletHellLogic.entitiesToRender){
+            entity.render(g2);
+        }
         g2.dispose();
     }
 }

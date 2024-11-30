@@ -31,6 +31,9 @@ public class ProjectileBase extends EntityBase implements IUpdatable {
     public void onUpdate() {
         mX += vX;
         mY += vY;
+
+        x = (int) mX;
+        y = (int) mY;
     }
 
     @Override

@@ -1,13 +1,22 @@
 package main.entities;
 
+import main.BulletHellLogic;
 import main.entities.interfaces.IUpdatable;
 import main.gameplay.Player;
 
 import java.awt.*;
+import java.util.ArrayList;
+
+import static main.BulletHellLogic.player;
 
 public class EnemyBase extends EntityBase implements IUpdatable {
-	
-	Player player;
+
+
+    static ArrayList<Rectangle> collidablesEnemy = BulletHellLogic.collidablesGeneral;
+
+    static {
+        collidablesEnemy.addFirst(player);
+    }
 	
     public EnemyBase(int x, int y){
         super(x,y);
