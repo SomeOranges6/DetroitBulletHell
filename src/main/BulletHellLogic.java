@@ -2,6 +2,7 @@ package main;
 
 import main.entities.EntityBase;
 import main.entities.interfaces.IUpdatable;
+import main.gameplay.CharacterList;
 import main.gameplay.Player;
 import main.swing.GamePanel;
 import main.world.TileManager;
@@ -15,14 +16,14 @@ import java.util.Random;
 
 public class BulletHellLogic {
 
-	public static ArrayList<EntityBase> entitiesToRender;
-	public static ArrayList<IUpdatable> entitiestoUpdate;
+	public static ArrayList<EntityBase> entitiesToRender = new ArrayList<>();
+	public static ArrayList<IUpdatable> entitiestoUpdate = new ArrayList<>();
 
 	/**What the player's projectiles can collide with outside of the general list, i.e enemies**/
-	public static ArrayList<Rectangle> collidablesPlayerProjectile;
+	public static ArrayList<Rectangle> collidablesPlayerProjectile = new ArrayList<>();
 
 	/**What most things can collide with, i.e walls**/
-	public static ArrayList<Rectangle> collidablesGeneral;
+	public static ArrayList<Rectangle> collidablesGeneral = new ArrayList<>();
 
 	/**Used for simple timers across other classes **/
 	public static int tick = 0;
@@ -44,7 +45,7 @@ public class BulletHellLogic {
     private static boolean running = true;
 
     //WORLD SETTINGS
-	/**How much tiles wide each world is
+	/**How much tiles wide each world is.
 	 * Temporary, after prototype needs to be replaced with room system **/
     public static final int maxWorldCol = 20;
     public static final int maxWorldRow = 20;
@@ -53,7 +54,7 @@ public class BulletHellLogic {
     public static GamePanel gPanel = new GamePanel();
 
 	/**Handles building and rendering the map itself **/
-    public static TileManager tileM = new TileManager();
+    public static TileManager tileM;
 
 	/**The main timer responsible for updating game logic, ticks once every 1/20 of a second **/
 	public static Timer centralTick = new Timer(50, new CentralClock());
@@ -71,8 +72,10 @@ public class BulletHellLogic {
 	BulletHellLogic(){
 		centralTick.setActionCommand(centralActionCommand);
 		renderTick.setActionCommand(renderActionCommand);
+		startGame();
 		renderSetup();
-        startGame();
+		centralTick.start();
+		renderTick.start();
 	}
 
 	private static void renderSetup(){
@@ -88,10 +91,13 @@ public class BulletHellLogic {
 		//more panel stuff
 		window.setLocationRelativeTo(null);
 		window.setVisible(true);
+
 	}
 
 	private static void startGame() {
-		centralTick.start();
+		tileM = new TileManager();
+		player = new Player(100,100, CharacterList.johnTest);
+		spawnEntity(player);
 	}
 
 	/**Handles the actual game loop itself, calling all entities that need to be updated **/
@@ -104,7 +110,9 @@ public class BulletHellLogic {
 				if (tick++ == Integer.MAX_VALUE) {
 					tick = 0;
 				}
-
+				for(IUpdatable updatable : entitiestoUpdate){
+					updatable.onUpdate();
+				}
 			}
 			if(e.getActionCommand().equals(renderActionCommand)) {
 				gPanel.onUpdate();

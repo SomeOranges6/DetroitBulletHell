@@ -22,14 +22,18 @@ public class MathUtil {
 		return new double[]{xDist, yDist};
 	}
 
-	public static boolean checkForCollision(EntityBase entity, ArrayList<? extends Rectangle> list){
+	public static Rectangle checkForCollision(EntityBase entity, ArrayList<? extends Rectangle> list){
 		Rectangle futurePosition = new Rectangle((int) (entity.mX + entity.vX), (int) (entity.mY + entity.vY), entity.width, entity.height);
 
 		for(Rectangle rect : list){
 			if(futurePosition.intersects(rect)){
-				return true;
+				return rect;
 			}
 		}
-		return false;
+		return null;
 	}
+
+	//public static boolean checkMapBounds(Rectangle rectangle){
+
+	//}
 }

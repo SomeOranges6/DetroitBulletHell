@@ -54,15 +54,6 @@ public abstract class EntityBase extends Rectangle {
         BulletHellLogic.removeEntity(this);
     }
 
-    /**
-     * Called whenever something needs to check collision with this entity
-     *
-     * @param collidedObj The object which needs to check the collision
-     * @return whether the entity **/
-    public boolean checkHitbox(Rectangle collidedObj){
-        return collidedObj.intersects(this);
-    }
-
     public abstract void render(Graphics2D g);
 
     /**Sets the angle, measured in radians **/

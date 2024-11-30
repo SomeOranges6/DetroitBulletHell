@@ -28,7 +28,7 @@ public class TileManager {
 
     public void getTileImage() {
         try {
-            tileSheet = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/tileset1.png")));
+            tileSheet = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/assets/tileset1.png")));
             int tileIndex = 0;
             for (int y = 0; y < 8; y++) {
                 for (int x = 0; x < 8; x++) {
@@ -62,6 +62,7 @@ public class TileManager {
     public void loadMap() {
         try {
             InputStream is = getClass().getResourceAsStream("/maps/map" + mapNum + ".txt");
+            assert is != null;
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
             int row = 0;
 

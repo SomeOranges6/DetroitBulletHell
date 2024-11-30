@@ -29,7 +29,7 @@ public class Player extends EntityBase implements IUpdatable, KeyListener{
 
     @Override
     public void render(Graphics2D g) {
-    	
+        g.fillRect(screenX, screenY, BulletHellLogic.tileSize/2, BulletHellLogic.tileSize/2);
     }
 
     @Override
@@ -84,6 +84,6 @@ public class Player extends EntityBase implements IUpdatable, KeyListener{
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		
+
 	}
 }

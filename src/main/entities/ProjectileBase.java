@@ -1,5 +1,6 @@
 package main.entities;
 
+import main.BulletHellLogic;
 import main.entities.interfaces.IUpdatable;
 
 import javax.swing.text.html.parser.Entity;
@@ -23,7 +24,7 @@ public class ProjectileBase extends EntityBase implements IUpdatable {
 
     @Override
     public void render(Graphics2D g) {
-
+        g.fillRect(x, y, 12, 12);
     }
 
 
@@ -34,11 +35,6 @@ public class ProjectileBase extends EntityBase implements IUpdatable {
 
         x = (int) mX;
         y = (int) mY;
-    }
-
-    @Override
-    public boolean checkHitbox(Rectangle collidedObj) {
-        return super.checkHitbox(collidedObj);
     }
 
 
