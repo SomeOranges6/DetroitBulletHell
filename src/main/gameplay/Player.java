@@ -25,6 +25,7 @@ public class Player extends EntityBase implements IUpdatable, KeyListener{
 	int lastWeaponIndex = 0;
 	
     public Player(int x, int y, Character character) {
+
 		super(x,y,BulletHellLogic.originalTileSize, BulletHellLogic.originalTileSize);
 		this.x = x;
 		this.y = y;
@@ -38,7 +39,7 @@ public class Player extends EntityBase implements IUpdatable, KeyListener{
     	weapons.add(character.weaponList()[0]);
 		currentWeapon = weapons.getFirst();
 		currentWeapon.setShooter(this);
-
+      
     }
 
     @Override
