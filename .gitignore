@@ -27,6 +27,7 @@ replay_pid*
 /bin/
 /shelf/
 /.idea/
+/out/
 /workspace.xml
 /misc.xml
 /modules.xml

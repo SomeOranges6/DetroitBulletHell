@@ -16,8 +16,19 @@ import java.util.Random;
 
 public class BulletHellLogic {
 
-	public static ArrayList<EntityBase> entitiesToRender = new ArrayList<>();
-	public static ArrayList<IUpdatable> entitiestoUpdate = new ArrayList<>();
+	/*Do not under any circumstance outside the player being spawned, add or remove from those lists directly
+	  Use the cache instead*/
+	private static final ArrayList<EntityBase> entitiesToRender = new ArrayList<>();
+	private static final ArrayList<IUpdatable> entitiesToUpdate = new ArrayList<>();
+
+	public static ArrayList<EntityBase>
+			renderableAddCache= new ArrayList<>(),
+			renderableRemoveCache = new ArrayList<>();
+
+	public static ArrayList<IUpdatable>
+			updatableAddCache  = new ArrayList<>(),
+			updatableRemoveCache = new ArrayList<>();
+
 
 	/**What the player's projectiles can collide with outside of the general list, i.e enemies**/
 	public static ArrayList<Rectangle> collidablesPlayerProjectile = new ArrayList<>();
@@ -51,13 +62,13 @@ public class BulletHellLogic {
     public static final int maxWorldRow = 20;
 
 	/**The JPanel the game  runs in **/
-    public static GamePanel gPanel = new GamePanel();
+    public static GamePanel gPanel;
 
 	/**Handles building and rendering the map itself **/
     public static TileManager tileM;
 
 	/**The main timer responsible for updating game logic, ticks once every 1/20 of a second **/
-	public static Timer centralTick = new Timer(50, new CentralClock());
+	public static Timer centralTick = new Timer(1000/20, new CentralClock());
 	public static final String centralActionCommand = "central";
 
 	/**The timer responsible for rendering, ticks once every 1/60th of a second
@@ -85,6 +96,7 @@ public class BulletHellLogic {
 		window.setResizable(false);
 		window.setTitle("Game Prototype");
 		//set up panel
+		gPanel = new GamePanel();
 		window.add(gPanel);
 		//fit the panel to the size of the windows
 		window.pack();
@@ -97,7 +109,9 @@ public class BulletHellLogic {
 	private static void startGame() {
 		tileM = new TileManager();
 		player = new Player(100,100, CharacterList.johnTest);
-		spawnEntity(player);
+		/** **/
+		entitiesToUpdate.add(player);
+		entitiesToRender.add(player);
 	}
 
 	/**Handles the actual game loop itself, calling all entities that need to be updated **/
@@ -110,28 +124,42 @@ public class BulletHellLogic {
 				if (tick++ == Integer.MAX_VALUE) {
 					tick = 0;
 				}
-				for(IUpdatable updatable : entitiestoUpdate){
+
+				entitiesToUpdate.removeAll(updatableRemoveCache);
+				updatableRemoveCache.clear();
+				entitiesToUpdate.addAll(updatableAddCache);
+				updatableAddCache.clear();
+
+				for(IUpdatable updatable : entitiesToUpdate){
 					updatable.onUpdate();
 				}
 			}
 			if(e.getActionCommand().equals(renderActionCommand)) {
+
+				entitiesToRender.removeAll(renderableRemoveCache);
+				renderableRemoveCache.clear();
+				entitiesToRender.addAll(renderableAddCache);
+				renderableAddCache.clear();
+
 				gPanel.onUpdate();
 			}
 		}
 	}
 
+	/**Adds entities to the cache to be spawned next tick**/
 	public static void spawnEntity(EntityBase entity){
 		if(entity instanceof  IUpdatable){
-			entitiestoUpdate.add((IUpdatable) entity);
+			updatableAddCache.add((IUpdatable) entity);
 		}
-		entitiesToRender.add(entity);
+		renderableAddCache.add(entity);
 	}
 
+	/**Adds entities to the cache to be removed next tick**/
 	public static void removeEntity(EntityBase entity){
 		if(entity instanceof  IUpdatable){
-			entitiestoUpdate.remove((IUpdatable) entity);
+			updatableRemoveCache.add((IUpdatable) entity);
 		}
-		entitiesToRender.remove(entity);
+		renderableRemoveCache.add(entity);
 	}
 
 	public static void addCollidable(Rectangle rectangle){
@@ -142,4 +170,11 @@ public class BulletHellLogic {
 		collidablesGeneral.add(rectangle);
 	}
 
+	public static ArrayList<EntityBase> getEntitiesToRender() {
+		return entitiesToRender;
+	}
+
+	public static ArrayList<IUpdatable> getEntitiesToUpdate() {
+		return entitiesToUpdate;
+	}
 }

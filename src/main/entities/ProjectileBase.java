@@ -16,6 +16,10 @@ public class ProjectileBase extends EntityBase implements IUpdatable {
 
         vX = Math.cos(facingAngle) * speed;
         vY = Math.sin(facingAngle) * speed;
+        speed = 20;
+
+        mX = shooter.x;
+        mY = shooter.y;
     }
 
     public ProjectileBase(int width, int height) {
@@ -43,5 +47,8 @@ public class ProjectileBase extends EntityBase implements IUpdatable {
 
         vX = Math.cos(facingAngle) * speed;
         vY = Math.sin(facingAngle) * speed;
+
+        x = shooter.x;
+        y = shooter.y;
     }
 }

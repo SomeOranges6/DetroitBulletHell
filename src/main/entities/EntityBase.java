@@ -41,6 +41,8 @@ public abstract class EntityBase extends Rectangle {
 
     public EntityBase(int x, int y, int width, int height){
         super(x, y, width, height);
+        mX = x;
+        mY = y;
     }
 
     public EntityBase(int x, int y){
@@ -55,9 +57,4 @@ public abstract class EntityBase extends Rectangle {
     }
 
     public abstract void render(Graphics2D g);
-
-    /**Sets the angle, measured in radians **/
-    public void setFacingAngle(double angle){
-        facingAngle = angle;
-    }
 }

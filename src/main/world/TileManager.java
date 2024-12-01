@@ -101,12 +101,12 @@ public class TileManager {
                 int worldY = worldRow * BulletHellLogic.tileSize;
 
                 int screenX = worldX - BulletHellLogic.player.x + BulletHellLogic.player.screenX;
-                int screenY = worldY - BulletHellLogic.player.x + BulletHellLogic.player.screenY;
+                int screenY = worldY - BulletHellLogic.player.y + BulletHellLogic.player.screenY;
 
                 if (worldX + BulletHellLogic.tileSize > BulletHellLogic.player.x - BulletHellLogic.player.screenX &&
                     worldX - BulletHellLogic.tileSize < BulletHellLogic.player.x + BulletHellLogic.player.screenX &&
-                    worldY + BulletHellLogic.tileSize > BulletHellLogic.player.x - BulletHellLogic.player.screenY &&
-                    worldY - BulletHellLogic.tileSize < BulletHellLogic.player.x + BulletHellLogic.player.screenY) {
+                    worldY + BulletHellLogic.tileSize > BulletHellLogic.player.y - BulletHellLogic.player.screenY &&
+                    worldY - BulletHellLogic.tileSize < BulletHellLogic.player.y + BulletHellLogic.player.screenY) {
                     g2.drawImage(tile[tileNum].image, screenX, screenY, BulletHellLogic.tileSize, BulletHellLogic.tileSize, null);
                 }
             }

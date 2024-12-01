@@ -32,7 +32,7 @@ public class GamePanel extends JPanel {
         // Render the map
         BulletHellLogic.tileM.draw(g2);
 
-        for(EntityBase entity : BulletHellLogic.entitiesToRender){
+        for(EntityBase entity : BulletHellLogic.getEntitiesToRender()){
             entity.render(g2);
         }
         g2.dispose();
