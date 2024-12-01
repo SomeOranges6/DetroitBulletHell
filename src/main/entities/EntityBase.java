@@ -1,10 +1,16 @@
 package main.entities;
 
+import main.BulletHellLogic;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public abstract class EntityBase extends Rectangle {
 
+	
+	/**Used for the map offsets when the player is moving **/
+	public int offsetX, offsetY;
+	
     /** x and y coords for anything related with movement
      * use the normal x and y from Rectangle otherwise **/
 	public double mX, mY;
@@ -15,6 +21,11 @@ public abstract class EntityBase extends Rectangle {
     public double speed;
 
     public int health;
+
+    /** Stuff for sprite direction and counters */
+    public String spriteDirection;
+	public int spriteCounter = 0;
+	public int SpriteNum = 1;
 
     /**An identifier for this entity, every entity must have a unique ID
      *  **/
@@ -30,6 +41,8 @@ public abstract class EntityBase extends Rectangle {
 
     public EntityBase(int x, int y, int width, int height){
         super(x, y, width, height);
+        mX = x;
+        mY = y;
     }
 
     public EntityBase(int x, int y){
@@ -40,25 +53,8 @@ public abstract class EntityBase extends Rectangle {
      * What this entity does once it is killed or despawned
      */
     public void onDead (){
-
-    }
-
-    /**
-     * Called whenever something needs to check collision with this entity
-     *
-     * @param collidedObj The object which needs to check the collision
-     * @return whether the entity **/
-    public boolean checkHitbox(Rectangle collidedObj){
-        return collidedObj.intersects(this);
+        BulletHellLogic.removeEntity(this);
     }
 
     public abstract void render(Graphics2D g);
-
-    /**Sets the angle, measured in radians **/
-    public void setFacingAngle(double angle){
-        facingAngle = angle;
-    }
-
-
-
 }
