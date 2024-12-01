@@ -6,10 +6,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public abstract class EntityBase extends Rectangle {
-
-	
-	/**Used for the map offsets when the player is moving **/
-	public int offsetX, offsetY;
 	
     /** x and y coords for anything related with movement
      * use the normal x and y from Rectangle otherwise **/

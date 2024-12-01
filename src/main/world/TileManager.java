@@ -1,6 +1,7 @@
 package main.world;
 
 import main.BulletHellLogic;
+import main.gameplay.Player;
 import main.swing.GamePanel;
 
 import java.awt.Graphics2D;
@@ -100,13 +101,13 @@ public class TileManager {
                 int worldX = worldCol * BulletHellLogic.tileSize;
                 int worldY = worldRow * BulletHellLogic.tileSize;
 
-                int screenX = worldX - BulletHellLogic.player.x + BulletHellLogic.player.screenX;
-                int screenY = worldY - BulletHellLogic.player.y + BulletHellLogic.player.screenY;
+                int screenX = worldX - BulletHellLogic.player.x + Player.screenX;
+                int screenY = worldY - BulletHellLogic.player.y + Player.screenY;
 
-                if (worldX + BulletHellLogic.tileSize > BulletHellLogic.player.x - BulletHellLogic.player.screenX &&
-                    worldX - BulletHellLogic.tileSize < BulletHellLogic.player.x + BulletHellLogic.player.screenX &&
-                    worldY + BulletHellLogic.tileSize > BulletHellLogic.player.y - BulletHellLogic.player.screenY &&
-                    worldY - BulletHellLogic.tileSize < BulletHellLogic.player.y + BulletHellLogic.player.screenY) {
+                if (worldX + BulletHellLogic.tileSize > BulletHellLogic.player.x - Player.screenX &&
+                    worldX - BulletHellLogic.tileSize < BulletHellLogic.player.x + Player.screenX &&
+                    worldY + BulletHellLogic.tileSize > BulletHellLogic.player.y - Player.screenY &&
+                    worldY - BulletHellLogic.tileSize < BulletHellLogic.player.y + Player.screenY) {
                     g2.drawImage(tile[tileNum].image, screenX, screenY, BulletHellLogic.tileSize, BulletHellLogic.tileSize, null);
                 }
             }

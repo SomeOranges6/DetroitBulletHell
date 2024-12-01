@@ -14,9 +14,10 @@ public class WeaponList {
         @Override
         public void onShoot() {
             if(BulletHellLogic.tick % 20 == 0) {
-                ProjectileBase stockProjectile = new TestProjectile(shooter);
+                ProjectileBase stockProjectile = new TestProjectile(shooter.x, shooter.y, 10, 10);
+                stockProjectile.setShooter(shooter);
                 stockProjectile.damage = damage;
-                stockProjectile.speed = 20;
+                stockProjectile.speed = 2.0;
                 BulletHellLogic.spawnEntity(stockProjectile);
             }
         }
