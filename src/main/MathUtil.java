@@ -37,14 +37,4 @@ public class MathUtil {
 	//public static boolean checkMapBounds(Rectangle rectangle){
 
 	//}
-	/**Used for rendering, subtract this from your x coordinate in order to get the render coordinates
-	 * accounting for player offset **/
-	public static int getXRenderOffset(){
-		return BulletHellLogic.player.x + Player.screenX;
-	}
-	/**Used for rendering, subtract this from your y coordinate in order to get the render coordinates
-	 * accounting for player offset **/
-	public static int getYRenderOffset(){
-		return BulletHellLogic.player.y + Player.screenY;
-	}
 }

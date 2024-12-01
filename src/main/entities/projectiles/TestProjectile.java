@@ -9,9 +9,9 @@ import java.awt.*;
 
 public class TestProjectile extends ProjectileBase {
 
-    public TestProjectile(int x, int y, int width, int height) {
-        super(x, y);
-        speed = 2.0;
+    public TestProjectile(int x, int y) {
+        super(x, y, 8, 8);
+        speed = 20.0;
 
         vX = Math.cos(facingAngle) * speed;
         vY = Math.sin(facingAngle) * speed;
@@ -19,12 +19,12 @@ public class TestProjectile extends ProjectileBase {
 
     @Override
     public void render(Graphics2D g) {
-        super.render(g);
-        if (x + BulletHellLogic.tileSize > BulletHellLogic.player.x - Player.screenX &&
-                x - BulletHellLogic.tileSize < BulletHellLogic.player.x + Player.screenX &&
-                y + BulletHellLogic.tileSize > BulletHellLogic.player.y - Player.screenY &&
-                y - BulletHellLogic.tileSize < BulletHellLogic.player.y + Player.screenY) {
-                g.fillRect(x + MathUtil.getXRenderOffset(), y + MathUtil.getYRenderOffset(), width, height);
+        if (x + width > BulletHellLogic.player.x - Player.screenX &&
+                x - width < BulletHellLogic.player.x + Player.screenX &&
+                y + height > BulletHellLogic.player.y - Player.screenY &&
+                y - height < BulletHellLogic.player.y + Player.screenY) {
+                    g.setColor(Color.BLUE);
+                    g.fillRect(x - BulletHellLogic.player.x + Player.screenX, y - BulletHellLogic.player.y + Player.screenY, width, height);
         }
     }
 }

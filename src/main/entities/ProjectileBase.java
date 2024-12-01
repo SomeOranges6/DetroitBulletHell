@@ -10,22 +10,22 @@ public class ProjectileBase extends EntityBase implements IUpdatable {
 
     public int damage;
 
-    public ProjectileBase(int width, int height) {
-        super(0,0,0,0);
+    public ProjectileBase(int x, int y, int width, int height) {
+        super(x,y,width,height);
     }
 
     @Override
     public void render(Graphics2D g) {
-        g.fillRect(x, y, 12, 12);
+
     }
 
     @Override
     public void onUpdate() {
-       // mX += vX;
-       // mY += vY;
+        mX += vX;
+        mY += vY;
 
-       // x = (int) mX;
-      //  y = (int) mY;
+        x = (int) mX;
+        y = (int) mY;
     }
 
 

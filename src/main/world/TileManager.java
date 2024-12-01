@@ -14,7 +14,6 @@ import javax.imageio.ImageIO;
 /**Handles the building and rendering of maps, TBD whether it will be replaced by room system **/
 public class TileManager {
 
-    GamePanel gp = BulletHellLogic.gPanel;
     public Tile[] tile;
     public int[][] mapTileNum;
     public int mapNum = 1;

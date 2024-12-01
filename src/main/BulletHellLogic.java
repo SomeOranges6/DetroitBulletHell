@@ -68,7 +68,7 @@ public class BulletHellLogic {
     public static TileManager tileM;
 
 	/**The main timer responsible for updating game logic, ticks once every 1/20 of a second **/
-	public static Timer centralTick = new Timer(1000/20, new CentralClock());
+	public static Timer centralTick = new Timer(1000/60, new CentralClock());
 	public static final String centralActionCommand = "central";
 
 	/**The timer responsible for rendering, ticks once every 1/60th of a second
