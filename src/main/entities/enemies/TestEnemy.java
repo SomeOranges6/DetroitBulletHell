@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import main.BulletHellLogic;
 import main.MathUtil;
 import main.entities.EnemyBase;
+import main.entities.projectiles.TestProjectile;
 
 public class TestEnemy extends EnemyBase {
 
@@ -19,8 +20,15 @@ public class TestEnemy extends EnemyBase {
 		super.onUpdate();
 		if(BulletHellLogic.tick % 20 == 0) {
 			attack();
-			
+			move();
 		}
+	}
+	
+	@Override
+	public void attack() {
+		TestProjectile testProjectile = new TestProjectile(x, y);
+		testProjectile.setShooter(this);
+		BulletHellLogic.spawnEntity(testProjectile);
 	}
 
 	/**Finds the direction the player is at and moves toward it **/
