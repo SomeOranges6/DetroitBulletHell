@@ -1,8 +1,11 @@
 package main.gameplay;
 
 import main.BulletHellLogic;
+import main.MathUtil;
 import main.entities.EntityBase;
 import main.entities.interfaces.IUpdatable;
+import main.world.TileManager;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -17,8 +20,8 @@ public class Player extends EntityBase implements IUpdatable, KeyListener{
 
 	Character character;
 
-	public static final int screenX = BulletHellLogic.screenWidth/2 - (BulletHellLogic.tileSize/2);
-	public static final int screenY = BulletHellLogic.screenHeight/2 - (BulletHellLogic.tileSize/2);
+	public static final int screenX = BulletHellLogic.screenWidth/2 - (TileManager.tileSize/2);
+	public static final int screenY = BulletHellLogic.screenHeight/2 - (TileManager.tileSize/2);
 
 	ArrayList<Weapon> weapons = new ArrayList<>();
 	Weapon currentWeapon;
@@ -26,7 +29,7 @@ public class Player extends EntityBase implements IUpdatable, KeyListener{
 	
     public Player(int x, int y, Character character) {
 
-		super(x,y,BulletHellLogic.originalTileSize, BulletHellLogic.originalTileSize);
+		super(x,y, TileManager.originalTileSize, TileManager.originalTileSize);
 		this.mX = x;
 		this.mY = y;
 
@@ -42,37 +45,43 @@ public class Player extends EntityBase implements IUpdatable, KeyListener{
 
     @Override
     public void render(Graphics2D g) {
-        g.fillRect(screenX, screenY, BulletHellLogic.tileSize/2, BulletHellLogic.tileSize/2);
+        g.fillRect(screenX, screenY, TileManager.tileSize/2, TileManager.tileSize/2);
     }
 
     @Override
     public void onUpdate() {
 		//mX += vX;
 		//mY += vY;
-
-		x = (int) mX;
+    	
+    	if(MathUtil.checkForCollision(this, BulletHellLogic.collidablesGeneral) != null) {
+			
+    	}
+    	x = (int) mX;
 		y = (int) mY;
 
 		handleInput();
     }
 
 	public void handleInput(){
+		if(MathUtil.checkForCollision(this, BulletHellLogic.collidablesGeneral) != null) {
 		if(upPressed){
 			mY -= speed;
 			if(!lookLock){
 				facingAngle = Math.toRadians(270);
 			}
 		}
-		if(leftPressed){
-			mX -= speed;
-			if(!lookLock){
-				facingAngle = Math.toRadians(180);
-			}
-		}
 		if(downPressed){
 			mY += speed;
 			if(!lookLock){
 				facingAngle = Math.toRadians(90);
+			}
+		}
+		}
+		
+		if(leftPressed){
+			mX -= speed;
+			if(!lookLock){
+				facingAngle = Math.toRadians(180);
 			}
 		}
 		if(rightPressed){

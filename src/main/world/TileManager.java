@@ -5,6 +5,7 @@ import main.gameplay.Player;
 import main.swing.GamePanel;
 
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.Objects;
@@ -18,7 +19,16 @@ public class TileManager {
     public int[][] mapTileNum;
     public int mapNum = 1;
     BufferedImage tileSheet;
+    
+ // Global variables
+ 	public static final int originalTileSize = 32;
+ 	/**Testing variable for adjusting the scale of the world **/
+ 	public static final int scale = 2;
 
+ 	/**How big each tile is after the scale is applied**/
+     public static final int tileSize = originalTileSize * scale;
+    	/**How much tiles are shown at once in the screen **/
+   
     public TileManager() {
         mapTileNum = new int[BulletHellLogic.maxWorldCol][BulletHellLogic.maxWorldRow];
         tile = new Tile[64]; // 8x8 grid, 64 tiles
@@ -84,9 +94,10 @@ public class TileManager {
         for (int worldRow = 0; worldRow < BulletHellLogic.maxWorldRow; worldRow++) {
             for (int worldCol = 0; worldCol < BulletHellLogic.maxWorldCol; worldCol++) {
                 int tileNum = mapTileNum[worldCol][worldRow];
-                /* TODO: finish off tile collision logic by making rectangles with the dimensions of a tile
-                 *  i.e 32 by 32, and then add that to the BulletHellLogic collision list
-                 */
+                if(tile[tileNum].collision) {
+	                Rectangle hitbox = new Rectangle(worldRow * 32, worldCol * 32, tileSize, tileSize);
+	                BulletHellLogic.addCollidable(hitbox);
+                }
             }
         }
     }
@@ -96,17 +107,17 @@ public class TileManager {
             for (int worldCol = 0; worldCol < BulletHellLogic.maxWorldCol; worldCol++) {
                 int tileNum = mapTileNum[worldCol][worldRow];
 
-                int worldX = worldCol * BulletHellLogic.tileSize;
-                int worldY = worldRow * BulletHellLogic.tileSize;
+                int worldX = worldCol * tileSize;
+                int worldY = worldRow * tileSize;
 
                 int screenX = worldX - BulletHellLogic.player.x + Player.screenX;
                 int screenY = worldY - BulletHellLogic.player.y + Player.screenY;
 
-                if (worldX + BulletHellLogic.tileSize > BulletHellLogic.player.x - Player.screenX &&
-                    worldX - BulletHellLogic.tileSize < BulletHellLogic.player.x + Player.screenX &&
-                    worldY + BulletHellLogic.tileSize > BulletHellLogic.player.y - Player.screenY &&
-                    worldY - BulletHellLogic.tileSize < BulletHellLogic.player.y + Player.screenY) {
-                    g2.drawImage(tile[tileNum].image, screenX, screenY, BulletHellLogic.tileSize, BulletHellLogic.tileSize, null);
+                if (worldX + tileSize > BulletHellLogic.player.x - Player.screenX &&
+                    worldX - tileSize < BulletHellLogic.player.x + Player.screenX &&
+                    worldY + tileSize > BulletHellLogic.player.y - Player.screenY &&
+                    worldY - tileSize < BulletHellLogic.player.y + Player.screenY) {
+                    g2.drawImage(tile[tileNum].image, screenX, screenY, tileSize, tileSize, null);
                 }
             }
         }

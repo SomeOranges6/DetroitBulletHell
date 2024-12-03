@@ -31,26 +31,19 @@ public class BulletHellLogic {
 
 
 	/**What the player's projectiles can collide with outside of the general list, i.e enemies**/
-	public static ArrayList<Rectangle> collidablesPlayerProjectile = new ArrayList<>();
+	public static final ArrayList<Rectangle> collidablesPlayerProjectile = new ArrayList<>();
+	public static  ArrayList<Rectangle>
+			collidableAddCache= new ArrayList<>(),
+			collidableRemoveCache = new ArrayList<>();
 
 	/**What most things can collide with, i.e walls**/
-	public static ArrayList<Rectangle> collidablesGeneral = new ArrayList<>();
+	public static final ArrayList<Rectangle> collidablesGeneral = new ArrayList<>();
 
 	/**Used for simple timers across other classes **/
 	public static int tick = 0;
 	static Random rand = new Random();
 	public static Player player;
 	
-	// Global variables
-	public static final int originalTileSize = 32;
-	/**Testing variable for adjusting the scale of the world **/
-	public static final int scale = 2;
-
-	/**How big each tile is after the scale is applied**/
-    public static final int tileSize = originalTileSize * scale;
-   	/**How much tiles are shown at once in the screen **/
-    public static final int screenWidth = tileSize * 16;
-    public static final int screenHeight = tileSize * 12;
 
 	/**Future variable used for pausing **/
     private static boolean running = true;
@@ -60,6 +53,10 @@ public class BulletHellLogic {
 	 * Temporary, after prototype needs to be replaced with room system **/
     public static final int maxWorldCol = 20;
     public static final int maxWorldRow = 20;
+    
+    public static final int screenWidth = TileManager.tileSize * 16;
+    public static final int screenHeight = TileManager.tileSize * 12;
+
 
 	/**The JPanel the game  runs in **/
     public static GamePanel gPanel;
@@ -129,6 +126,7 @@ public class BulletHellLogic {
 				updatableRemoveCache.clear();
 				entitiesToUpdate.addAll(updatableAddCache);
 				updatableAddCache.clear();
+				
 
 				for(IUpdatable updatable : entitiesToUpdate){
 					updatable.onUpdate();
@@ -151,6 +149,7 @@ public class BulletHellLogic {
 		if(entity instanceof  IUpdatable){
 			updatableAddCache.add((IUpdatable) entity);
 		}
+		collidableAddCache.add(entity);
 		renderableAddCache.add(entity);
 	}
 
@@ -159,16 +158,26 @@ public class BulletHellLogic {
 		if(entity instanceof  IUpdatable){
 			updatableRemoveCache.add((IUpdatable) entity);
 		}
+		collidableRemoveCache.add(entity);
 		renderableRemoveCache.add(entity);
 	}
 
 	public static void addCollidable(Rectangle rectangle){
 		collidablesGeneral.add(rectangle);
-	}
+	} 
 
 	public static void removeCollidable(Rectangle rectangle){
 		collidablesGeneral.add(rectangle);
 	}
+	
+	/**Used for adding the hitboxes of entities **/
+	public static void addCollidableCache(Rectangle rectangle) {
+		collidableAddCache.add(rectangle);
+	}
+	/**Used for removing the hitboxes of entities **/
+	public static void removeCollidableCache(Rectangle rectangle) {
+		collidableRemoveCache.add(rectangle);
+	} 
 
 	public static ArrayList<EntityBase> getEntitiesToRender() {
 		return entitiesToRender;
