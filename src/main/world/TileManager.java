@@ -40,8 +40,8 @@ public class TileManager {
         try {
             tileSheet = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/assets/tileset1.png")));
             int tileIndex = 0;
-            for (int y = 0; y < 8; y++) {
-                for (int x = 0; x < 8; x++) {
+            for (int x = 0; x < 8; x++) {
+                for (int y = 0; y < 7; y++) {
                     tile[tileIndex] = new Tile();
                     tile[tileIndex].image = tileSheet.getSubimage(x * 32, y * 32, 32, 32);
 
