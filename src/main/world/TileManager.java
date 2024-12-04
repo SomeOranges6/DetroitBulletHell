@@ -4,6 +4,7 @@ import main.BulletHellLogic;
 import main.gameplay.Player;
 import main.swing.GamePanel;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -34,6 +35,7 @@ public class TileManager {
         tile = new Tile[64]; // 8x8 grid, 64 tiles
         getTileImage();
         loadMap();
+        addCollisionBounds();
     }
 
     public void getTileImage() {
@@ -47,7 +49,7 @@ public class TileManager {
 
                     // Set collision properties
                     //TODO: replace with more extendable check later
-                    if (tileIndex == 56 || tileIndex == 54) {
+                    if (tileIndex == 32 || tileIndex == 54) {
                         tile[tileIndex].collision = true;
                     }
                    /** // Set changeMap for tile 0
@@ -73,15 +75,15 @@ public class TileManager {
         try {
             InputStream is = getClass().getResourceAsStream("/assets/maps/map" + mapNum + ".txt");
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
-            int row = 0;
+            int col = 0;
 
-            while (row < BulletHellLogic.maxWorldRow) { // Iterate over rows
+            while (col < BulletHellLogic.maxWorldCol) { // Iterate over rows
                 String line = br.readLine();
-                String[] numbers = line.split(" ");
-                for (int col = 0; col < BulletHellLogic.maxWorldCol; col++) { // Iterate over columns
-                    mapTileNum[col][row] = Integer.parseInt(numbers[col]);
+                String[] numbers = line.split(",");
+                for (int row = 0; row < BulletHellLogic.maxWorldCol;  row++) { // Iterate over columns
+                    mapTileNum[row][col] = Integer.parseInt(numbers[row]);
                 }
-                row++; // Move to the next row
+                col++; // Move to the next row
             }
             br.close();
         } catch (Exception e) {
@@ -93,9 +95,10 @@ public class TileManager {
     public void addCollisionBounds(){
         for (int worldRow = 0; worldRow < BulletHellLogic.maxWorldRow; worldRow++) {
             for (int worldCol = 0; worldCol < BulletHellLogic.maxWorldCol; worldCol++) {
-                int tileNum = mapTileNum[worldCol][worldRow];
+                int tileNum = mapTileNum[worldRow][worldCol];
                 if(tile[tileNum].collision) {
-	                Rectangle hitbox = new Rectangle(worldRow * 32, worldCol * 32, tileSize, tileSize);
+	                Rectangle hitbox = new Rectangle(worldRow * tileSize, worldCol * tileSize, tileSize, tileSize);
+	           
 	                BulletHellLogic.addCollidable(hitbox);
                 }
             }
@@ -120,6 +123,11 @@ public class TileManager {
                     g2.drawImage(tile[tileNum].image, screenX, screenY, tileSize, tileSize, null);
                 }
             }
+            //debug option to visualize collisions
+            /*for(Rectangle rect : BulletHellLogic.collidablesGeneral) {
+            	g2.setColor(Color.PINK);
+            	g2.fillRect(rect.x - BulletHellLogic.player.x + Player.screenX, rect.y - BulletHellLogic.player.y + Player.screenY, rect.width, rect.height);
+            }*/
         }
     }
 }

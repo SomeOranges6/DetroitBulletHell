@@ -50,16 +50,16 @@ public class Player extends EntityBase implements IUpdatable, KeyListener{
 
     @Override
     public void onUpdate() {
-		if(MathUtil.checkForCollision(this, BulletHellLogic.collidablesGeneral) != null) {
+    	handleInput();
+    	
+		if(MathUtil.checkForCollision(this, BulletHellLogic.collidablesGeneral) == null) {
 			mX += vX;
 		}
-		if(MathUtil.checkForCollision(this, BulletHellLogic.collidablesGeneral) != null) {
+		if(MathUtil.checkForCollision(this, BulletHellLogic.collidablesGeneral) == null) {
 			mY += vY;
 		}
     	x = (int) mX;
 		y = (int) mY;
-
-		handleInput();
     }
 
 	public void handleInput(){
@@ -67,7 +67,7 @@ public class Player extends EntityBase implements IUpdatable, KeyListener{
 		vY = 0;
 
 		if(upPressed){
-			vY = speed;
+			vY -= speed;
 			if(!lookLock){
 				facingAngle = Math.toRadians(270);
 			}
@@ -79,7 +79,7 @@ public class Player extends EntityBase implements IUpdatable, KeyListener{
 			}
 		}
 		if(leftPressed){
-			vX = speed;
+			vX -= speed;
 			if(!lookLock){
 				facingAngle = Math.toRadians(180);
 			}

@@ -1,9 +1,7 @@
 package main.entities;
 
-import main.BulletHellLogic;
 import main.entities.interfaces.IUpdatable;
 
-import javax.swing.text.html.parser.Entity;
 import java.awt.*;
 
 public class ProjectileBase extends EntityBase implements IUpdatable {
