@@ -15,8 +15,10 @@ import javax.imageio.ImageIO;
 
 /**Handles the building and rendering of maps, TBD whether it will be replaced by room system **/
 public class TileManager {
-
+	
+	/**The list of all possible tiles a map can have **/
     public Tile[] tile;
+    /**The list of all possible tiles a map can have **/
     public int[][] mapTileNum;
     public int mapNum = 1;
     BufferedImage tileSheet;
