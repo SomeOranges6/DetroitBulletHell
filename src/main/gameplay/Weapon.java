@@ -9,12 +9,16 @@ import java.awt.image.BufferedImage;
 public class Weapon {
 
     EntityBase shooter;
-    int damage, firerate;
+    int damage;
+    /** inversely proportional to how quickly the gun fires, with the formula being the modulo of the firerate by the central tick,
+     * i.e the smaller it is, the faster it fires, minimum value is 1**/
+    int firerate;
 
     BufferedImage texture;
 
     int maxAmmo, ammo;
 
+    /**@param firerate is inversely proportional to how quickly the gun fires, i.e the smaller it is, the faster it fires, with the minimum value being 1**/
     public Weapon(int damage, int firerate, int maxAmmo, BufferedImage texture){
         this.damage = damage;
         this.firerate = firerate;
@@ -24,6 +28,7 @@ public class Weapon {
 
     public void setShooter(EntityBase shooter) {
         this.shooter = shooter;
+
     }
 
     public void onShoot(){

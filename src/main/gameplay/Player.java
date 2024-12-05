@@ -9,6 +9,7 @@ import main.world.TileManager;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Player extends EntityBase implements IUpdatable, KeyListener{
 
@@ -37,10 +38,11 @@ public class Player extends EntityBase implements IUpdatable, KeyListener{
 		health = character.health();
 		speed = character.speed();
 
-    	weapons.add(character.weaponList()[0]);
+    	weapons.addAll(List.of(character.weaponList()));
+		for (Weapon weapon : weapons) {
+			weapon.setShooter(this);
+		}
 		currentWeapon = weapons.getFirst();
-		currentWeapon.setShooter(this);
-      
     }
 
     @Override

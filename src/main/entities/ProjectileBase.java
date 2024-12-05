@@ -17,6 +17,7 @@ public class ProjectileBase extends EntityBase implements IUpdatable {
 
     }
 
+
     @Override
     public void onUpdate() {
         mX += vX;
@@ -26,13 +27,14 @@ public class ProjectileBase extends EntityBase implements IUpdatable {
         y = (int) mY;
     }
 
-
+    /**Sets the bullet to be at the coordinates of the entity that shot it **/
     public void setShooter(EntityBase shooter){
         facingAngle = shooter.facingAngle;
 
         vX = Math.cos(facingAngle) * speed;
         vY = Math.sin(facingAngle) * speed;
 
+        //Makes projectiles point toward where the entity that shot them is looking
         x = shooter.x;
         y = shooter.y;
     }

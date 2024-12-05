@@ -3,7 +3,7 @@ package main.gameplay;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-/**To be used when it is necessary to play in the arcade **/
+/**To be implemented when it is necessary to play in the arcade, unused for now **/
 public class KeyHandler implements KeyListener{
 	
 	public boolean upPressed, downPressed, leftPressed, rightPressed, upleftPressed, uprightPressed, downleftPressed, downrightPressed;
