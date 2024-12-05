@@ -1,7 +1,6 @@
 package main;
 
 import main.entities.EntityBase;
-import main.gameplay.Player;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -23,7 +22,12 @@ public class MathUtil {
 		return new double[]{xDist, yDist};
 	}
 
-	public static Rectangle checkForCollision(EntityBase entity, ArrayList<? extends Rectangle> list){
+	/**Checks an entity against a list of objects with hitboxes (rectangles), to see if any collide
+	 * then returns the entity it collided with
+	 * @param entity The entity to check against the list
+	 * @param list A list of any class that extends Rectangle (i.e has a hitbox)
+	 * @return whichever entity it collided with**/
+	public static Rectangle checkForCollidedEntity(EntityBase entity, ArrayList<? extends Rectangle> list){
 		Rectangle futurePosition = new Rectangle((int) (entity.mX + entity.vX), (int) (entity.mY + entity.vY), entity.width, entity.height);
 
 		for(Rectangle rect : list){
@@ -32,6 +36,34 @@ public class MathUtil {
 			}
 		}
 		return null;
+	}
+	/** Same as checkForCollidedEntity, except does not return anything, if you do not need to know what it collided with **/
+	public static boolean checkForCollision(EntityBase entity, ArrayList<? extends Rectangle> list){
+		Rectangle futurePosition = new Rectangle((int) (entity.mX + entity.vX), (int) (entity.mY + entity.vY), entity.width, entity.height);
+
+		for(Rectangle rect : list){
+			if(futurePosition.intersects(rect)){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**A variation of checkForCollision, except allows you to select which xAxis' motion gets utilized
+	 * Used for cases like the player, which may still want to move up or down, even if left or right have collided
+	 * @param xAxis true for x, false for y**/
+	public static boolean checkForCollision(EntityBase entity, ArrayList<? extends Rectangle> list, boolean xAxis){
+		int x = (int) (xAxis ? entity.mX + entity.vX : entity.mX);
+		int y = (int) (!xAxis ? entity.mY + entity.vY : entity.mY);
+
+		Rectangle futurePosition = new Rectangle(x, y, entity.width, entity.height);
+
+		for(Rectangle rect : list){
+			if(futurePosition.intersects(rect)){
+				return true;
+			}
+		}
+		return false;
 	}
 
 	//public static boolean checkMapBounds(Rectangle rectangle){

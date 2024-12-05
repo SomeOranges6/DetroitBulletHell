@@ -22,7 +22,7 @@ public class TestProjectile extends ProjectileBase {
     @Override
     public void onUpdate() {
         super.onUpdate();
-        Rectangle collidedObject = MathUtil.checkForCollision(this, BulletHellLogic.collidablesGeneral);
+        Rectangle collidedObject = MathUtil.checkForCollidedEntity(this, BulletHellLogic.collidablesGeneral);
         if(collidedObject != null) {
             onDead();
         }

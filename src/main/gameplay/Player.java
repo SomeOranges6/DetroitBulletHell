@@ -52,10 +52,10 @@ public class Player extends EntityBase implements IUpdatable, KeyListener{
     public void onUpdate() {
     	handleInput();
     	
-		if(MathUtil.checkForCollision(this, BulletHellLogic.collidablesGeneral) == null) {
+		if(!MathUtil.checkForCollision(this, BulletHellLogic.collidablesGeneral, true)) {
 			mX += vX;
 		}
-		if(MathUtil.checkForCollision(this, BulletHellLogic.collidablesGeneral) == null) {
+		if(!MathUtil.checkForCollision(this, BulletHellLogic.collidablesGeneral, false)) {
 			mY += vY;
 		}
     	x = (int) mX;

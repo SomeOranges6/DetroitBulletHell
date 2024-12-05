@@ -64,6 +64,9 @@ public class BulletHellLogic {
 	/**Handles building and rendering the map itself **/
     public static TileManager tileM;
 
+	/*TODO: The central tick timer does not need to tick anywhere near this quick for the game logic to work
+	 *  By using interpolation of the coordinates when rendering, it can still
+	 *  appear smooth, while only ticking 1/3 as often, which massively improves performance*/
 	/**The main timer responsible for updating game logic, ticks once every 1/20 of a second **/
 	public static Timer centralTick = new Timer(1000/60, new CentralClock());
 	public static final String centralActionCommand = "central";
