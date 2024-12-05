@@ -13,10 +13,22 @@ public class TestProjectile extends ProjectileBase {
         super(x, y, 8, 8);
         speed = 20.0;
 
+        /*Makes projectiles point toward where the entity that shot them is looking **/
         vX = Math.cos(facingAngle) * speed;
         vY = Math.sin(facingAngle) * speed;
     }
 
+    /** **/
+    @Override
+    public void onUpdate() {
+        super.onUpdate();
+        Rectangle collidedObject = MathUtil.checkForCollision(this, BulletHellLogic.collidablesGeneral);
+        if(collidedObject != null) {
+            onDead();
+        }
+    }
+
+    /**Renders a blue square if within map bounds **/
     @Override
     public void render(Graphics2D g) {
         if (x + width > BulletHellLogic.player.x - Player.screenX &&
