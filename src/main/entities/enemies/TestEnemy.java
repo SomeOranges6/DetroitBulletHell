@@ -7,12 +7,13 @@ import main.BulletHellLogic;
 import main.MathUtil;
 import main.entities.EnemyBase;
 import main.entities.projectiles.TestProjectile;
+import main.gameplay.Player;
 
 public class TestEnemy extends EnemyBase {
+	Player p = BulletHellLogic.player;
 
 	public TestEnemy(int x, int y) {
 		super(x, y);
-		
 	}
 	
 	@Override
@@ -24,9 +25,13 @@ public class TestEnemy extends EnemyBase {
 		}
 	}
 	
+	/**
+	 * allows an enemy to attack the player
+	 */
 	@Override
 	public void attack() {
 		TestProjectile testProjectile = new TestProjectile(x, y);
+		this.lookAtPlayer();
 		testProjectile.setShooter(this);
 		BulletHellLogic.spawnEntity(testProjectile);
 	}
@@ -45,10 +50,29 @@ public class TestEnemy extends EnemyBase {
 		y = (int) mY;
 	}
 	
+	/**
+	 * Finds the location of the player and aims for it
+	 */
+	public void lookAtPlayer() {
+		//defines the locations of the enemy and player as coordinate pairs
+		int [] enemyLocation = {x, y};
+		int [] playerLocation = {p.x, p.y};
+		
+		//defines a right triangle with a base and height corresponding to the difference between the locations of the player and enemy on both axis
+		int [] enemyPlayerTriangle = MathUtil.distFrom(enemyLocation, playerLocation);
+		
+		if (enemyPlayerTriangle[0] > 0){
+			double playerAngle = Math.arcsin((double) );
+		}
+		
+		else {
+			
+		}
+	}
+	
 	@Override
 	public void render(Graphics2D g) {
 		g.setColor(Color.RED);
 		g.drawRect(x, y, width, height);
 	}
-
 }
