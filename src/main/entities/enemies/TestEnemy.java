@@ -62,11 +62,13 @@ public class TestEnemy extends EnemyBase {
 		int [] enemyPlayerTriangle = MathUtil.distFrom(enemyLocation, playerLocation);
 		
 		if (enemyPlayerTriangle[0] > 0){
-			double playerAngle = Math.arcsin((double) );
+			double playerAngle = Math.acos(enemyPlayerTriangle[0] / enemyPlayerTriangle[1]);
+			facingAngle = Math.toRadians(playerAngle);
 		}
 		
 		else {
-			
+			double playerAngle = Math.acos(enemyPlayerTriangle[1] / enemyPlayerTriangle[0]);
+			facingAngle = Math.toRadians(playerAngle);
 		}
 	}
 	
