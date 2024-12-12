@@ -3,6 +3,7 @@ package main.world;
 import main.BulletHellLogic;
 import main.gameplay.Player;
 import main.swing.GamePanel;
+import main.world.tiles.Tile;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -37,7 +38,7 @@ public class TileManager {
         tile = new Tile[64]; // 8x8 grid, 64 tiles
         getTileImage();
         loadMap();
-        addCollisionBounds();
+        handleTileEffects();
     }
 
     public void getTileImage() {
@@ -94,13 +95,12 @@ public class TileManager {
     }
 
 
-    public void addCollisionBounds(){
+    public void handleTileEffects(){
         for (int worldRow = 0; worldRow < BulletHellLogic.maxWorldRow; worldRow++) {
             for (int worldCol = 0; worldCol < BulletHellLogic.maxWorldCol; worldCol++) {
                 int tileNum = mapTileNum[worldRow][worldCol];
                 if(tile[tileNum].collision) {
 	                Rectangle hitbox = new Rectangle(worldRow * tileSize, worldCol * tileSize, tileSize, tileSize);
-	           
 	                BulletHellLogic.addCollidable(hitbox);
                 }
             }

@@ -1,4 +1,4 @@
-package main.world;
+package main.world.tiles;
 
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
