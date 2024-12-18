@@ -2,6 +2,7 @@ package main.entities;
 
 import main.BulletHellLogic;
 import main.entities.interfaces.IUpdatable;
+import main.entities.projectiles.TestProjectile;
 import main.gameplay.Player;
 
 import java.awt.*;
@@ -10,7 +11,6 @@ import java.util.ArrayList;
 import static main.BulletHellLogic.player;
 
 public class EnemyBase extends EntityBase implements IUpdatable {
-
 
     static ArrayList<Rectangle> collidablesEnemy = BulletHellLogic.collidablesGeneral;
 
@@ -25,20 +25,21 @@ public class EnemyBase extends EntityBase implements IUpdatable {
     
     @Override
     public void onUpdate() {
+    	attack();
         move();
     }
 
     @Override
     public void render(Graphics2D g) {
-
+    	
     }
 
     public void attack() {
-
+    	
     }
 
     public void move(){
-
+    	
     }
     
     /**
