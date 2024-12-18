@@ -1,18 +1,18 @@
 package main.world.levels;
 
-import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
 import main.world.tiles.Tile;
 
 public class LevelBase {
 	
-	/**The list of all possible tiles this map can have **/
+	/**The list of all possible tiles this map can have*/
     public Tile[] tile;
-    /**The texture for the map**/
-    BufferedImage tileSheet;
+    /**The filepath for the texture of the map*/
+    String tileSheetPath;
     public HashMap<String, RoomBase> rooms;
 
+    /**Uses room ids to organize a layout*/
     public String layout;
 
 

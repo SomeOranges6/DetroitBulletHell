@@ -1,16 +1,9 @@
 package main.world.levels;
 
-import main.BulletHellLogic;
-import main.MathUtil;
 import main.entities.EntityBase;
-import main.entities.enemies.TestEnemy;
 import main.entities.interfaces.IUpdatable;
-import main.world.tiles.Tile;
-
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.function.Consumer;
 
 public class RoomBase extends Rectangle {
 
