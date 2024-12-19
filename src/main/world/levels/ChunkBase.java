@@ -5,7 +5,7 @@ import main.entities.interfaces.IUpdatable;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class RoomBase extends Rectangle {
+public class ChunkBase extends Rectangle {
 
     private static final ArrayList<EntityBase> entitiesToRender = new ArrayList<>();
     private static final ArrayList<IUpdatable> entitiesToUpdate = new ArrayList<>();
@@ -17,9 +17,6 @@ public class RoomBase extends Rectangle {
     public static ArrayList<IUpdatable>
             updatableAddCache  = new ArrayList<>(),
             updatableRemoveCache = new ArrayList<>();
-
-    /**The list of all tiles this room has, by id **/
-    public int[][] mapTileNum;
 
     /**List of all areas in the map that will perform an action.
      * The key is the area which will perform the action, the value is the action to be performed**/

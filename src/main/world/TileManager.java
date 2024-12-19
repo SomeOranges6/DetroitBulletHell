@@ -3,6 +3,7 @@ package main.world;
 import main.BulletHellLogic;
 import main.gameplay.Player;
 import main.swing.GamePanel;
+import main.world.levels.LevelBase;
 import main.world.tiles.Tile;
 
 import java.awt.Color;
@@ -16,14 +17,11 @@ import javax.imageio.ImageIO;
 
 /**Handles the building and rendering of maps, will be replaced by room system **/
 public class TileManager {
+
 	
-	/**The list of all possible tiles a map can have **/
-    public Tile[] tile;
-    /**The list of all possible tiles a map can have **/
-    public int[][] mapTileNum;
     public int mapNum = 1;
     BufferedImage tileSheet;
-    
+    LevelBase level;
  // Global variables
  	public static final int originalTileSize = 32;
  	/**Testing variable for adjusting the scale of the world **/
@@ -33,39 +31,12 @@ public class TileManager {
      public static final int tileSize = originalTileSize * scale;
     	/**How much tiles are shown at once in the screen **/
    
-    public TileManager() {
-        mapTileNum = new int[BulletHellLogic.maxWorldCol][BulletHellLogic.maxWorldRow];
-        tile = new Tile[64]; // 8x8 grid, 64 tiles
-        getTileImage();
+    public TileManager(LevelBase level) {
+    	// 8x8 grid, 64 tiles
         loadMap();
         handleTileEffects();
     }
 
-    public void getTileImage() {
-        try {
-            tileSheet = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/assets/tileset1.png")));
-            int tileIndex = 0;
-            for (int x = 0; x < 8; x++) {
-                for (int y = 0; y < 7; y++) {
-                    tile[tileIndex] = new Tile();
-                    tile[tileIndex].image = tileSheet.getSubimage(x * 32, y * 32, 32, 32);
-
-                    // Set collision properties
-                    //TODO: replace with more extendable check later
-                    if (tileIndex == 32 || tileIndex == 54) {
-                        tile[tileIndex].collision = true;
-                    }
-                   /** // Set changeMap for tile 0
-                    if (tileIndex == 0) {
-                        tile[tileIndex].changeMap = true;
-                    }**/
-                    tileIndex++;
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public void changeMap(int newMapNum) {
         if (mapNum != newMapNum) {
@@ -76,15 +47,16 @@ public class TileManager {
 
     public void loadMap() {
         try {
-            InputStream is = getClass().getResourceAsStream("/assets/maps/map" + mapNum + ".txt");
+        	//TODO: move this
+            InputStream is = getClass().getResourceAsStream(level.tileSheetPath);
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
             int col = 0;
 
-            while (col < BulletHellLogic.maxWorldCol) { // Iterate over rows
+            while (col < level.height) { // Iterate over rows
                 String line = br.readLine();
                 String[] numbers = line.split(",");
-                for (int row = 0; row < BulletHellLogic.maxWorldCol;  row++) { // Iterate over columns
-                    mapTileNum[row][col] = Integer.parseInt(numbers[row]);
+                for (int row = 0; row < level.height;  row++) { // Iterate over columns
+                	level.mapTileNum[row][col] = Integer.parseInt(numbers[row]);
                 }
                 col++; // Move to the next row
             }
@@ -96,10 +68,10 @@ public class TileManager {
 
 
     public void handleTileEffects(){
-        for (int worldRow = 0; worldRow < BulletHellLogic.maxWorldRow; worldRow++) {
-            for (int worldCol = 0; worldCol < BulletHellLogic.maxWorldCol; worldCol++) {
-                int tileNum = mapTileNum[worldRow][worldCol];
-                if(tile[tileNum].collision) {
+        for (int worldRow = 0; worldRow < level.width; worldRow++) {
+            for (int worldCol = 0; worldCol < level.height; worldCol++) {
+                int tileNum = level.mapTileNum[worldRow][worldCol];
+                if(level.tile[tileNum].collision) {
 	                Rectangle hitbox = new Rectangle(worldRow * tileSize, worldCol * tileSize, tileSize, tileSize);
 	                BulletHellLogic.addCollidable(hitbox);
                 }
@@ -108,9 +80,9 @@ public class TileManager {
     }
 
     public void draw(Graphics2D g2) {
-        for (int worldRow = 0; worldRow < BulletHellLogic.maxWorldRow; worldRow++) {
-            for (int worldCol = 0; worldCol < BulletHellLogic.maxWorldCol; worldCol++) {
-                int tileNum = mapTileNum[worldCol][worldRow];
+        for (int worldRow = 0; worldRow < level.width; worldRow++) {
+            for (int worldCol = 0; worldCol < level.height; worldCol++) {
+                int tileNum = level.mapTileNum[worldCol][worldRow];
 
                 int worldX = worldCol * tileSize;
                 int worldY = worldRow * tileSize;
@@ -122,7 +94,7 @@ public class TileManager {
                     worldX - tileSize < BulletHellLogic.player.x + Player.screenX &&
                     worldY + tileSize > BulletHellLogic.player.y - Player.screenY &&
                     worldY - tileSize < BulletHellLogic.player.y + Player.screenY) {
-                    g2.drawImage(tile[tileNum].image, screenX, screenY, tileSize, tileSize, null);
+                    g2.drawImage(level.tile[tileNum].image, screenX, screenY, tileSize, tileSize, null);
                 }
             }
             //debug option to visualize collisions
@@ -131,5 +103,5 @@ public class TileManager {
             	g2.fillRect(rect.x - BulletHellLogic.player.x + Player.screenX, rect.y - BulletHellLogic.player.y + Player.screenY, rect.width, rect.height);
             }*/
         }
-    }
+   }
 }
