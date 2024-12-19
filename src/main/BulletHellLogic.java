@@ -51,8 +51,8 @@ public class BulletHellLogic {
     //WORLD SETTINGS
 	/**How much tiles wide each world is.
 	 * Temporary, after prototype needs to be replaced with room system **/
-    public static final int maxWorldCol = 20;
-    public static final int maxWorldRow = 20;
+    public static final int maxWorldCol = 150;
+    public static final int maxWorldRow = 150;
     
     public static final int screenWidth = TileManager.tileSize * 16;
     public static final int screenHeight = TileManager.tileSize * 12;
@@ -108,7 +108,7 @@ public class BulletHellLogic {
 
 	private static void startGame() {
 		tileM = new TileManager();
-		player = new Player(100,100, CharacterList.johnTest);
+		player = new Player(500,100, CharacterList.johnTest);
 		/** **/
 		entitiesToUpdate.add(player);
 		entitiesToRender.add(player);
