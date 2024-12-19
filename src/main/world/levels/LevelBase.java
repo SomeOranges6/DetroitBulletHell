@@ -14,7 +14,8 @@ public class LevelBase {
     public int[][] mapTileNum;
     public int height, width;
     public ArrayList<Trigger> triggers;
-    
+
+
     
 
 
