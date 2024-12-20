@@ -1,10 +1,13 @@
-package main.world.levels;
+package main.world;
 
 import main.entities.EntityBase;
 import main.entities.interfaces.IUpdatable;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
+/**A 32x32 tile subdivision of the map, which is used for optimizing entity operations, such as collisions */
 public class ChunkBase extends Rectangle {
 
     private static final ArrayList<EntityBase> entitiesToRender = new ArrayList<>();
@@ -17,9 +20,5 @@ public class ChunkBase extends Rectangle {
     public static ArrayList<IUpdatable>
             updatableAddCache  = new ArrayList<>(),
             updatableRemoveCache = new ArrayList<>();
-
-    /**List of all areas in the map that will perform an action.
-     * The key is the area which will perform the action, the value is the action to be performed**/
-    public static ArrayList<Trigger> triggers;
 
 }

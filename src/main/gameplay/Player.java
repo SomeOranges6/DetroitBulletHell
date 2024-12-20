@@ -4,7 +4,7 @@ import main.BulletHellLogic;
 import main.MathUtil;
 import main.entities.EntityBase;
 import main.entities.interfaces.IUpdatable;
-import main.world.TileManager;
+import main.world.LevelManager;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -21,8 +21,8 @@ public class Player extends EntityBase implements IUpdatable, KeyListener{
 
 	Character character;
 
-	public static final int screenX = BulletHellLogic.screenWidth/2 - (TileManager.tileSize/2);
-	public static final int screenY = BulletHellLogic.screenHeight/2 - (TileManager.tileSize/2);
+	public static final int screenX = BulletHellLogic.screenWidth/2 - (LevelManager.tileSize/2);
+	public static final int screenY = BulletHellLogic.screenHeight/2 - (LevelManager.tileSize/2);
 
 	ArrayList<Weapon> weapons = new ArrayList<>();
 	Weapon currentWeapon;
@@ -30,7 +30,7 @@ public class Player extends EntityBase implements IUpdatable, KeyListener{
 	
     public Player(int x, int y, Character character) {
 
-		super(x,y, TileManager.originalTileSize, TileManager.originalTileSize);
+		super(x,y, LevelManager.originalTileSize, LevelManager.originalTileSize);
 		this.mX = x;
 		this.mY = y;
 
@@ -47,7 +47,7 @@ public class Player extends EntityBase implements IUpdatable, KeyListener{
 
     @Override
     public void render(Graphics2D g) {
-        g.fillRect(screenX, screenY, TileManager.tileSize/2, TileManager.tileSize/2);
+        g.fillRect(screenX, screenY, LevelManager.tileSize/2, LevelManager.tileSize/2);
     }
 
     @Override

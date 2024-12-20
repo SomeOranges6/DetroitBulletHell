@@ -2,53 +2,43 @@ package main.world;
 
 import main.BulletHellLogic;
 import main.gameplay.Player;
-import main.swing.GamePanel;
-import main.world.levels.LevelBase;
 import main.world.tiles.Tile;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
+import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.Objects;
 
-import javax.imageio.ImageIO;
+/**Handles all the general logic associated with maps, such as rendering, collisions, and triggers **/
+public class LevelManager {
 
-/**Handles the building and rendering of maps, will be replaced by room system **/
-public class TileManager {
-
-	
     public int mapNum = 1;
     BufferedImage tileSheet;
     LevelBase level;
- // Global variables
+
  	public static final int originalTileSize = 32;
  	/**Testing variable for adjusting the scale of the world **/
  	public static final int scale = 2;
 
  	/**How big each tile is after the scale is applied**/
      public static final int tileSize = originalTileSize * scale;
-    	/**How much tiles are shown at once in the screen **/
    
-    public TileManager(LevelBase level) {
-    	// 8x8 grid, 64 tiles
-        loadMap();
+    public LevelManager(LevelBase level) {
+    	loadLevel(level);
+    }
+
+    public void loadLevel(LevelBase level) {
+        this.level = level;
+        getTileImage();
+        loadMapStructure();
         handleTileEffects();
     }
 
-
-    public void changeMap(int newMapNum) {
-        if (mapNum != newMapNum) {
-            mapNum = newMapNum;
-            loadMap(); // Reload the map
-        }
-    }
-
-    public void loadMap() {
+    public void loadMapStructure() {
         try {
         	//TODO: move this
-            InputStream is = getClass().getResourceAsStream(level.tileSheetPath);
+            InputStream is = getClass().getResourceAsStream(level.mapPath);
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
             int col = 0;
 
@@ -66,6 +56,31 @@ public class TileManager {
         }
     }
 
+    public void getTileImage() {
+        try {
+            tileSheet = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(level.tileSheetPath)));
+            int tileIndex = 0;
+            for (int x = 0; x < 8; x++) {
+                for (int y = 0; y < 7; y++) {
+                    level.tile[tileIndex] = new Tile();
+                    level.tile[tileIndex].image = tileSheet.getSubimage(x * 32, y * 32, 32, 32);
+
+                    // Set collision properties
+                    //TODO: replace with more extendable check later
+                    if (tileIndex == 32 || tileIndex == 54) {
+                        level.tile[tileIndex].collision = true;
+                    }
+                    /** // Set changeMap for tile 0
+                     if (tileIndex == 0) {
+                     tile[tileIndex].changeMap = true;
+                     }**/
+                    tileIndex++;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void handleTileEffects(){
         for (int worldRow = 0; worldRow < level.width; worldRow++) {

@@ -5,7 +5,8 @@ import main.entities.interfaces.IUpdatable;
 import main.gameplay.CharacterList;
 import main.gameplay.Player;
 import main.swing.GamePanel;
-import main.world.TileManager;
+import main.world.LevelManager;
+import main.world.levels.TestLevel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,11 +22,11 @@ public class BulletHellLogic {
 	private static final ArrayList<EntityBase> entitiesToRender = new ArrayList<>();
 	private static final ArrayList<IUpdatable> entitiesToUpdate = new ArrayList<>();
 
-	public static ArrayList<EntityBase>
+	private static final ArrayList<EntityBase>
 			renderableAddCache= new ArrayList<>(),
 			renderableRemoveCache = new ArrayList<>();
 
-	public static ArrayList<IUpdatable>
+	private static final ArrayList<IUpdatable>
 			updatableAddCache  = new ArrayList<>(),
 			updatableRemoveCache = new ArrayList<>();
 
@@ -49,20 +50,22 @@ public class BulletHellLogic {
     private static boolean running = true;
 
     //WORLD SETTINGS
-	/**How much tiles wide each world is.
-	 * Temporary, after prototype needs to be replaced with room system **/
+	/**How much tiles wide each world is **/
     public static final int maxWorldCol = 150;
     public static final int maxWorldRow = 150;
-    
-    public static final int screenWidth = TileManager.tileSize * 16;
-    public static final int screenHeight = TileManager.tileSize * 12;
+
+	/**How much tiles are shown at once in the screen **/
+    public static final int screenWidth = LevelManager.tileSize * 16;
+    public static final int screenHeight = LevelManager.tileSize * 12;
 
 
 	/**The JPanel the game  runs in **/
     public static GamePanel gPanel;
 
 	/**Handles building and rendering the map itself **/
-    public static TileManager tileM;
+    public static LevelManager tileM;
+
+	public static TestLevel testLevel = new TestLevel();
 
 	/*TODO: The central tick timer does not need to tick anywhere near this quick for the game logic to work
 	 *  By using interpolation of the coordinates when rendering, it can still
@@ -107,7 +110,8 @@ public class BulletHellLogic {
 	}
 
 	private static void startGame() {
-		tileM = new TileManager();
+
+		tileM = new LevelManager(testLevel);
 		player = new Player(500,100, CharacterList.johnTest);
 		/** **/
 		entitiesToUpdate.add(player);
