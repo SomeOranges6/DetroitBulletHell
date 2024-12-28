@@ -75,6 +75,6 @@ public class TestEnemy extends EnemyBase {
 	@Override
 	public void render(Graphics2D g) {
 		g.setColor(Color.RED);
-		g.drawRect(x, y, width, height);
+		g.drawRect(x - BulletHellLogic.player.x + Player.screenX, y - BulletHellLogic.player.y + Player.screenY, width, height);
 	}
 }

@@ -28,13 +28,17 @@ public class GamePanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-
         // Render the map
-        BulletHellLogic.tileM.draw(g2);
+        BulletHellLogic.levelManager.draw(g2);
 
         for(EntityBase entity : BulletHellLogic.getEntitiesToRender()){
             entity.render(g2);
         }
+        g2.setFont(new Font(Font.MONOSPACED, Font.BOLD, 20));
+        g2.setColor(Color.RED);
+        g2.drawString("X coord: " + BulletHellLogic.player.x, 10, 30);
+        g2.drawString("Y coord: " + BulletHellLogic.player.y, 10, 50);
+
         g2.dispose();
     }
 }

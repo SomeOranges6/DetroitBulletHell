@@ -22,11 +22,11 @@ public class BulletHellLogic {
 	private static final ArrayList<EntityBase> entitiesToRender = new ArrayList<>();
 	private static final ArrayList<IUpdatable> entitiesToUpdate = new ArrayList<>();
 
-	private static final ArrayList<EntityBase>
+	public static final ArrayList<EntityBase>
 			renderableAddCache= new ArrayList<>(),
 			renderableRemoveCache = new ArrayList<>();
 
-	private static final ArrayList<IUpdatable>
+	public static final ArrayList<IUpdatable>
 			updatableAddCache  = new ArrayList<>(),
 			updatableRemoveCache = new ArrayList<>();
 
@@ -63,7 +63,7 @@ public class BulletHellLogic {
     public static GamePanel gPanel;
 
 	/**Handles building and rendering the map itself **/
-    public static LevelManager tileM;
+    public static LevelManager levelManager;
 
 	public static TestLevel testLevel = new TestLevel();
 
@@ -111,7 +111,7 @@ public class BulletHellLogic {
 
 	private static void startGame() {
 
-		tileM = new LevelManager(testLevel);
+		levelManager = new LevelManager(testLevel);
 		player = new Player(500,100, CharacterList.johnTest);
 		/** **/
 		entitiesToUpdate.add(player);
@@ -129,11 +129,12 @@ public class BulletHellLogic {
 					tick = 0;
 				}
 
+				levelManager.updateLevel();
+
 				entitiesToUpdate.removeAll(updatableRemoveCache);
 				updatableRemoveCache.clear();
 				entitiesToUpdate.addAll(updatableAddCache);
 				updatableAddCache.clear();
-				
 
 				for(IUpdatable updatable : entitiesToUpdate){
 					updatable.onUpdate();

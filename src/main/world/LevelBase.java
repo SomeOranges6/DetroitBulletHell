@@ -2,6 +2,7 @@ package main.world;
 
 import java.util.ArrayList;
 
+import main.BulletHellLogic;
 import main.world.tiles.Tile;
 
 public class LevelBase {
@@ -16,18 +17,31 @@ public class LevelBase {
     public int[][] mapTileNum;
     public int height, width;
 
-    private static final ArrayList<Trigger> triggers = new ArrayList<>();
-    private static final ArrayList<Trigger>
+    protected static final ArrayList<Trigger> triggers = new ArrayList<>();
+    protected static final ArrayList<Trigger>
             triggerAddCache = new ArrayList<>(),
             triggerRemoveCache = new ArrayList<>();
 
     public static void addTriggerCache(Trigger trigger){
         triggerAddCache.add(trigger);
+        BulletHellLogic.renderableAddCache.add(trigger);
     }
 
     public static void removeTriggerCache(Trigger trigger){
         triggerRemoveCache.add(trigger);
+        BulletHellLogic.renderableRemoveCache.add(trigger);
     }
 
+    public void updateTriggers(){
 
+        triggers.removeAll(triggerRemoveCache);
+        triggerRemoveCache.clear();
+        triggers.addAll(triggerAddCache);
+        triggerAddCache.clear();
+
+        for(Trigger trigger : triggers){
+            trigger.handleAction();
+        }
+
+    }
 }

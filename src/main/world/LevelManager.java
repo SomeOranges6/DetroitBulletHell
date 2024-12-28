@@ -35,6 +35,10 @@ public class LevelManager {
         handleTileEffects();
     }
 
+    public void updateLevel(){
+        level.updateTriggers();
+    }
+
     public void loadMapStructure() {
         try {
         	//TODO: move this
