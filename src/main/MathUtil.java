@@ -59,7 +59,7 @@ public class MathUtil {
 		Rectangle futurePosition = new Rectangle(x, y, entity.width, entity.height);
 
 		for(Rectangle rect : list){
-			if(futurePosition.intersects(rect)){
+			if(futurePosition.intersects(rect) && !(rect instanceof EntityBase entityBase && entityBase.equals(entity))){
 				return true;
 			}
 		}

@@ -2,6 +2,7 @@ package main.entities.projectiles;
 
 import main.BulletHellLogic;
 import main.MathUtil;
+import main.entities.EntityBase;
 import main.entities.ProjectileBase;
 import main.gameplay.Player;
 
@@ -21,6 +22,9 @@ public class TestProjectile extends ProjectileBase {
         Rectangle collidedObject = MathUtil.checkForCollidedEntity(this, BulletHellLogic.collidablesGeneral);
         if(collidedObject != null) {
             onDead();
+            if(collidedObject instanceof EntityBase entity && !entity.equals(shooter)){
+                entity.health -= 10;
+            }
         }
     }
 

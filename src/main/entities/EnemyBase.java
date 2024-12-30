@@ -22,7 +22,12 @@ public class EnemyBase extends EntityBase implements IUpdatable {
         super(x,y);
         damageable = true;
     }
-    
+
+    public EnemyBase(int x, int y, int width, int height) {
+        super(x, y, width, height);
+        damageable = true;
+    }
+
     @Override
     public void onUpdate() {
     	attack();

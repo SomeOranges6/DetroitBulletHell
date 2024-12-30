@@ -7,7 +7,7 @@ import java.awt.*;
 public class ProjectileBase extends EntityBase implements IUpdatable {
 
     public int damage;
-
+    public EntityBase shooter;
     public ProjectileBase(int x, int y, int width, int height) {
         super(x,y,width,height);
     }
@@ -29,6 +29,7 @@ public class ProjectileBase extends EntityBase implements IUpdatable {
 
     /**Sets the bullet to be at the coordinates of the entity that shot it **/
     public void setShooter(EntityBase shooter){
+        this.shooter = shooter;
         facingAngle = shooter.facingAngle;
 
         vX = Math.cos(facingAngle) * speed;

@@ -13,7 +13,7 @@ import static main.BulletHellLogic.player;
 
 public class TriggerFactory {
 
-    Random rand = new Random();
+    static Random rand = new Random();
     public static Function<int[], EntityBase> radiusCheck = (coords) -> {
         Rectangle radius = new Rectangle(coords[0], coords[1], 400, 400);
         if (radius.intersects(player)){
@@ -23,9 +23,10 @@ public class TriggerFactory {
     };
 
     public static Trigger testSpawnTrigger(int x, int y){
-        Trigger spawn = new Trigger(radiusCheck, (_)-> BulletHellLogic.spawnEntity(new TestEnemy(x, y)));
+        Trigger spawn = new Trigger(radiusCheck, null);
         spawn.x = x;
         spawn.y = y;
+        spawn.action = (_)-> BulletHellLogic.spawnEntity(new TestEnemy(spawn.x + rand.nextInt(10), spawn.y + rand.nextInt(10)));
         return spawn;
     }
 }
