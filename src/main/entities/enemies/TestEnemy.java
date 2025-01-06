@@ -13,6 +13,7 @@ public class TestEnemy extends EnemyBase {
 
 	public TestEnemy(int x, int y) {
 		super(x, y, 30, 30);
+		speed = 10;
 		health = 20;
 	}
 	
@@ -33,9 +34,10 @@ public class TestEnemy extends EnemyBase {
 	public void attack() {
 		TestProjectile testProjectile = new TestProjectile(x, y);
 		this.lookAtPlayer();
-		testProjectile.setShooter(this);
-		if(BulletHellLogic.tick % 20 == 0)
+		if(BulletHellLogic.tick % 20 == 0) {
+			testProjectile.setShooter(this);
 			BulletHellLogic.spawnEntity(testProjectile);
+		}
 	}
 
 	/**Finds the direction the player is at and moves toward it **/
@@ -60,13 +62,13 @@ public class TestEnemy extends EnemyBase {
 		//defines a right triangle with a base and height corresponding to the difference between the locations of the player and enemy on both axis
 		int [] enemyPlayerTriangle = MathUtil.distFrom(enemyLocation, playerLocation);
 
-        double playerAngle;
-        if (enemyPlayerTriangle[0] > 0){
-            playerAngle = Math.acos(enemyPlayerTriangle[0] / enemyPlayerTriangle[1]);
+        double playerAngle = 0;
+        if (enemyPlayerTriangle[1] > 0){
+            playerAngle = Math.atan((double) enemyPlayerTriangle[0] / enemyPlayerTriangle[1]);
         }
-		
-		else {
-            playerAngle = Math.acos(enemyPlayerTriangle[1] / enemyPlayerTriangle[0]);
+
+		else if (enemyPlayerTriangle[0] > 0) {
+            playerAngle = Math.atan((double) enemyPlayerTriangle[1] / enemyPlayerTriangle[0]);
         }
         facingAngle = Math.toRadians(playerAngle);
 		vX = Math.cos(facingAngle) * speed;
