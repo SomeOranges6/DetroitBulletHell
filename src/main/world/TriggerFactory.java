@@ -26,7 +26,7 @@ public class TriggerFactory {
         Trigger spawn = new Trigger(radiusCheck, null);
         spawn.x = x;
         spawn.y = y;
-        spawn.action = (_)-> BulletHellLogic.spawnEntity(new TestEnemy(spawn.x + rand.nextInt(10) * 20, spawn.y + rand.nextInt(10) * 20));
+        spawn.action = (player)-> BulletHellLogic.spawnEntity(new TestEnemy(spawn.x + rand.nextInt(10) * 20, spawn.y + rand.nextInt(10) * 20));
         return spawn;
     }
 }
