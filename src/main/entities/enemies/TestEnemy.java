@@ -43,7 +43,6 @@ public class TestEnemy extends EnemyBase {
 	/**Finds the direction the player is at and moves toward it **/
 	@Override
 	public void move() {
-
 		mX += vX;
 		mY += vY;
 
@@ -59,15 +58,15 @@ public class TestEnemy extends EnemyBase {
 		int [] enemyLocation = {x, y};
 		int [] playerLocation = {BulletHellLogic.player.x, BulletHellLogic.player.y};
 		
-		//defines a right triangle with a base and height corresponding to the difference between the locations of the player and enemy on both axis
+		//defines a right triangle with a base and height corresponding to the difference between the locations of the player and enemy on both axes
 		int [] enemyPlayerTriangle = MathUtil.distFrom(enemyLocation, playerLocation);
 
         double playerAngle = 0;
-        if (enemyPlayerTriangle[1] > 0){
+        if (enemyPlayerTriangle[1] > 0){ //if the enemy is above the player
             playerAngle = Math.atan((double) enemyPlayerTriangle[0] / enemyPlayerTriangle[1]);
         }
 
-		else if (enemyPlayerTriangle[0] > 0) {
+		else if (enemyPlayerTriangle[0] > 0) { //if enemy is to the right of the player
             playerAngle = Math.atan((double) enemyPlayerTriangle[1] / enemyPlayerTriangle[0]);
         }
         facingAngle = Math.toRadians(playerAngle);
