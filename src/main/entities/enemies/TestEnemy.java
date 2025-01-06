@@ -62,14 +62,14 @@ public class TestEnemy extends EnemyBase {
 		int [] enemyPlayerTriangle = MathUtil.distFrom(enemyLocation, playerLocation);
 
         double playerAngle = 0;
-        if (enemyPlayerTriangle[1] > 0){ //if the enemy is above the player
-            playerAngle = Math.atan((double) enemyPlayerTriangle[0] / enemyPlayerTriangle[1]);
+        if (enemyPlayerTriangle[0] = 0){ //if the enemy is at the edge of the screen
+            playerAngle = Math.atan2((double) enemyPlayerTriangle[1] / enemyPlayerTriangle[0]);
         }
 
-		else if (enemyPlayerTriangle[0] > 0) { //if enemy is to the right of the player
-            playerAngle = Math.atan((double) enemyPlayerTriangle[1] / enemyPlayerTriangle[0]);
+		else { //if enemy is to the right of the player
+			 playerAngle = Math.atan((double) enemyPlayerTriangle[0] / enemyPlayerTriangle[1]);
         }
-        facingAngle = Math.toRadians(playerAngle);
+        facingAngle = playerAngle;
 		vX = Math.cos(facingAngle) * speed;
 		vY = Math.sin(facingAngle) * speed;
     }
