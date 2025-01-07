@@ -40,14 +40,20 @@ public class TestEnemy extends EnemyBase {
 		}
 	}
 
-	/**Finds the direction the player is at and moves toward it **/
+	/**Finds the location of the player and moves towards it**/
 	@Override
 	public void move() {
+		this.lookAtPlayer();
+		
+      	vX = (double) this.slope;
+      	vY = (double) this.slope;
+		
 		mX += vX;
 		mY += vY;
 
 		x = (int) mX;
 		y = (int) mY;
+		//acording to all known laws of aviation, bees should not be able to fly. They of course, fly anyway. This is because bees dont give a shit about what scientists think. Yellow black yellow black yellow black, oooh black and yellow, lets shake it up a little. Barry breakfast is ready. Coming mom. Barry how many times have I told you not to fly down the stairs?! Im sorry, im just so excited. hi its me jerry seinfeld and ihave no respect for myself
 	}
 	
 	/**
@@ -62,16 +68,30 @@ public class TestEnemy extends EnemyBase {
 		int [] enemyPlayerTriangle = MathUtil.distFrom(enemyLocation, playerLocation);
 
         double playerAngle = 0;
-        if (enemyPlayerTriangle[0] = 0){ //if the enemy is at the edge of the screen
-            playerAngle = Math.atan2((double) enemyPlayerTriangle[1] / enemyPlayerTriangle[0]);
+        if (enemyPlayerTriangle[0] == 0){ //if the player and the enemy have equal x values 
+        	if (enemyPlayerTriangle[0] > 0) playerAngle = 90;
+        	else if (enemyPlayerTriangle[0] < 0) playerAngle = 270;
+        }
+        
+        else if (enemyPlayerTriangle[1] == 0) { //if the player and the enemy have equal y values
+        	if (enemyPlayerTriangle[1] > 0) playerAngle = 0;
+        	else if (enemyPlayerTriangle[1] < 0) playerAngle = 180;
         }
 
-		else { //if enemy is to the right of the player
-			 playerAngle = Math.atan((double) enemyPlayerTriangle[0] / enemyPlayerTriangle[1]);
+		else {
+			 playerAngle = Math.atan((double) enemyPlayerTriangle[1] / enemyPlayerTriangle[0]);
         }
         facingAngle = playerAngle;
+        
+      //calculates the slope of the line from the enemy to the player
+      	int rise = enemyPlayerTriangle[1];
+      	int run = enemyPlayerTriangle[0];
+      	int slope = rise / run;
+        
+        /* what
 		vX = Math.cos(facingAngle) * speed;
 		vY = Math.sin(facingAngle) * speed;
+		*/
     }
 	
 	@Override
