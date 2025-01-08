@@ -1,0 +1,25 @@
+package main.world.levels;
+
+import main.BulletHellLogic;
+import main.world.LevelBase;
+import main.world.LevelManager;
+import main.world.TriggerFactory;
+import main.world.tiles.Tile;
+
+public class TestLevel extends LevelBase {
+
+    public TestLevel() {
+        // Call the LevelBase constructor with the number of layers, width, and height
+        super(5, BulletHellLogic.maxWorldCol, BulletHellLogic.maxWorldRow);
+
+        tile = new Tile[64];
+        tileSheetPath = "/assets/tilesets/tileset1.png";
+        mapPath = "/assets/maps/map_layer1.csv"; 
+        setupTriggers();
+    }
+
+    public void setupTriggers() {
+        addTriggerCache(TriggerFactory.testSpawnTrigger(10 * LevelManager.tileSize, 10 * LevelManager.tileSize));
+        addTriggerCache(TriggerFactory.testSpawnTrigger(20 * LevelManager.tileSize, 20 * LevelManager.tileSize));
+    }
+}
