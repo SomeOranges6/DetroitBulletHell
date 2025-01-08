@@ -10,6 +10,7 @@ import main.entities.projectiles.TestProjectile;
 import main.gameplay.Player;
 
 public class TestEnemy extends EnemyBase {
+	int slope = 0;
 
 	public TestEnemy(int x, int y) {
 		super(x, y, 30, 30);
@@ -45,8 +46,8 @@ public class TestEnemy extends EnemyBase {
 	public void move() {
 		this.lookAtPlayer();
 		
-      	vX = (double) this.slope;
-      	vY = (double) this.slope;
+      	vX = slope;
+      	vY = slope;
 		
 		mX += vX;
 		mY += vY;
@@ -69,13 +70,13 @@ public class TestEnemy extends EnemyBase {
 
         double playerAngle = 0;
         if (enemyPlayerTriangle[0] == 0){ //if the player and the enemy have equal x values 
-        	if (enemyPlayerTriangle[0] > 0) playerAngle = 90;
-        	else if (enemyPlayerTriangle[0] < 0) playerAngle = 270;
+        	if (enemyPlayerTriangle[1] > 0) playerAngle = 90;
+        	else if (enemyPlayerTriangle[1] < 0) playerAngle = 270;
         }
         
         else if (enemyPlayerTriangle[1] == 0) { //if the player and the enemy have equal y values
-        	if (enemyPlayerTriangle[1] > 0) playerAngle = 0;
-        	else if (enemyPlayerTriangle[1] < 0) playerAngle = 180;
+        	if (enemyPlayerTriangle[0] > 0) playerAngle = 0;
+        	else if (enemyPlayerTriangle[0] < 0) playerAngle = 180;
         }
 
 		else {
