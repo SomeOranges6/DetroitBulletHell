@@ -5,9 +5,7 @@ import java.awt.event.*;
 public class TitleScreen{
     JFrame frame;
     DrawingPanel panel;
-    JButton startGame;
     JLabel title, startInstruction;
-    boolean screenVisible = true;
 
     public static void main(String[] args){
          javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -23,20 +21,19 @@ public class TitleScreen{
         frame.setLocationRelativeTo(null);
         panel = new DrawingPanel();
         panel.addKeyListener(new KeyListener() {
-			
-        	@Override
+
+			@Override
 			public void keyTyped(KeyEvent e) {
 				// TODO Auto-generated method stub
 			}
+
 			@Override
 			public void keyPressed(KeyEvent e) {
-				int press = e.getID();
-				String keyString;
-				press = KeyEvent.KEY_TYPED;
-				if (press == KeyEvent.KEY_TYPED) {
-					screenVisible = false;
+				if (e.getKeyCode() == 85) {
+					panel.setVisible(false);
 				}
 			}
+
 			@Override
 			public void keyReleased(KeyEvent e) {
 				// TODO Auto-generated method stub
@@ -67,7 +64,7 @@ public class TitleScreen{
 
             Font subtitleFont = new Font("Arial", Font.BOLD, 20);
             g2d.setFont(subtitleFont);
-            g2d.drawString("Press Any Button To Begin", 275, 400);
+            g2d.drawString("Press U To Begin", 300, 400);
         }
     }
 }
