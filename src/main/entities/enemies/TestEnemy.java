@@ -46,11 +46,6 @@ public class TestEnemy extends EnemyBase {
 	public void move() {
 		this.lookAtPlayer();
 		
-		/*
-		 * vX = slope;
-      	   vY = slope;
-		 */
-		
 		mX += vX;
 		mY += vY;
 
@@ -71,19 +66,9 @@ public class TestEnemy extends EnemyBase {
 		int [] enemyPlayerTriangle = MathUtil.distFrom(enemyLocation, playerLocation);
 
         double playerAngle = 0;
-        if (enemyPlayerTriangle[0] == 0){ //if the player and the enemy have equal x values 
-        	if (enemyPlayerTriangle[1] > 0) playerAngle = 90;
-        	else if (enemyPlayerTriangle[1] < 0) playerAngle = 270;
-        }
-        
-        else if (enemyPlayerTriangle[1] == 0) { //if the player and the enemy have equal y values
-        	if (enemyPlayerTriangle[0] > 0) playerAngle = 0;
-        	else if (enemyPlayerTriangle[0] < 0) playerAngle = 180;
-        }
 
-		else {
-			 playerAngle = Math.atan((double) enemyPlayerTriangle[1] / enemyPlayerTriangle[0]);
-        }
+        playerAngle = Math.atan((double) enemyPlayerTriangle[1] / enemyPlayerTriangle[0]);
+        
         facingAngle = playerAngle;
         
       //calculates the hypotenuse of the enemy-player triangles
