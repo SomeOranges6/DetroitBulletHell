@@ -10,7 +10,7 @@ import main.entities.projectiles.TestProjectile;
 import main.gameplay.Player;
 
 public class TestEnemy extends EnemyBase {
-	int slope = 0;
+	int hypot = 0;
 
 	public TestEnemy(int x, int y) {
 		super(x, y, 30, 30);
@@ -46,8 +46,10 @@ public class TestEnemy extends EnemyBase {
 	public void move() {
 		this.lookAtPlayer();
 		
-      	vX = slope;
-      	vY = slope;
+		/*
+		 * vX = slope;
+      	   vY = slope;
+		 */
 		
 		mX += vX;
 		mY += vY;
@@ -84,15 +86,14 @@ public class TestEnemy extends EnemyBase {
         }
         facingAngle = playerAngle;
         
-      //calculates the slope of the line from the enemy to the player
-      	int rise = enemyPlayerTriangle[1];
-      	int run = enemyPlayerTriangle[0];
-      	int slope = rise / run;
+      //calculates the hypotenuse of the enemy-player triangles
+      	int sideA = enemyPlayerTriangle[1];
+      	int sideB = enemyPlayerTriangle[0];
+      	hypot = (int) (Math.sqrt(Math.pow(sideA, 2) + Math.pow(sideB, 2)));
         
-        /* what
 		vX = Math.cos(facingAngle) * speed;
 		vY = Math.sin(facingAngle) * speed;
-		*/
+
     }
 	
 	@Override
