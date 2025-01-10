@@ -68,31 +68,24 @@ public class TestEnemy extends EnemyBase {
 		int [] playerLocation = {BulletHellLogic.player.x, BulletHellLogic.player.y};
 		
 		//defines a right triangle with a base and height corresponding to the difference between the locations of the player and enemy on both axes
-		int [] enemyPlayerTriangle = MathUtil.distFrom(enemyLocation, playerLocation);
+		int [] enemyPlayerTriangle = MathUtil.distFrom(playerLocation, enemyLocation);
+		int [] playerEnemyTriangle = MathUtil.distFrom(enemyLocation, playerLocation);
 
         double playerAngle = 0;
-        if (enemyPlayerTriangle[0] == 0){ //if the player and the enemy have equal x values 
-        	if (enemyPlayerTriangle[1] > 0) playerAngle = 90;
-        	else if (enemyPlayerTriangle[1] < 0) playerAngle = 270;
-        }
-        
-        else if (enemyPlayerTriangle[1] == 0) { //if the player and the enemy have equal y values
-        	if (enemyPlayerTriangle[0] > 0) playerAngle = 0;
-        	else if (enemyPlayerTriangle[0] < 0) playerAngle = 180;
-        }
-
-		else {
-			 playerAngle = Math.atan((double) enemyPlayerTriangle[1] / enemyPlayerTriangle[0]);
-        }
+      
+		playerAngle = Math.atan2(enemyPlayerTriangle[1], enemyPlayerTriangle[0]);
         facingAngle = playerAngle;
         
       //calculates the hypotenuse of the enemy-player triangles
-      	int sideA = enemyPlayerTriangle[1];
-      	int sideB = enemyPlayerTriangle[0];
+      	int sideA = playerEnemyTriangle[1];
+      	int sideB = playerEnemyTriangle[0];
       	hypot = (int) (Math.sqrt(Math.pow(sideA, 2) + Math.pow(sideB, 2)));
-        
-		vX = Math.cos(facingAngle) * speed;
-		vY = Math.sin(facingAngle) * speed;
+      	
+        if(Math.abs(hypot) > 100) {
+			vX = Math.cos(facingAngle) * speed;
+			vY = Math.sin(facingAngle) * speed;
+        }
+			
 
     }
 	
