@@ -129,17 +129,11 @@ public class Player extends EntityBase implements IUpdatable, KeyListener{
 			shootPressed = true;
 		}
 		//player will switch weapon
-		if (code == KeyEvent.VK_I) {
-			int weaponIndex;
-			if(lastWeaponIndex + 1 > weapons.size()) {
-				weaponIndex = 0;
-			}else if(lastWeaponIndex == 0){
-				weaponIndex = lastWeaponIndex++;
-			}else {
-				weaponIndex = 0;
-			}
-			//int weaponIndex = lastWeaponIndex + 1 > weapons.size() ? 0 : lastWeaponIndex++;
+		else if (code == KeyEvent.VK_I) {
+			int weaponIndex = lastWeaponIndex + 1 >= weapons.size() ? 0 : ++lastWeaponIndex;
 			currentWeapon = weapons.get(weaponIndex);
+			lastWeaponIndex = weaponIndex;
+
 		}
 	}
 
