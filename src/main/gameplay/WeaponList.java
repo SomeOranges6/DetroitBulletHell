@@ -2,6 +2,7 @@ package main.gameplay;
 
 import main.BulletHellLogic;
 import main.entities.ProjectileBase;
+import main.entities.projectiles.MinigunProjectile;
 import main.entities.projectiles.ShotgunProjectile;
 import main.entities.projectiles.TestProjectile;
 
@@ -39,6 +40,19 @@ public class WeaponList {
                     shotgunProjectile.vY = Math.sin(spreadAngle) * shotgunProjectile.speed;
                     BulletHellLogic.spawnEntity(shotgunProjectile);
                 }
+            }
+        }
+    };
+    
+    public static Weapon minigun = new Weapon(4,5,250, null){
+        @Override
+        public void onShoot() {
+            if(BulletHellLogic.tick % firerate == 0) {
+                ProjectileBase minigunProjectile = new MinigunProjectile(shooter.x, shooter.y);
+                minigunProjectile.setShooter(shooter);
+                minigunProjectile.damage = damage;
+                minigunProjectile.speed = 2.0;
+                BulletHellLogic.spawnEntity(minigunProjectile);
             }
         }
     };

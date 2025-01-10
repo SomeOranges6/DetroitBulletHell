@@ -112,7 +112,7 @@ public class BulletHellLogic {
 	private static void startGame() {
 
 		levelManager = new LevelManager(testLevel);
-		player = new Player(500,100, CharacterList.johnTest);
+		player = new Player(500,100, CharacterList.janeTest);
 		/** **/
 		entitiesToUpdate.add(player);
 		entitiesToRender.add(player);
