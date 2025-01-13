@@ -26,7 +26,7 @@ public class MathUtil {
 	 * @param entity The entity to check against the list
 	 * @param list A list of any class that extends Rectangle (i.e has a hitbox)
 	 * @return whichever entity it collided with**/
-	public static Rectangle checkForCollidedEntity(EntityBase entity, ArrayList<? extends Rectangle> list){
+	public static Rectangle checkForCollidedEntity(EntityBase entity, ArrayList<Rectangle> list){
 		Rectangle futurePosition = new Rectangle((int) (entity.mX + entity.vX), (int) (entity.mY + entity.vY), entity.width, entity.height);
 
 		for(Rectangle rect : list){
@@ -37,7 +37,7 @@ public class MathUtil {
 		return null;
 	}
 	/** Same as checkForCollidedEntity, except does not return anything, if you do not need to know what it collided with **/
-	public static boolean checkForCollision(EntityBase entity, ArrayList<? extends Rectangle> list){
+	public static boolean checkForCollision(EntityBase entity, ArrayList<Rectangle> list){
 		Rectangle futurePosition = new Rectangle((int) (entity.mX + entity.vX), (int) (entity.mY + entity.vY), entity.width, entity.height);
 
 		for(Rectangle rect : list){
