@@ -5,6 +5,7 @@ import main.entities.ProjectileBase;
 import main.entities.projectiles.MinigunProjectile;
 import main.entities.projectiles.ShotgunProjectile;
 import main.entities.projectiles.TestProjectile;
+import main.entities.projectiles.YesProjectile;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -53,6 +54,24 @@ public class WeaponList {
                 minigunProjectile.damage = damage;
                 minigunProjectile.speed = 2.0;
                 BulletHellLogic.spawnEntity(minigunProjectile);
+            }
+        }
+    };
+    
+    public static Weapon yes = new Weapon(4,20,100, null){
+        @Override
+        public void onShoot() {
+            if(BulletHellLogic.tick % firerate == 0) {
+                for (int i = -3; i < 4; i++) {
+                    ProjectileBase yesProjectile = new YesProjectile(shooter.x, shooter.y);
+                    yesProjectile.setShooter(shooter);
+                    yesProjectile.damage = damage;
+
+                    double spreadAngle =  yesProjectile.facingAngle - Math.toRadians(15) * i;
+                    yesProjectile.vX = Math.cos(spreadAngle) * yesProjectile.speed;
+                    yesProjectile.vY = Math.sin(spreadAngle) * yesProjectile.speed;
+                    BulletHellLogic.spawnEntity(yesProjectile);
+                }
             }
         }
     };
