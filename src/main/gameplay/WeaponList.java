@@ -58,16 +58,16 @@ public class WeaponList {
         }
     };
     
-    public static Weapon yes = new Weapon(4,20,100, null){
+    public static Weapon yes = new Weapon(4,60,100, null){
         @Override
         public void onShoot() {
             if(BulletHellLogic.tick % firerate == 0) {
-                for (int i = -3; i < 4; i++) {
+                for (int i = -9; i < 11; i++) {
                     ProjectileBase yesProjectile = new YesProjectile(shooter.x, shooter.y);
                     yesProjectile.setShooter(shooter);
                     yesProjectile.damage = damage;
 
-                    double spreadAngle =  yesProjectile.facingAngle - Math.toRadians(15) * i;
+                    double spreadAngle =  yesProjectile.facingAngle - Math.toRadians(18) * i;
                     yesProjectile.vX = Math.cos(spreadAngle) * yesProjectile.speed;
                     yesProjectile.vY = Math.sin(spreadAngle) * yesProjectile.speed;
                     BulletHellLogic.spawnEntity(yesProjectile);

@@ -28,7 +28,7 @@ public class MinigunProjectile extends ProjectileBase {
         }
     }
 
-    /**Renders a red square if within map bounds **/
+    /**Renders a magenta square if within map bounds **/
     @Override
     public void render(Graphics2D g) {
         boolean boundsCheck =
@@ -38,7 +38,7 @@ public class MinigunProjectile extends ProjectileBase {
                 y - height < BulletHellLogic.player.y + Player.screenY;
 
         if (boundsCheck) {
-                g.setColor(Color.RED);
+                g.setColor(Color.MAGENTA);
                 g.fillRect(x - BulletHellLogic.player.x + Player.screenX, y - BulletHellLogic.player.y + Player.screenY, width, height);
         }
     }

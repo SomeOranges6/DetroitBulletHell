@@ -12,7 +12,7 @@ public class YesProjectile extends ProjectileBase {
 
     public YesProjectile(int x, int y) {
         super(x, y, 8, 8);
-        speed = 40.0;
+        speed = 20.0;
     }
 
     //TODO: once enemy spawn is working, change the hitbox list to be the enemy-inclusive list
