@@ -10,7 +10,7 @@ public class HowToPlay {
 	public static void main(String[] args) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                new TitleScreen();
+                new HowToPlay();
             }
         });
 	}
@@ -20,6 +20,27 @@ public class HowToPlay {
 		frame.setSize(new Dimension(850, 650));
 		frame.setLocationRelativeTo(null);
 		panel = new DrawingPanel();
+		
+		panel.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_U) {
+					frame.dispose();
+				}
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+			}
+			
+		});
 		
 		frame.setContentPane(panel);
 		frame.pack();
@@ -31,19 +52,19 @@ public class HowToPlay {
 		DrawingPanel(){
 			this.setBackground(Color.BLACK);
 			this.setPreferredSize(new Dimension(800, 600));
+			this.setFocusable(true);
 		}
 		public void paintComponent(Graphics g) {
-			super.PaintComponent(g);
+			super.paintComponent(g);
 			Graphics2D g2d = (Graphics2D)g;
 			g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 			
 			Font tutorialFont = new Font("Arial", Font.BOLD, 20);
-            g2d.setFont(subtitleFont);
+            g2d.setFont(tutorialFont);
             
-            g2d.drawString("Press U to Attack", ALLBITS, ABORT);
-            g2d.drawString("Press Y to Switch Weapons", ALLBITS, ABORT);
-            
+            g2d.drawString("Press U to Attack and Start Game", ALLBITS, ABORT);
+            g2d.drawString("Press I to Switch Weapons", ALLBITS, ABORT);
+            g2d.drawString("Press J to Pause", ALLBITS, ABORT);
 		}
 	}
-
 }

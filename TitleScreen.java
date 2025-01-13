@@ -7,9 +7,10 @@ public class TitleScreen{
     DrawingPanel panel;
     JButton startGame;
     JLabel title, startInstruction;
+    boolean screenVisible = true;
 
     public static void main(String[] args){
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 new TitleScreen();
             }
@@ -27,7 +28,6 @@ public class TitleScreen{
 			public void keyTyped(KeyEvent e) {
 				// TODO Auto-generated method stub
 			}
-        	
 			@Override
 			public void keyPressed(KeyEvent e) {
 				int press = e.getID();
@@ -37,7 +37,6 @@ public class TitleScreen{
 					screenVisible = false;
 				}
 			}
-			
 			@Override
 			public void keyReleased(KeyEvent e) {
 				// TODO Auto-generated method stub
