@@ -39,6 +39,7 @@ public class Death {
             this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
             this.setAlignmentX(CENTER_ALIGNMENT);
             this.addKeyListener(this);
+            this.setFocusable(true);
         }
 		
 		public void paintComponent(Graphics g) {

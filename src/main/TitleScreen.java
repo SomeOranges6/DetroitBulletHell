@@ -1,15 +1,13 @@
-package main;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class TitleScreen implements KeyListener{
+
+public class TitleScreen{
     JFrame frame;
     DrawingPanel panel;
-    //JButton startGame; //this button is to be used as a last resort if getting key input doesn't work
     JLabel title, startInstruction;
-    boolean titleVisible = true;
+    boolean setVisible;
 
     public static void main(String[] args){
          javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -24,7 +22,25 @@ public class TitleScreen implements KeyListener{
         frame.setSize(new Dimension(850, 650));
         frame.setLocationRelativeTo(null);
         panel = new DrawingPanel();
-        panel.addKeyListener(this);
+        panel.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_U) {
+					frame.dispose();
+				}
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+			}
+        });
 
 		frame.setContentPane(panel);
 		frame.pack();
@@ -37,6 +53,7 @@ public class TitleScreen implements KeyListener{
     	DrawingPanel(){
             this.setBackground(Color.BLACK);
             this.setPreferredSize(new Dimension(800, 600));
+            this.setFocusable(true);
         }
         public void paintComponent(Graphics g){
             super.paintComponent(g);
@@ -50,29 +67,7 @@ public class TitleScreen implements KeyListener{
 
             Font subtitleFont = new Font("Arial", Font.BOLD, 20);
             g2d.setFont(subtitleFont);
-            g2d.drawString("Press E To Begin", 320, 400);
+            g2d.drawString("Press U To Begin", 300, 400);
         }
     }
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void keyPressed(KeyEvent e) {
-		int press = e.getKeyCode();
-		if (press == KeyEvent.VK_E) {
-			frame.setVisible(false);
-			titleVisible = false;
-			//System.exit(0); //closes the program automatically
-		}
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
 }
