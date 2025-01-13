@@ -20,8 +20,8 @@ public class BulletHellLogic {
 
 	/*Do not under any circumstance outside the player being spawned, add or remove from those lists directly
 	  Use the cache instead*/
-	private static final ArrayList<EntityBase> entitiesToRender = new ArrayList<>();
-	private static final ArrayList<IUpdatable> entitiesToUpdate = new ArrayList<>();
+	private static ArrayList<EntityBase> entitiesToRender;
+	private static ArrayList<IUpdatable> entitiesToUpdate;
 
 	public static final ArrayList<EntityBase>
 			renderableAddCache= new ArrayList<>(),
@@ -114,7 +114,8 @@ public class BulletHellLogic {
 	}
 
 	private static void startGame() {
-
+		entitiesToUpdate = new ArrayList<>();
+		entitiesToRender = new ArrayList<>();
 		levelManager = new LevelManager(testLevel);
 		player = new Player(500,500, CharacterList.johnTest);
 		
@@ -142,6 +143,11 @@ public class BulletHellLogic {
 				updatableRemoveCache.clear();
 				entitiesToUpdate.addAll(updatableAddCache);
 				updatableAddCache.clear();
+
+				collidablesGeneral.removeAll(collidableRemoveCache);
+				collidableRemoveCache.clear();
+				collidablesGeneral.addAll(collidableAddCache);
+				collidableAddCache.clear();
 
 				for(IUpdatable updatable : entitiesToUpdate){
 					updatable.onUpdate();
@@ -183,7 +189,6 @@ public class BulletHellLogic {
 	} 
 
 	public static void removeCollidable(Rectangle rectangle){
-		
 		collidablesGeneral.add(rectangle);
 	}
 	
