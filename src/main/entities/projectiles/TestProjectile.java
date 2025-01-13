@@ -21,10 +21,10 @@ public class TestProjectile extends ProjectileBase {
         super.onUpdate();
         Rectangle collidedObject = MathUtil.checkForCollidedEntity(this, BulletHellLogic.collidablesGeneral);
         if(collidedObject != null) {
-            onDead();
             if(collidedObject instanceof EntityBase entity && !entity.equals(shooter)){
                 entity.health -= 10;
             }
+            onDead();
         }
     }
 
