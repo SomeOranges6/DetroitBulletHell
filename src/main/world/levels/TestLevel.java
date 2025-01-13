@@ -9,14 +9,20 @@ import main.world.tiles.Tile;
 public class TestLevel extends LevelBase {
 
     public TestLevel (){
+    	// Call the LevelBase constructor with the number of layers, width, and height
+        super(5, BulletHellLogic.maxWorldCol, BulletHellLogic.maxWorldRow);
+
         mapTileNum = new int[BulletHellLogic.maxWorldCol][BulletHellLogic.maxWorldRow];
         tile = new Tile[64];
-        tileSheetPath = "/assets/tileset1.png";
-        mapPath = "/assets/maps/map1.txt";
+        
+        tileSheetPath = "/assets/tilesets/tileset1.png";
+        mapPath = "/assets/maps/map_layer1.csv";
         width = BulletHellLogic.maxWorldRow;
         height = BulletHellLogic.maxWorldCol;
         setupTriggers();
+       
     }
+    
 
 
     public void setupTriggers(){

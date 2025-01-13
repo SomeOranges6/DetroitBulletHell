@@ -6,7 +6,6 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class MathUtil {
-
 	
 	/**Calculates the distance between two points
 	 * @return An array with the distance on the x **/
