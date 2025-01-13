@@ -7,6 +7,7 @@ import main.gameplay.Player;
 import main.swing.GamePanel;
 import main.world.LevelManager;
 import main.world.levels.TestLevel;
+import main.gameplay.SpriteManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -45,6 +46,9 @@ public class BulletHellLogic {
 	static Random rand = new Random();
 	public static Player player;
 	
+	// SpriteManager for the player
+	public static SpriteManager playerSpriteManager;
+	
 
 	/**Future variable used for pausing **/
     private static boolean running = true;
@@ -55,8 +59,8 @@ public class BulletHellLogic {
     public static final int maxWorldRow = 150;
 
 	/**How much tiles are shown at once in the screen **/
-    public static final int screenWidth = LevelManager.tileSize * 16;
-    public static final int screenHeight = LevelManager.tileSize * 12;
+    public static final int screenWidth = LevelManager.tileSize * 28;
+    public static final int screenHeight = LevelManager.tileSize * 20;
 
 
 	/**The JPanel the game  runs in **/
@@ -112,7 +116,10 @@ public class BulletHellLogic {
 	private static void startGame() {
 
 		levelManager = new LevelManager(testLevel);
-		player = new Player(500,100, CharacterList.johnTest);
+		player = new Player(500,500, CharacterList.johnTest);
+		
+		// Initialize the player's SpriteManager
+		playerSpriteManager = player.getSpriteManager();
 		/** **/
 		entitiesToUpdate.add(player);
 		entitiesToRender.add(player);
@@ -156,6 +163,7 @@ public class BulletHellLogic {
 	public static void spawnEntity(EntityBase entity){
 		if(entity instanceof  IUpdatable){
 			updatableAddCache.add((IUpdatable) entity);
+
 		}
 		collidableAddCache.add(entity);
 		renderableAddCache.add(entity);
@@ -175,6 +183,7 @@ public class BulletHellLogic {
 	} 
 
 	public static void removeCollidable(Rectangle rectangle){
+		
 		collidablesGeneral.add(rectangle);
 	}
 	

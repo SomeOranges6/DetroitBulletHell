@@ -1,6 +1,7 @@
 package main.world;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import main.BulletHellLogic;
 import main.world.tiles.Tile;
@@ -13,9 +14,21 @@ public class LevelBase {
     public String tileSheetPath;
     /**The filepath for the map itself*/
     public String mapPath;
+    /** layers for the map*/
+    public List<int[][]> mapLayers; // Multiple layers of tile grids
     /**The list of all tiles this room has, by id */
     public int[][] mapTileNum;
     public int height, width;
+    
+ // Constructor to isdwnitialize layers
+    public LevelBase(int numLayers, int width, int height) {
+        this.width = width;
+        this.height = height;
+        this.mapLayers = new ArrayList<>();
+        for (int i = 0; i < numLayers; i++) {
+            this.mapLayers.add(new int[height][width]);
+        }
+    }
 
     protected static final ArrayList<Trigger> triggers = new ArrayList<>();
     protected static final ArrayList<Trigger>
