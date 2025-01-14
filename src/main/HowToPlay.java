@@ -65,7 +65,7 @@ public class HowToPlay {
             
             g2d.drawString("Press U to Attack and Start Game", 20, 100);
             g2d.drawString("Press I to Switch Weapons", 20, 300);
-            g2d.drawString("Press J to Pause", 20, 500);
+            g2d.drawString("Press J to Lock Your Shooting Direction", 20, 500);
 		}
 	}
 }
