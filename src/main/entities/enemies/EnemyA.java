@@ -9,13 +9,13 @@ import main.entities.EnemyBase;
 import main.entities.projectiles.EnemyProjectile;
 import main.gameplay.Player;
 
-public class TestEnemy extends EnemyBase {
+public class EnemyA extends EnemyBase {
 	int hypot = 0;
 
-	public TestEnemy(int x, int y) {
+	public EnemyA(int x, int y) {
 		super(x, y, 30, 30);
-		speed = 10;
-		health = 20;
+		speed = 15;
+		health = 10;
 	}
 	
 	@Override
@@ -91,7 +91,7 @@ public class TestEnemy extends EnemyBase {
 	
 	@Override
 	public void render(Graphics2D g) {
-		g.setColor(Color.RED);
+		g.setColor(Color.PINK);
 		g.fillRect(x - BulletHellLogic.player.x + Player.screenX, y - BulletHellLogic.player.y + Player.screenY, width, height);
 	}
 }
