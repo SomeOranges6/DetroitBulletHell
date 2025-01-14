@@ -2,8 +2,10 @@ package main.gameplay;
 
 import main.BulletHellLogic;
 import main.entities.ProjectileBase;
+import main.entities.projectiles.MinigunProjectile;
 import main.entities.projectiles.ShotgunProjectile;
 import main.entities.projectiles.TestProjectile;
+import main.entities.projectiles.YesProjectile;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -38,6 +40,37 @@ public class WeaponList {
                     shotgunProjectile.vX = Math.cos(spreadAngle) * shotgunProjectile.speed;
                     shotgunProjectile.vY = Math.sin(spreadAngle) * shotgunProjectile.speed;
                     BulletHellLogic.spawnEntity(shotgunProjectile);
+                }
+            }
+        }
+    };
+    
+    public static Weapon minigun = new Weapon(4,5,250, null){
+        @Override
+        public void onShoot() {
+            if(BulletHellLogic.tick % firerate == 0) {
+                ProjectileBase minigunProjectile = new MinigunProjectile(shooter.x, shooter.y);
+                minigunProjectile.setShooter(shooter);
+                minigunProjectile.damage = damage;
+                minigunProjectile.speed = 2.0;
+                BulletHellLogic.spawnEntity(minigunProjectile);
+            }
+        }
+    };
+    
+    public static Weapon yes = new Weapon(4,60,100, null){
+        @Override
+        public void onShoot() {
+            if(BulletHellLogic.tick % firerate == 0) {
+                for (int i = -9; i < 11; i++) {
+                    ProjectileBase yesProjectile = new YesProjectile(shooter.x, shooter.y);
+                    yesProjectile.setShooter(shooter);
+                    yesProjectile.damage = damage;
+
+                    double spreadAngle =  yesProjectile.facingAngle - Math.toRadians(18) * i;
+                    yesProjectile.vX = Math.cos(spreadAngle) * yesProjectile.speed;
+                    yesProjectile.vY = Math.sin(spreadAngle) * yesProjectile.speed;
+                    BulletHellLogic.spawnEntity(yesProjectile);
                 }
             }
         }

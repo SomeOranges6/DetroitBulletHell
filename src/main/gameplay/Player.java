@@ -144,19 +144,19 @@ public class Player extends EntityBase implements IUpdatable, KeyListener{
 		if(code == KeyEvent.VK_D) {
 			rightPressed = true;
 		}
-		if(code == KeyEvent.VK_Q) {
+		if(code == KeyEvent.VK_J) {
 			 lookLock = !lookLock;
 		}
 		//player uses an ability
-		if (code == KeyEvent.VK_C) {
+		if (code == KeyEvent.VK_O) {
 			character.onAbilityUse(this); 
 		}
 		//player will attack
-		if (code == KeyEvent.VK_E) {
+		if (code == KeyEvent.VK_U) {
 			shootPressed = true;
 		}
 		//player will switch weapon
-		else if (code == KeyEvent.VK_R) {
+		else if (code == KeyEvent.VK_I) {
 			int weaponIndex = lastWeaponIndex + 1 >= weapons.size() ? 0 : ++lastWeaponIndex;
 			currentWeapon = weapons.get(weaponIndex);
 			lastWeaponIndex = weaponIndex;
@@ -180,7 +180,7 @@ public class Player extends EntityBase implements IUpdatable, KeyListener{
 		if(code == KeyEvent.VK_D) {
 			rightPressed = false;
 		}
-		if (code == KeyEvent.VK_E) {
+		if (code == KeyEvent.VK_U) {
 			shootPressed = false;
 		}
 	}
