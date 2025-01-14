@@ -15,8 +15,8 @@ public class Trigger extends EntityBase {
     /**Whether or not the trigger despawns upon activation **/
     boolean persistent;
 
-    Function<int[], EntityBase> actionCheck;
-    Consumer<EntityBase> action;
+    public Function<int[], EntityBase> actionCheck;
+    public Consumer<EntityBase> action;
 
     public Trigger(Function<int[], EntityBase> check, Consumer<EntityBase> action) {
         this(check, action, false);

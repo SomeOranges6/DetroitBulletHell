@@ -13,7 +13,7 @@ import static main.BulletHellLogic.player;
 
 public class EnemyBase extends EntityBase implements IUpdatable {
 
-    static ArrayList<Rectangle> collidablesEnemy = BulletHellLogic.collidablesGeneral;
+    public static ArrayList<Rectangle> collidablesEnemy = BulletHellLogic.collidablesGeneral;
     int hypot;
     static {
         collidablesEnemy.addFirst(player);
