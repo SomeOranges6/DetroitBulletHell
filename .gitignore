@@ -25,3 +25,11 @@
 hs_err_pid*
 replay_pid*
 /bin/
+/shelf/
+/.idea/
+/out/
+/workspace.xml
+/misc.xml
+/modules.xml
+/uiDesigner.xml
+/vcs.xml
