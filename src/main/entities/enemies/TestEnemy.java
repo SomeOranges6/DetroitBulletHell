@@ -13,7 +13,7 @@ public class TestEnemy extends EnemyBase {
 
 	public TestEnemy(int x, int y) {
 		super(x, y, 30, 30);
-		speed = 10;
+		speed = 5;
 		health = 20;
 	}
 	
@@ -43,15 +43,12 @@ public class TestEnemy extends EnemyBase {
 	/**Finds the location of the player and moves towards it**/
 	@Override
 	public void move() {
-		this.lookAtPlayer();
+		super.move();
 		
 		/*
 		 * vX = slope;
       	   vY = slope;
 		 */
-		
-		mX += vX;
-		mY += vY;
 
 		x = (int) mX;
 		y = (int) mY;

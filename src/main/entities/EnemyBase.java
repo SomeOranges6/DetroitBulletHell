@@ -45,7 +45,14 @@ public class EnemyBase extends EntityBase implements IUpdatable {
     }
 
     public void move(){
-    	
+    	if (!MathUtil.checkForCollision(this, collidablesEnemy, true)) {
+            mX += vX;
+        }
+
+        // Check for collision on the Y-axis before updating position
+        if (!MathUtil.checkForCollision(this, collidablesEnemy, false)) {
+            mY += vY;
+        }
     }
 
     /**
@@ -58,22 +65,14 @@ public class EnemyBase extends EntityBase implements IUpdatable {
 
         //defines a right triangle with a base and height corresponding to the difference between the locations of the player and enemy on both axes
         int [] enemyPlayerTriangle = MathUtil.distFrom(playerLocation, enemyLocation);
-        int [] playerEnemyTriangle = MathUtil.distFrom(enemyLocation, playerLocation);
 
         double playerAngle = 0;
 
         playerAngle = Math.atan2(enemyPlayerTriangle[1], enemyPlayerTriangle[0]);
         facingAngle = playerAngle;
 
-        //calculates the hypotenuse of the enemy-player triangles
-        int sideA = playerEnemyTriangle[1];
-        int sideB = playerEnemyTriangle[0];
-        hypot = (int) (Math.sqrt(Math.pow(sideA, 2) + Math.pow(sideB, 2)));
-
-        if(Math.abs(hypot) > 100) {
-            vX = Math.cos(facingAngle) * speed;
-            vY = Math.sin(facingAngle) * speed;
-        }
+        vX = Math.cos(facingAngle) * speed;
+        vY = Math.sin(facingAngle) * speed;       
 
 
     }

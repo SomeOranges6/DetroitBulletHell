@@ -144,9 +144,9 @@ public class BulletHellLogic {
 				entitiesToUpdate.addAll(updatableAddCache);
 				updatableAddCache.clear();
 
-				collidablesGeneral.removeAll(collidableRemoveCache);
+				collidablesPlayerProjectile.removeAll(collidableRemoveCache);
 				collidableRemoveCache.clear();
-				collidablesGeneral.addAll(collidableAddCache);
+				collidablesPlayerProjectile.addAll(collidableAddCache);
 				collidableAddCache.clear();
 
 				for(IUpdatable updatable : entitiesToUpdate){
