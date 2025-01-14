@@ -188,6 +188,14 @@ public class LevelManager {
             }
         }
     }
+    /**Checks whether a tile on these coordinates is collidable*/
+    public boolean isCollidableAtCoords(int x, int y){
+        int row = x/BulletHellLogic.maxWorldRow;
+        int column = y/BulletHellLogic.maxWorldCol;
+
+        int tileID = level.mapLayers.get(3)[column][row];
+        return tileID != -1;
+    }
 
 
 

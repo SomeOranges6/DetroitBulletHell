@@ -65,8 +65,5 @@ public class MathUtil {
 		return false;
 	}
 
-	//public static boolean checkMapBounds(Rectangle rectangle){
-		
-		
 	//}
 }

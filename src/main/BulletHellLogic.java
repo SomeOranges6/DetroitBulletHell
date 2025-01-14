@@ -31,7 +31,6 @@ public class BulletHellLogic {
 			updatableAddCache  = new ArrayList<>(),
 			updatableRemoveCache = new ArrayList<>();
 
-
 	/**What the player's projectiles can collide with outside of the general list, i.e enemies**/
 	public static final ArrayList<Rectangle> collidablesPlayerProjectile = new ArrayList<>();
 	public static  ArrayList<Rectangle>
@@ -48,7 +47,6 @@ public class BulletHellLogic {
 	
 	// SpriteManager for the player
 	public static SpriteManager playerSpriteManager;
-	
 
 	/**Future variable used for pausing **/
     private static boolean running = true;
