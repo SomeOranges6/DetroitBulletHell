@@ -22,6 +22,9 @@ public class YesProjectile extends ProjectileBase {
         super.onUpdate();
         Rectangle collidedObject = MathUtil.checkForCollidedEntity(this, BulletHellLogic.collidablesGeneral);
         if(collidedObject != null) {
+            if(collidedObject instanceof EntityBase entity && !entity.equals(shooter)) {
+                entity.health -= 7;
+            }
             onDead();
         }
     }

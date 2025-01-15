@@ -14,7 +14,7 @@ public class TestEnemy extends EnemyBase {
 	public TestEnemy(int x, int y) {
 		super(x, y, 30, 30);
 		speed = 10;
-		health = 20;
+		health = 35;
 	}
 	
 	@Override

@@ -21,14 +21,14 @@ public class EnemyProjectile extends ProjectileBase {
         super.onUpdate();
         Rectangle collidedObject = MathUtil.checkForCollidedEntity(this, BulletHellLogic.collidablesGeneral);
         if(collidedObject != null) {
-            onDead();
-            if(collidedObject instanceof EntityBase entity && !entity.equals(shooter)){
+            if(collidedObject instanceof EntityBase entity && !entity.equals(shooter)) {
                 entity.health -= 10;
             }
+            onDead();
         }
     }
 
-    /**Renders a blue square if within map bounds **/
+    /**Renders a red square if within map bounds **/
     @Override
     public void render(Graphics2D g) {
         boolean boundsCheck =
