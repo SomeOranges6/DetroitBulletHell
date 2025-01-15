@@ -36,5 +36,8 @@ public class TestLevel extends LevelBase {
         addTriggerCache(TriggerFactory.heavyTrigger(20 * LevelManager.tileSize,60 * LevelManager.tileSize));
         addTriggerCache(TriggerFactory.railgunnerTrigger(20 * LevelManager.tileSize, 100 * LevelManager.tileSize));
         addTriggerCache(TriggerFactory.railgunnerTrigger(60 * LevelManager.tileSize,60 * LevelManager.tileSize));
+        //Places to Add Enemies
+        
+        
     }
 }

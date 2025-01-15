@@ -33,8 +33,8 @@ public class TestEnemy extends EnemyBase {
 	public void attack() {
 		EnemyProjectile enemyProjectile = new EnemyProjectile(x, y);
 		this.lookAtPlayer();
-		testProjectile.setShooter(this);
-		BulletHellLogic.spawnEntity(testProjectile);
+		enemyProjectile.setShooter(this);
+		BulletHellLogic.spawnEntity(enemyProjectile);
 
 	}
 
