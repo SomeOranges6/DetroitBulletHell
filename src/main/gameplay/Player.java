@@ -13,7 +13,7 @@ import java.util.List;
 
 public class Player extends EntityBase implements IUpdatable, KeyListener{
 
-	public boolean upPressed, downPressed, leftPressed, rightPressed, shootPressed, lookPressed;
+	public boolean upPressed, downPressed, leftPressed, rightPressed, shootPressed;
 
 	/**Used for locking your shooting direction **/
 	public boolean hasPressedLook, lookLock;
@@ -105,6 +105,7 @@ public class Player extends EntityBase implements IUpdatable, KeyListener{
 			}
 		}
 		
+		
 		// Adjust speed for diagonal movement
         if (vX != 0 && vY != 0) {
             double normalizationFactor = Math.sqrt(2);
@@ -144,7 +145,7 @@ public class Player extends EntityBase implements IUpdatable, KeyListener{
 			rightPressed = true;
 		}
 		if(code == KeyEvent.VK_J) {
-			lookPressed = true;
+			 lookLock = !lookLock;
 		}
 		//player uses an ability
 		if (code == KeyEvent.VK_O) {

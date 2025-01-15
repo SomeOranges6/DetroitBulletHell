@@ -1,16 +1,19 @@
-package main.entities.projectiles;
+package main.entities.projectiles.enemy;
+
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
 
 import main.BulletHellLogic;
 import main.MathUtil;
+import main.entities.EnemyBase;
 import main.entities.EntityBase;
 import main.entities.ProjectileBase;
 import main.gameplay.Player;
 
-import java.awt.*;
+public class EvilProjectile extends ProjectileBase {
 
-public class TestProjectile extends ProjectileBase {
-
-    public TestProjectile(int x, int y) {
+    public EvilProjectile(int x, int y) {
         super(x, y, 8, 8);
         speed = 20.0;
     }
@@ -19,10 +22,10 @@ public class TestProjectile extends ProjectileBase {
     @Override
     public void onUpdate() {
         super.onUpdate();
-        Rectangle collidedObject = MathUtil.checkForCollidedEntity(this, BulletHellLogic.collidablesPlayerProjectile);
+        Rectangle collidedObject = MathUtil.checkForCollidedEntity(this, EnemyBase.collidablesEnemy);
         if(collidedObject != null) {
-            if(collidedObject instanceof EntityBase entity && !entity.equals(shooter)) {
-                entity.health -= 10;
+            if(collidedObject instanceof EntityBase entity && !entity.equals(shooter)){
+                entity.health -= 2;
             }
             onDead();
         }
@@ -38,7 +41,7 @@ public class TestProjectile extends ProjectileBase {
                 y - height < BulletHellLogic.player.y + Player.screenY;
 
         if (boundsCheck) {
-                g.setColor(Color.BLUE);
+                g.setColor(Color.RED);
                 g.fillRect(x - BulletHellLogic.player.x + Player.screenX, y - BulletHellLogic.player.y + Player.screenY, width, height);
         }
     }

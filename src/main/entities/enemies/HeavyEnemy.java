@@ -6,15 +6,16 @@ import java.awt.Graphics2D;
 import main.BulletHellLogic;
 import main.MathUtil;
 import main.entities.EnemyBase;
-import main.entities.projectiles.EnemyProjectile;
+import main.entities.projectiles.TestProjectile;
+import main.entities.projectiles.enemy.EvilProjectile;
 import main.gameplay.Player;
 
-public class TestEnemy extends EnemyBase {
+public class HeavyEnemy extends EnemyBase {
 
-	public TestEnemy(int x, int y) {
-		super(x, y, 30, 30);
-		speed = 10;
-		health = 35;
+	public HeavyEnemy(int x, int y) {
+		super(x, y, 45, 45);
+		speed = 4;
+		health = 20;
 	}
 	
 	@Override
@@ -22,7 +23,7 @@ public class TestEnemy extends EnemyBase {
 		super.onUpdate();
 		move();
 		if(health <= 0) onDead();
-		if(BulletHellLogic.tick % 20 == 0) {
+		if(BulletHellLogic.tick % 1 == 0) {
 			attack();
 		}
 	}
@@ -32,11 +33,13 @@ public class TestEnemy extends EnemyBase {
 	 */
 	@Override
 	public void attack() {
-		EnemyProjectile enemyProjectile = new EnemyProjectile(x, y);
+		EvilProjectile testProjectile = new EvilProjectile(x, y);
+		testProjectile.damage /= 2;
+		
 		this.lookAtPlayer();
 		if(BulletHellLogic.tick % 20 == 0) {
-			enemyProjectile.setShooter(this);
-			BulletHellLogic.spawnEntity(enemyProjectile);
+			testProjectile.setShooter(this);
+			BulletHellLogic.spawnEntity(testProjectile);
 		}
 	}
 
