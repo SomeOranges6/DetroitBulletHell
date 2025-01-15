@@ -29,6 +29,8 @@ public abstract class EntityBase extends Rectangle {
 
     public boolean damageable;
 
+    public boolean collidable = true;
+
     public BufferedImage texture;
 
     /**Which angle this entity is pointing to, used for rendering the sprite and projectiles

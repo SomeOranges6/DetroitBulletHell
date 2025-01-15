@@ -65,6 +65,22 @@ public class MathUtil {
 		return false;
 	}
 
+	/**Checks an entity against a list of objects with hitboxes (rectangles), to see if any contain the entity
+	 * then returns the entity it collided with
+	 * @param entity The entity to check against the list
+	 * @param list A list of any class that extends Rectangle (i.e has a hitbox)
+	 * @return whether it contained the entity**/
+	public static boolean checkForContain(EntityBase entity, ArrayList<? extends Rectangle> list, boolean xAxis){
+		Rectangle futurePosition = new Rectangle((int) (entity.mX + entity.vX), (int) (entity.mY + entity.vY), entity.width, entity.height);
+
+		for(Rectangle rect : list){
+			if(futurePosition.intersects(rect)){
+				return true;
+			}
+		}
+		return false;
+	}
+
 	//public static boolean checkMapBounds(Rectangle rectangle){
 		
 		

@@ -14,14 +14,13 @@ public class TestEnemy extends EnemyBase {
 
 	public TestEnemy(int x, int y) {
 		super(x, y, 30, 30);
-		speed = 6;
-		health = 20;
+		speed = 12;
+		health = 10;
 	}
 	
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
-		move();
 		if(health <= 0) onDead();
 		if(BulletHellLogic.tick % 20 == 0) {
 			attack();
@@ -29,28 +28,20 @@ public class TestEnemy extends EnemyBase {
 	}
 	
 	/**
-	 * allows an enemy to attack the player
+	 * Spawns projectiles at a one second interval
 	 */
 	@Override
 	public void attack() {
 		EvilProjectile testProjectile = new EvilProjectile(x, y);
 		this.lookAtPlayer();
-		if(BulletHellLogic.tick % 20 == 0) {
-			testProjectile.setShooter(this);
-			BulletHellLogic.spawnEntity(testProjectile);
-		}
+		testProjectile.setShooter(this);
+		BulletHellLogic.spawnEntity(testProjectile);
+
 	}
 
-	/**Finds the location of the player and moves towards it**/
 	@Override
 	public void move() {
 		super.move();
-		
-		/*
-		 * vX = slope;
-      	   vY = slope;
-		 */
-
 		x = (int) mX;
 		y = (int) mY;
 		//acording to all known laws of aviation, bees should not be able to fly. They of course, fly anyway. This is because bees dont give a shit about what scientists think. Yellow black yellow black yellow black, oooh black and yellow, lets shake it up a little. Barry breakfast is ready. Coming mom. Barry how many times have I told you not to fly down the stairs?! Im sorry, im just so excited. hi its me jerry seinfeld and ihave no respect for myself

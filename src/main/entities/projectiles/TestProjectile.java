@@ -12,7 +12,7 @@ public class TestProjectile extends ProjectileBase {
 
     public TestProjectile(int x, int y) {
         super(x, y, 8, 8);
-        speed = 20.0;
+        speed = 40.0;
     }
     //TODO: once enemy spawn is working, change the hitbox list to be the enemy-inclusive list
     /** Despawns the projectile if it has collided with a wall **/
@@ -20,8 +20,8 @@ public class TestProjectile extends ProjectileBase {
     public void onUpdate() {
         super.onUpdate();
         Rectangle collidedObject = MathUtil.checkForCollidedEntity(this, BulletHellLogic.collidablesPlayerProjectile);
-        if(collidedObject != null) {
-            if(collidedObject instanceof EntityBase entity && !entity.equals(shooter)){
+        if(collidedObject != null && !collidedObject.equals(shooter)) {
+            if(collidedObject instanceof EntityBase entity){
                 entity.health -= 10;
             }
             onDead();

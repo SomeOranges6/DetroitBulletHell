@@ -20,11 +20,11 @@ public class MinigunProjectile extends ProjectileBase {
     public void onUpdate() {
         super.onUpdate();
         Rectangle collidedObject = MathUtil.checkForCollidedEntity(this, BulletHellLogic.collidablesGeneral);
-        if(collidedObject != null) {
-            onDead();
-            if(collidedObject instanceof EntityBase entity && !entity.equals(shooter)){
-                entity.health -= 4;
+        if(collidedObject != null && !collidedObject.equals(shooter)) {
+            if(collidedObject instanceof EntityBase entity){
+                entity.health -= 5;
             }
+            onDead();
         }
     }
 
