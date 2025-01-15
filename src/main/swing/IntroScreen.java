@@ -8,21 +8,14 @@ import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
+
+import main.BulletHellLogic;
 import main.swing.*;
 
-public class IntroScreen extends JPanel {
-    JFrame frame1;
-    DrawingPanel titlePanel;
-    BufferedImage titleScreen;
-    public static boolean titleVisible = true;
+import static main.BulletHellLogic.window;
 
-    public static void main(String[] args){
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                new IntroScreen();
-            }
-        });
-    }
+public class IntroScreen extends JPanel {
+    BufferedImage titleScreen;
     
     BufferedImage loadImage(String filename) {
     	BufferedImage img = null;
@@ -41,12 +34,10 @@ public class IntroScreen extends JPanel {
     }
 
     public IntroScreen(){
-        frame1 = new JFrame("Detroit");
-        frame1.setSize(new Dimension(850, 650));
-        frame1.setLocationRelativeTo(null);
-        
-        titlePanel = new DrawingPanel();
-        titlePanel.addKeyListener(new KeyListener() {
+		this.setPreferredSize(BulletHellLogic.screenDim);
+		this.setDoubleBuffered(true);
+		this.setBackground(Color.black);
+        this.addKeyListener(new KeyListener() {
 
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -55,10 +46,14 @@ public class IntroScreen extends JPanel {
 
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == 85) {
-					titlePanel.setVisible(false);
-					titleVisible = false;
-					HowToPlay.tutorialVisible = true;
+				if (e.getKeyCode() == KeyEvent.VK_A) {
+					dispose();
+					window.revalidate();
+					window.repaint();
+					window.setContentPane(BulletHellLogic.hPanel);
+					BulletHellLogic.hPanel.setVisible(true);
+					setVisible(false);
+
 				}
 			}
 
@@ -67,33 +62,25 @@ public class IntroScreen extends JPanel {
 				// TODO Auto-generated method stub
 			}
         });
-        
-        frame1.setContentPane(titlePanel);
-    	frame1.pack();
-    	frame1.setVisible(true);
-    	frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        }
+		this.setFocusable(true);
+	}
     
-    	class DrawingPanel extends JPanel {
-    	
-    	DrawingPanel(){
-            this.setBackground(Color.BLACK);
-            this.setPreferredSize(new Dimension(800, 600));
-        }
-    
-        public void paintComponent(Graphics g) {
-        	super.paintComponent(g);
-    		Graphics2D g2d = (Graphics2D)g;
-    		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-    		this.setFocusable(true);
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		Graphics2D g2d = (Graphics2D)g;
+		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-    		g2d.setColor(new Color(237, 58, 66));
-    		titleScreen = loadImage("/assets/7iodT64k.jpg");
-        	g2d.drawImage(titleScreen, 0, 0, getWidth(), getHeight(), null);
-        	
-        	Font subtitleFont = new Font("Arial", Font.BOLD, 20);
-        	g2d.setFont(subtitleFont);
-        	g2d.drawString("Press A To Begin", 300, 400);
-    	}
-    }
+		g2d.setColor(new Color(237, 58, 66));
+		titleScreen = loadImage("/assets/7iodT64k.jpg");
+		g2d.drawImage(titleScreen, 0, 0, getWidth(), getHeight(), null);
+
+		Font subtitleFont = new Font("Arial", Font.BOLD, 20);
+		g2d.setFont(subtitleFont);
+		g2d.drawString("Press A To Begin", 300, 400);
+	}
+
+	public void dispose(){
+		window.remove(this);
+	}
+
 }

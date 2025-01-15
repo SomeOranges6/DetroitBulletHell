@@ -65,10 +65,14 @@ public class BulletHellLogic {
     public static final int screenWidth = LevelManager.tileSize * 28;
     public static final int screenHeight = LevelManager.tileSize * 20;
 
+	public static final Dimension screenDim = new Dimension(BulletHellLogic.screenWidth, BulletHellLogic.screenHeight);
+
+	/**The JFrame the game uses **/
+	public volatile static JFrame window = new JFrame();
 
 	/**The JPanels the game use **/
     public static IntroScreen iPanel; //intro panel
-    public static HowToPlay tPanel; //tutorial panel
+    public static HowToPlay hPanel; //tutorial panel
     public static GamePanel gPanel;
 
 	/**Handles building and rendering the map itself **/
@@ -95,50 +99,39 @@ public class BulletHellLogic {
 	BulletHellLogic(){
 		centralTick.setActionCommand(centralActionCommand);
 		renderTick.setActionCommand(renderActionCommand);
-		startGame();
 		renderSetup();
-		centralTick.start();
-		renderTick.start();
 	}
 
 	private static void renderSetup(){
 		//set up frame
-		
-		JFrame window = new JFrame();
+
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setResizable(false);
 		window.setTitle("Game Prototype");
 		//set up panel
 		iPanel = new IntroScreen();
-		tPanel = new HowToPlay();
+		hPanel = new HowToPlay();
 		gPanel = new GamePanel();
-		
-		iPanel.setVisible(false);
-		window.add(iPanel);
-		tPanel.setVisible(false);
-		window.add(tPanel);
+
+
 		gPanel.setVisible(false);
 		window.add(gPanel);
-		
-		if (IntroScreen.titleVisible == true) {
-			iPanel.setVisible(true);
-		}
-		else if (HowToPlay.tutorialVisible == true) {
-			tPanel.setVisible(true);
-		}
-		else if (IntroScreen.titleVisible == false && HowToPlay.tutorialVisible == false) {
-			gPanel.setVisible(true);
-		}
+		hPanel.setVisible(false);
+		window.add(hPanel);
+		iPanel.setVisible(true);
+		window.add(iPanel);
+
 		
 		//fit the panel to the size of the windows
 		window.pack();
 		//more panel stuff
 		window.setLocationRelativeTo(null);
 		window.setVisible(true);
-
 	}
 
-	private static void startGame() {
+	public static void startGame() {
+		centralTick.start();
+		renderTick.start();
 		entitiesToUpdate = new ArrayList<>();
 		entitiesToRender = new ArrayList<>();
 		levelManager = new LevelManager(testLevel);
