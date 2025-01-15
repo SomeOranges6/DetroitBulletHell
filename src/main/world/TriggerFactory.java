@@ -2,6 +2,7 @@ package main.world;
 
 import main.BulletHellLogic;
 import main.entities.EntityBase;
+import main.entities.enemies.HeavyEnemy;
 import main.entities.enemies.TestEnemy;
 
 import java.awt.*;
@@ -14,6 +15,7 @@ import static main.BulletHellLogic.player;
 public class TriggerFactory {
 
     static Random rand = new Random();
+    
     public static Function<int[], EntityBase> radiusCheck = (coords) -> {
         Rectangle radius = new Rectangle(coords[0], coords[1], 400, 400);
         if (radius.intersects(player)){
@@ -27,6 +29,13 @@ public class TriggerFactory {
         spawn.x = x;
         spawn.y = y;
         spawn.action = (player)-> BulletHellLogic.spawnEntity(new TestEnemy(spawn.x + rand.nextInt(10) * 20, spawn.y + rand.nextInt(10) * 20));
+        return spawn;
+    }
+    public static Trigger heavyTrigger(int x, int y){
+        Trigger spawn = new Trigger(radiusCheck, null);
+        spawn.x = x;
+        spawn.y = y;
+        spawn.action = (player)-> BulletHellLogic.spawnEntity(new HeavyEnemy(spawn.x + rand.nextInt(10) * 20, spawn.y + rand.nextInt(10) * 20));
         return spawn;
     }
 }

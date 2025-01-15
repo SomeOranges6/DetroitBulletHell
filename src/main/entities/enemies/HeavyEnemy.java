@@ -10,11 +10,11 @@ import main.entities.projectiles.TestProjectile;
 import main.entities.projectiles.enemy.EvilProjectile;
 import main.gameplay.Player;
 
-public class TestEnemy extends EnemyBase {
+public class HeavyEnemy extends EnemyBase {
 
-	public TestEnemy(int x, int y) {
-		super(x, y, 30, 30);
-		speed = 6;
+	public HeavyEnemy(int x, int y) {
+		super(x, y, 45, 45);
+		speed = 4;
 		health = 20;
 	}
 	
@@ -23,7 +23,7 @@ public class TestEnemy extends EnemyBase {
 		super.onUpdate();
 		move();
 		if(health <= 0) onDead();
-		if(BulletHellLogic.tick % 20 == 0) {
+		if(BulletHellLogic.tick % 1 == 0) {
 			attack();
 		}
 	}
@@ -34,6 +34,8 @@ public class TestEnemy extends EnemyBase {
 	@Override
 	public void attack() {
 		EvilProjectile testProjectile = new EvilProjectile(x, y);
+		testProjectile.damage /= 2;
+		
 		this.lookAtPlayer();
 		if(BulletHellLogic.tick % 20 == 0) {
 			testProjectile.setShooter(this);

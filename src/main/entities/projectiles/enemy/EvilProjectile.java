@@ -1,35 +1,37 @@
-package main.entities.projectiles;
+package main.entities.projectiles.enemy;
+
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
 
 import main.BulletHellLogic;
 import main.MathUtil;
+import main.entities.EnemyBase;
 import main.entities.EntityBase;
 import main.entities.ProjectileBase;
 import main.gameplay.Player;
 
-import java.awt.*;
+public class EvilProjectile extends ProjectileBase {
 
-public class ShotgunProjectile extends ProjectileBase {
-
-    public ShotgunProjectile(int x, int y) {
+    public EvilProjectile(int x, int y) {
         super(x, y, 8, 8);
-        speed = 40.0;
+        speed = 20.0;
     }
-
     //TODO: once enemy spawn is working, change the hitbox list to be the enemy-inclusive list
     /** Despawns the projectile if it has collided with a wall **/
     @Override
     public void onUpdate() {
         super.onUpdate();
-        Rectangle collidedObject = MathUtil.checkForCollidedEntity(this, BulletHellLogic.collidablesPlayerProjectile);
+        Rectangle collidedObject = MathUtil.checkForCollidedEntity(this, EnemyBase.collidablesEnemy);
         if(collidedObject != null) {
             if(collidedObject instanceof EntityBase entity && !entity.equals(shooter)){
-                entity.health -= 10;
+                entity.health -= 2;
             }
             onDead();
         }
     }
 
-    /**Renders a green square if within map bounds **/
+    /**Renders a blue square if within map bounds **/
     @Override
     public void render(Graphics2D g) {
         boolean boundsCheck =
@@ -39,15 +41,8 @@ public class ShotgunProjectile extends ProjectileBase {
                 y - height < BulletHellLogic.player.y + Player.screenY;
 
         if (boundsCheck) {
-            g.setColor(Color.GREEN);
-            g.fillRect(x - BulletHellLogic.player.x + Player.screenX, y - BulletHellLogic.player.y + Player.screenY, width, height);
+                g.setColor(Color.RED);
+                g.fillRect(x - BulletHellLogic.player.x + Player.screenX, y - BulletHellLogic.player.y + Player.screenY, width, height);
         }
-    }
-
-    @Override
-    public void setShooter(EntityBase shooter) {
-        facingAngle = shooter.facingAngle;
-        x = shooter.x;
-        y = shooter.y;
     }
 }
