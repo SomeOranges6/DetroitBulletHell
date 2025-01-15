@@ -1,13 +1,13 @@
-package main;
+package main.swing;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class HowToPlay {
+public class HowToPlay extends JPanel{
 	JFrame frame;
 	DrawingPanel panel;
-	JLabel label1, label2, label3, label4, label5;
+	public static boolean tutorialVisible = false;
 
 	public static void main(String[] args) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -17,7 +17,7 @@ public class HowToPlay {
         });
 	}
 	
-	HowToPlay(){
+	public HowToPlay(){
 		frame = new JFrame("How To Play");
 		frame.setSize(new Dimension(850, 650));
 		frame.setLocationRelativeTo(null);
@@ -33,7 +33,8 @@ public class HowToPlay {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_U) {
-					frame.dispose();
+					panel.setVisible(false);
+					tutorialVisible = false;
 				}
 			}
 

@@ -5,6 +5,9 @@ import main.entities.interfaces.IUpdatable;
 import main.gameplay.CharacterList;
 import main.gameplay.Player;
 import main.swing.GamePanel;
+import main.swing.IntroScreen;
+import main.swing.HowToPlay;
+
 import main.world.LevelManager;
 import main.world.levels.TestLevel;
 import main.gameplay.SpriteManager;
@@ -63,7 +66,9 @@ public class BulletHellLogic {
     public static final int screenHeight = LevelManager.tileSize * 20;
 
 
-	/**The JPanel the game  runs in **/
+	/**The JPanels the game use **/
+    public static IntroScreen iPanel; //intro panel
+    public static HowToPlay tPanel; //tutorial panel
     public static GamePanel gPanel;
 
 	/**Handles building and rendering the map itself **/
@@ -98,13 +103,33 @@ public class BulletHellLogic {
 
 	private static void renderSetup(){
 		//set up frame
+		
 		JFrame window = new JFrame();
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setResizable(false);
 		window.setTitle("Game Prototype");
 		//set up panel
+		iPanel = new IntroScreen();
+		tPanel = new HowToPlay();
 		gPanel = new GamePanel();
+		
+		iPanel.setVisible(false);
+		window.add(iPanel);
+		tPanel.setVisible(false);
+		window.add(tPanel);
+		gPanel.setVisible(false);
 		window.add(gPanel);
+		
+		if (IntroScreen.titleVisible == true) {
+			iPanel.setVisible(true);
+		}
+		else if (HowToPlay.tutorialVisible == true) {
+			tPanel.setVisible(true);
+		}
+		else if (IntroScreen.titleVisible == false && HowToPlay.tutorialVisible == false) {
+			gPanel.setVisible(true);
+		}
+		
 		//fit the panel to the size of the windows
 		window.pack();
 		//more panel stuff
