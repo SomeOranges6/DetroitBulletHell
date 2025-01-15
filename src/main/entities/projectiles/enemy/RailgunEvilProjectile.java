@@ -19,6 +19,7 @@ public class RailgunEvilProjectile extends ProjectileBase {
     public RailgunEvilProjectile(int x, int y) {
         super(x, y, 12, 12);
         speed = 50;
+        damage = 6;
     }
     //TODO: once enemy spawn is working, change the hitbox list to be the enemy-inclusive list
     /** Despawns the projectile if it has collided with a wall **/
@@ -28,7 +29,7 @@ public class RailgunEvilProjectile extends ProjectileBase {
         Rectangle collidedObject = MathUtil.checkForCollidedEntity(this, player);
         if(collidedObject != null) {
             if(collidedObject instanceof EntityBase entity && !entity.equals(shooter)){
-                entity.health -= 6;
+                entity.health -= damage;
             }
             onDead();
         }

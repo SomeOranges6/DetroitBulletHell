@@ -6,14 +6,17 @@ import java.awt.Graphics2D;
 import main.BulletHellLogic;
 import main.MathUtil;
 import main.entities.EnemyBase;
+import main.entities.ProjectileBase;
+import main.entities.projectiles.ShotgunProjectile;
 import main.entities.projectiles.enemy.EvilProjectile;
+import main.entities.projectiles.enemy.ShotgunEvilProjectile;
 import main.gameplay.Player;
 
-public class TestEnemy extends EnemyBase {
+public class ShotgunnerEnemy extends EnemyBase { //Fast
 
-	public TestEnemy(int x, int y) {
+	public ShotgunnerEnemy(int x, int y) {
 		super(x, y, 30, 30);
-		speed = 10;
+		speed = 15;
 		health = 10;
 	}
 	
@@ -31,10 +34,17 @@ public class TestEnemy extends EnemyBase {
 	 */
 	@Override
 	public void attack() {
-		EvilProjectile enemyProjectile = new EvilProjectile(x, y);
-		this.lookAtPlayer();
-		enemyProjectile.setShooter(this);
-		BulletHellLogic.spawnEntity(enemyProjectile);
+		lookAtPlayer();
+		for (int i = -3; i < 4; i++) {
+            ProjectileBase shotgunProjectile = new ShotgunEvilProjectile(x, y);
+            shotgunProjectile.setShooter(this);
+            shotgunProjectile.damage = 5;
+
+            double spreadAngle =  shotgunProjectile.facingAngle - Math.toRadians(15) * i;
+            shotgunProjectile.vX = Math.cos(spreadAngle) * shotgunProjectile.speed;
+            shotgunProjectile.vY = Math.sin(spreadAngle) * shotgunProjectile.speed;
+            BulletHellLogic.spawnEntity(shotgunProjectile);
+        }
 
 	}
 
@@ -49,7 +59,7 @@ public class TestEnemy extends EnemyBase {
 	
 	@Override
 	public void render(Graphics2D g) {
-		g.setColor(Color.RED);
+		g.setColor(Color.GREEN);
 		g.fillRect(x - BulletHellLogic.player.x + Player.screenX, y - BulletHellLogic.player.y + Player.screenY, width, height);
 	}
 }

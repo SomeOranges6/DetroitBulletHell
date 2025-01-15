@@ -25,7 +25,7 @@ public class EvilProjectile extends ProjectileBase {
         Rectangle collidedObject = MathUtil.checkForCollidedEntity(this, EnemyBase.collidablesEnemyProjectile);
         if(collidedObject != null) {
             if(collidedObject instanceof EntityBase entity && !entity.equals(shooter)){
-                entity.health -= 2;
+                entity.health -= damage;
             }
             onDead();
         }

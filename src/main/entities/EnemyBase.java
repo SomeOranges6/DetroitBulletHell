@@ -79,36 +79,6 @@ public class EnemyBase extends EntityBase implements IUpdatable {
 
 
     }
-
-    /**
-     * Finds the location of the player and aims for it
-     */
-    public void lookAtPlayer() {
-        //defines the locations of the enemy and player as coordinate pairs
-        int [] enemyLocation = {x, y};
-        int [] playerLocation = {BulletHellLogic.player.x, BulletHellLogic.player.y};
-
-        //defines a right triangle with a base and height corresponding to the difference between the locations of the player and enemy on both axes
-        int [] enemyPlayerTriangle = MathUtil.distFrom(playerLocation, enemyLocation);
-        int [] playerEnemyTriangle = MathUtil.distFrom(enemyLocation, playerLocation);
-
-        double playerAngle = 0;
-
-        playerAngle = Math.atan2(enemyPlayerTriangle[1], enemyPlayerTriangle[0]);
-        facingAngle = playerAngle;
-
-        //calculates the hypotenuse of the enemy-player triangles
-        int sideA = playerEnemyTriangle[1];
-        int sideB = playerEnemyTriangle[0];
-        hypot = (int) (Math.sqrt(Math.pow(sideA, 2) + Math.pow(sideB, 2)));
-
-        if(Math.abs(hypot) > 100) {
-            vX = Math.cos(facingAngle) * speed;
-            vY = Math.sin(facingAngle) * speed;
-        }
-
-
-    }
     
     /**
      * Gives the position of the player

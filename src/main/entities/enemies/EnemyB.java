@@ -6,7 +6,7 @@ import java.awt.Graphics2D;
 import main.BulletHellLogic;
 import main.MathUtil;
 import main.entities.EnemyBase;
-import main.entities.projectiles.EnemyProjectile;
+import main.entities.projectiles.enemy.EvilProjectile;
 import main.gameplay.Player;
 
 public class EnemyB extends EnemyBase { //Fast
@@ -33,7 +33,7 @@ public class EnemyB extends EnemyBase { //Fast
 	 */
 	@Override
 	public void attack() {
-		EnemyProjectile enemyProjectile = new EnemyProjectile(x, y);
+		EvilProjectile enemyProjectile = new EvilProjectile(x, y);
 		this.lookAtPlayer();
 		if(BulletHellLogic.tick % 20 == 0) {
 			enemyProjectile.setShooter(this);

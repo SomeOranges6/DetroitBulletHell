@@ -14,7 +14,7 @@ public class WeaponList {
 
     static Random rand = new Random();
 
-    public static Weapon stockWeapon = new Weapon(10,10,100, null){
+    public static Weapon stockWeapon = new Weapon(10,15,100, null){
         @Override
         public void onShoot() {
             if(BulletHellLogic.tick % firerate == 0) {
@@ -27,7 +27,7 @@ public class WeaponList {
         }
     };
 
-    public static Weapon shotgun = new Weapon(4,20,100, null){
+    public static Weapon shotgun = new Weapon(7,20,100, null){
         @Override
         public void onShoot() {
             if(BulletHellLogic.tick % firerate == 0) {
