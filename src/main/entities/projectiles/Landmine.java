@@ -8,11 +8,10 @@ import main.gameplay.Player;
 
 import java.awt.*;
 
-public class YesProjectile extends ProjectileBase {
+public class Landmine extends ProjectileBase {
 
-    public YesProjectile(int x, int y) {
-        super(x, y, 8, 8);
-        speed = 20.0;
+    public Landmine(int x, int y) {
+        super(x, y, 32, 32);
     }
 
     //TODO: once enemy spawn is working, change the hitbox list to be the enemy-inclusive list
@@ -20,10 +19,17 @@ public class YesProjectile extends ProjectileBase {
     @Override
     public void onUpdate() {
         super.onUpdate();
-        Rectangle collidedObject = MathUtil.checkForCollidedEntity(this, BulletHellLogic.collidablesGeneral);
-        if(collidedObject != null) {
-            if(collidedObject instanceof EntityBase entity && !entity.equals(shooter)) {
-                entity.health -= 7;
+        Rectangle collidedObject = MathUtil.checkForCollidedEntity(this, BulletHellLogic.collidablesPlayerProjectile);
+        if(collidedObject != null && !collidedObject.equals(shooter)) {
+            for (int i = -9; i < 11; i++) {
+                ProjectileBase yesProjectile = new TestProjectile(x, y);
+                yesProjectile.damage /= 3;
+                //yesProjectile.setShooter(shooter);
+
+                double spreadAngle = yesProjectile.facingAngle - Math.toRadians(18) * i;
+                yesProjectile.vX = Math.cos(spreadAngle) * yesProjectile.speed;
+                yesProjectile.vY = Math.sin(spreadAngle) * yesProjectile.speed;
+                BulletHellLogic.spawnEntity(yesProjectile);
             }
             onDead();
         }
@@ -44,10 +50,5 @@ public class YesProjectile extends ProjectileBase {
         }
     }
 
-    @Override
-    public void setShooter(EntityBase shooter) {
-        facingAngle = shooter.facingAngle;
-        x = shooter.x;
-        y = shooter.y;
-    }
+
 }

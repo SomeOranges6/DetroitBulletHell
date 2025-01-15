@@ -13,7 +13,6 @@ import java.util.Objects;
 import java.util.List;
 import java.util.Map;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 /**Handles all the general logic associated with maps, such as rendering, collisions, and triggers **/
@@ -32,7 +31,6 @@ public class LevelManager {
 
     public LevelManager(LevelBase level) {
     	this.level = level;
-    	handleTileEffects();
         loadLevel(level);
     }
 
@@ -128,7 +126,8 @@ public class LevelManager {
 
     public void handleTileEffects() {
         // Clear previous collidables to prevent duplicates
-        BulletHellLogic.collidablesGeneral.clear();
+        // the reason we had duplicates was because this was being called twice
+        //BulletHellLogic.collidablesGeneral.clear();
 
         // Get Layer 3 (index 2) data
         int[][] layer3 = level.mapLayers.get(2);
@@ -146,7 +145,7 @@ public class LevelManager {
 
                     // Add a rectangle for the collidable tile
                     Rectangle collidable = new Rectangle(worldX, worldY, LevelManager.tileSize, LevelManager.tileSize);
-                    BulletHellLogic.collidablesGeneral.add(collidable);
+                    BulletHellLogic.addCollidable(collidable);
 
                 }
             }
@@ -154,25 +153,34 @@ public class LevelManager {
     }
 
     public void draw(Graphics2D g2, SpriteManager playerSprite) {
+
+        int minOffsetX = (Math.max(BulletHellLogic.player.x - Player.screenX, 0))/tileSize;
+        int minOffsetY = (Math.max(BulletHellLogic.player.y - Player.screenY, 0))/tileSize;
+
+        int maxOffsetX = (Math.min(BulletHellLogic.player.x + Player.screenX + 30, 149 * 32))/tileSize;
+        int maxOffsetY = (Math.min(BulletHellLogic.player.y + Player.screenY + 30, 149 * 32))/tileSize;
+
         for (int layer = 0; layer < level.mapLayers.size(); layer++) {
             int[][] layerGrid = level.mapLayers.get(layer);
-            for (int row = 0; row < level.height; row++) {
-                for (int col = 0; col < level.width; col++) {
+            for (int row = minOffsetY; row <= maxOffsetY; row++) {
+                for (int col = minOffsetX; col <= maxOffsetX; col++) {
                     int tileNum = layerGrid[row][col];
-                    Tile tile = tileIndexMap.get(tileNum);
+                    if(tileNum != -1) {
+                        Tile tile = tileIndexMap.get(tileNum);
 
-                    if (tile != null) {
-                        int worldX = col * tileSize;
-                        int worldY = row * tileSize;
+                        if (tile != null) {
+                            int worldX = col * tileSize;
+                            int worldY = row * tileSize;
 
-                        int screenX = worldX - BulletHellLogic.player.x + Player.screenX;
-                        int screenY = worldY - BulletHellLogic.player.y + Player.screenY;
+                            int screenX = worldX - BulletHellLogic.player.x + Player.screenX;
+                            int screenY = worldY - BulletHellLogic.player.y + Player.screenY;
 
-                        if (worldX + tileSize > BulletHellLogic.player.x - Player.screenX &&
-                                worldX - tileSize < BulletHellLogic.player.x + Player.screenX &&
-                                worldY + tileSize > BulletHellLogic.player.y - Player.screenY &&
-                                worldY - tileSize < BulletHellLogic.player.y + Player.screenY) {
-                            g2.drawImage(tile.image, screenX, screenY, tileSize, tileSize, null);
+                            if (worldX + tileSize > BulletHellLogic.player.x - Player.screenX &&
+                                    worldX - tileSize < BulletHellLogic.player.x + Player.screenX &&
+                                    worldY + tileSize > BulletHellLogic.player.y - Player.screenY &&
+                                    worldY - tileSize < BulletHellLogic.player.y + Player.screenY) {
+                                g2.drawImage(tile.image, screenX, screenY, tileSize, tileSize, null);
+                            }
                         }
                     }
                 }

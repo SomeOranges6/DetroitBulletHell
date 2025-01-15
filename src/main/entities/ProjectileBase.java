@@ -10,6 +10,7 @@ public class ProjectileBase extends EntityBase implements IUpdatable {
     public EntityBase shooter;
     public ProjectileBase(int x, int y, int width, int height) {
         super(x,y,width,height);
+        collidable = false;
     }
 
     @Override

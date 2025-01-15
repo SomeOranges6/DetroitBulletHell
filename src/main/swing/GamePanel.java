@@ -42,6 +42,8 @@ public class GamePanel extends JPanel {
         g2.drawString("X coord: " + BulletHellLogic.player.x, 10, 30);
         g2.drawString("Y coord: " + BulletHellLogic.player.y, 10, 50);
 
+        g2.drawString("Health: " + BulletHellLogic.player.health, 10, 70);
+
         g2.dispose();
     }
 }

@@ -13,10 +13,12 @@ import static main.BulletHellLogic.player;
 
 public class EnemyBase extends EntityBase implements IUpdatable {
 
-    public static ArrayList<Rectangle> collidablesEnemy = BulletHellLogic.collidablesGeneral;
+    public static ArrayList<Rectangle> collidablesEnemyProjectile = BulletHellLogic.collidablesGeneral;
+    public static ArrayList<Rectangle> collidablesEnemy = BulletHellLogic.collidablesPlayerProjectile;
     int hypot;
     static {
         collidablesEnemy.addFirst(player);
+        collidablesEnemyProjectile.addFirst(player);
     }
 	
     public EnemyBase(int x, int y){
@@ -31,7 +33,6 @@ public class EnemyBase extends EntityBase implements IUpdatable {
 
     @Override
     public void onUpdate() {
-    	attack();
         move();
     }
 
@@ -53,6 +54,8 @@ public class EnemyBase extends EntityBase implements IUpdatable {
         if (!MathUtil.checkForCollision(this, collidablesEnemy, false)) {
             mY += vY;
         }
+
+
     }
 
     /**

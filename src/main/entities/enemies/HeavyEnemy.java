@@ -14,16 +14,15 @@ public class HeavyEnemy extends EnemyBase {
 
 	public HeavyEnemy(int x, int y) {
 		super(x, y, 45, 45);
-		speed = 4;
-		health = 20;
+		speed = 8;
+		health = 40;
 	}
 	
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
-		move();
 		if(health <= 0) onDead();
-		if(BulletHellLogic.tick % 1 == 0) {
+		if(BulletHellLogic.tick % 3 == 0) {
 			attack();
 		}
 	}
@@ -35,12 +34,10 @@ public class HeavyEnemy extends EnemyBase {
 	public void attack() {
 		EvilProjectile testProjectile = new EvilProjectile(x, y);
 		testProjectile.damage /= 2;
-		
 		this.lookAtPlayer();
-		if(BulletHellLogic.tick % 20 == 0) {
-			testProjectile.setShooter(this);
-			BulletHellLogic.spawnEntity(testProjectile);
-		}
+		testProjectile.setShooter(this);
+		BulletHellLogic.spawnEntity(testProjectile);
+
 	}
 
 	/**Finds the location of the player and moves towards it**/

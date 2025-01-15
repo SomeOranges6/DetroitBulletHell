@@ -21,9 +21,9 @@ public class ShotgunProjectile extends ProjectileBase {
     public void onUpdate() {
         super.onUpdate();
         Rectangle collidedObject = MathUtil.checkForCollidedEntity(this, BulletHellLogic.collidablesPlayerProjectile);
-        if(collidedObject != null) {
-            if(collidedObject instanceof EntityBase entity && !entity.equals(shooter)) {
-                entity.health -= 8;
+        if(collidedObject != null && !collidedObject.equals(shooter)) {
+            if(collidedObject instanceof EntityBase entity){
+                entity.health -= 5;
             }
             onDead();
         }
