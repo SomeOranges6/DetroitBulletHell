@@ -5,16 +5,16 @@ import main.entities.ProjectileBase;
 import main.entities.projectiles.MinigunProjectile;
 import main.entities.projectiles.ShotgunProjectile;
 import main.entities.projectiles.TestProjectile;
-import main.entities.projectiles.YesProjectile;
+import main.entities.projectiles.Landmine;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.util.function.BiConsumer;
+import java.util.Random;
 
 /**Holds all the weapons that the player, or even some enemies, may use **/
 public class WeaponList {
 
-   public static Weapon stockWeapon = new Weapon(10,10,100, null){
+    static Random rand = new Random();
+
+    public static Weapon stockWeapon = new Weapon(10,10,100, null){
         @Override
         public void onShoot() {
             if(BulletHellLogic.tick % firerate == 0) {
@@ -53,25 +53,22 @@ public class WeaponList {
                 minigunProjectile.setShooter(shooter);
                 minigunProjectile.damage = damage;
                 minigunProjectile.speed = 2.0;
+                double spreadAngle =  minigunProjectile.facingAngle - rand.nextInt(15);
+                minigunProjectile.vX = Math.cos(spreadAngle);
+                minigunProjectile.vY = Math.sin(spreadAngle);
                 BulletHellLogic.spawnEntity(minigunProjectile);
             }
         }
     };
     
-    public static Weapon yes = new Weapon(4,60,100, null){
+    public static Weapon minelayer = new Weapon(4,60,100, null){
         @Override
         public void onShoot() {
             if(BulletHellLogic.tick % firerate == 0) {
-                for (int i = -9; i < 11; i++) {
-                    ProjectileBase yesProjectile = new YesProjectile(shooter.x, shooter.y);
-                    yesProjectile.setShooter(shooter);
-                    yesProjectile.damage = damage;
-
-                    double spreadAngle =  yesProjectile.facingAngle - Math.toRadians(18) * i;
-                    yesProjectile.vX = Math.cos(spreadAngle) * yesProjectile.speed;
-                    yesProjectile.vY = Math.sin(spreadAngle) * yesProjectile.speed;
-                    BulletHellLogic.spawnEntity(yesProjectile);
-                }
+                Landmine stockProjectile = new Landmine(shooter.x, shooter.y);
+                stockProjectile.setShooter(shooter);
+                stockProjectile.damage = damage;
+                BulletHellLogic.spawnEntity(stockProjectile);
             }
         }
     };

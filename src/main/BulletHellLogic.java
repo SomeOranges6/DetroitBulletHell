@@ -169,11 +169,13 @@ public class BulletHellLogic {
 	public static void spawnEntity(EntityBase entity){
 		if(entity instanceof  IUpdatable){
 			updatableAddCache.add((IUpdatable) entity);
-
 		}
-		collidableAddCache.add(entity);
+		if(entity.collidable)
+			collidableAddCache.add(entity);
 		renderableAddCache.add(entity);
 	}
+
+
 
 	/**Adds entities to the cache to be removed next tick**/
 	public static void removeEntity(EntityBase entity){
@@ -186,6 +188,7 @@ public class BulletHellLogic {
 
 	public static void addCollidable(Rectangle rectangle){
 		collidablesGeneral.add(rectangle);
+		collidablesPlayerProjectile.add(rectangle);
 	} 
 
 	public static void removeCollidable(Rectangle rectangle){
