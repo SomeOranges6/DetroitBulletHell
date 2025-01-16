@@ -10,12 +10,23 @@ public class GamePanel extends JPanel {
 
     // Constructor
     public GamePanel() {
-        Dimension dimension = new Dimension(BulletHellLogic.screenWidth, BulletHellLogic.screenHeight);
+        // Set full screen
+        GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        JFrame frame = new JFrame();
+        frame.setUndecorated(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(this);
+        gd.setFullScreenWindow(frame);
+
+        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
         this.setPreferredSize(dimension);
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
         this.addKeyListener(BulletHellLogic.player);
         this.setFocusable(true);
+
+        frame.pack();
+        frame.setVisible(true);
     }
 
     public void onUpdate() {
@@ -35,14 +46,6 @@ public class GamePanel extends JPanel {
         for (EntityBase entity : BulletHellLogic.getEntitiesToRender()) {
             entity.render(g2);
         }
-
-        // Draw coordinates
-        g2.setFont(new Font(Font.MONOSPACED, Font.BOLD, 20));
-        g2.setColor(Color.RED);
-        g2.drawString("X coord: " + BulletHellLogic.player.x, 10, 30);
-        g2.drawString("Y coord: " + BulletHellLogic.player.y, 10, 50);
-
-        g2.drawString("Health: " + BulletHellLogic.player.health, 10, 70);
 
         g2.dispose();
     }

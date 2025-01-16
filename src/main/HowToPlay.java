@@ -1,4 +1,9 @@
+package main;
+
 import javax.swing.*;
+
+import main.TitleScreen.DrawingPanel;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -17,9 +22,17 @@ public class HowToPlay {
 	
 	HowToPlay(){
 		frame = new JFrame("How To Play");
-		frame.setSize(new Dimension(850, 650));
-		frame.setLocationRelativeTo(null);
-		panel = new DrawingPanel();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Set full screen
+        frame.setUndecorated(true);
+        GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        gd.setFullScreenWindow(frame);
+
+        panel = new DrawingPanel();
+        frame.setContentPane(panel);
+        frame.pack();
+        frame.setVisible(true);
 		
 		panel.addKeyListener(new KeyListener() {
 
@@ -31,6 +44,7 @@ public class HowToPlay {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_U) {
+					new TitleScreen();
 					frame.dispose();
 				}
 			}
@@ -51,7 +65,7 @@ public class HowToPlay {
 	class DrawingPanel extends JPanel {
 		DrawingPanel(){
 			this.setBackground(Color.BLACK);
-			this.setPreferredSize(new Dimension(800, 600));
+			this.setPreferredSize(new Dimension(1920,1080));
 			this.setFocusable(true);
 		}
 		public void paintComponent(Graphics g) {
@@ -63,9 +77,9 @@ public class HowToPlay {
 			Font tutorialFont = new Font("Arial", Font.BOLD, 40);
             g2d.setFont(tutorialFont);
             
-            g2d.drawString("Press U to Attack and Start Game", 20, 100);
-            g2d.drawString("Press I to Switch Weapons", 20, 300);
-            g2d.drawString("Press J to Lock Your Shooting Direction", 20, 500);
+            g2d.drawString("Press A to Attack and go back to Title Screen", 20, 100);
+            g2d.drawString("Press B to Switch Weapons", 20, 300);
+            g2d.drawString("Press X to Lock Your Shooting Direction", 20, 500);
 		}
 	}
 }

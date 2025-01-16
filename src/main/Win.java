@@ -9,7 +9,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 
-public class Death {
+public class Win {
 	JFrame frame;
 	DrawingPanel panel;
 	boolean deathVisible = true;
@@ -17,13 +17,13 @@ public class Death {
 	public static void main(String[] args) {
 		 javax.swing.SwingUtilities.invokeLater(new Runnable() {
 	            public void run() {
-	                new Death();
+	                new Win();
 	            }
 	        });
 	}
 	
-	Death(){
-		frame = new JFrame("Death");
+	Win(){
+		frame = new JFrame("Win");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Set full screen
@@ -40,7 +40,7 @@ public class Death {
 	class DrawingPanel extends JPanel implements KeyListener{
 		
 		DrawingPanel(){
-            this.setBackground(Color.RED);
+            this.setBackground(Color.cyan);
             this.setPreferredSize(new Dimension(1920, 1080));
             this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
             this.setAlignmentX(CENTER_ALIGNMENT);
@@ -55,7 +55,7 @@ public class Death {
 			
 			Font deathFont = new Font("Arial", Font.BOLD, 40);
 			g2d.setFont(deathFont);
-			g2d.drawString("YOU DIED", 675, 200);
+			g2d.drawString("You Win", 675, 200);
 		
 			Font subtitleFont = new Font("Arial", Font.BOLD, 20);
             g2d.setFont(subtitleFont);

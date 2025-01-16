@@ -1,73 +1,85 @@
+package main;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
-
-public class TitleScreen{
+public class TitleScreen {
     JFrame frame;
     DrawingPanel panel;
-    JLabel title, startInstruction;
-    boolean setVisible;
 
-    public static void main(String[] args){
-         javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                new TitleScreen();
-            }
-        });
+    public static void main(String[] args) {
+        javax.swing.SwingUtilities.invokeLater(TitleScreen::new);
     }
 
-    TitleScreen(){
+    TitleScreen() {
         frame = new JFrame("Bass Pro Shoots");
-        frame.setSize(new Dimension(850, 650));
-        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Set full screen
+        frame.setUndecorated(true);
+        GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        gd.setFullScreenWindow(frame);
+
         panel = new DrawingPanel();
-        panel.addKeyListener(new KeyListener() {
+        frame.setContentPane(panel);
+        frame.pack();
+        frame.setVisible(true);
 
-			@Override
-			public void keyTyped(KeyEvent e) {
-				// TODO Auto-generated method stub
-			}
-
-			@Override
-			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_U) {
-					frame.dispose();
-				}
-			}
-
-			@Override
-			public void keyReleased(KeyEvent e) {
-				// TODO Auto-generated method stub
-			}
+        // Add key listener for input
+        panel.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_U) {
+                    frame.dispose();
+                    new BulletHellLogic(); // Start the game
+                } else if (e.getKeyCode() == KeyEvent.VK_K) {
+                	new  HowToPlay();
+                }else if (e.getKeyCode() == KeyEvent.VK_J) {
+                    System.exit(0); // Exit the game
+                }
+            }
         });
-
-		frame.setContentPane(panel);
-		frame.pack();
-		frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        panel.setFocusable(true);
+        panel.requestFocusInWindow();
     }
 
     class DrawingPanel extends JPanel {
-    	
-    	DrawingPanel(){
+        private Image titleImage;
+
+        DrawingPanel() {
             this.setBackground(Color.BLACK);
-            this.setPreferredSize(new Dimension(800, 600));
-            this.setFocusable(true);
+            this.setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
+
+            // Load the title screen image
+            try {
+                titleImage = ImageIO.read(getClass().getResource("/assets/titleScreen.jpg"));
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("Failed to load title screen image.");
+            }
         }
-        public void paintComponent(Graphics g){
+
+        @Override
+        public void paintComponent(Graphics g) {
             super.paintComponent(g);
-			Graphics2D g2d = (Graphics2D)g;
-			g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            Graphics2D g2d = (Graphics2D) g;
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-            Font titleFont = new Font("Arial", Font.BOLD, 50);
-            g2d.setColor(new Color(237, 58, 66));
-            g2d.setFont(titleFont);
-            g2d.drawString("Bass Pro Shoots", 200, 200); //obviously to be changed later
+            // Draw the title screen image
+            if (titleImage != null) {
+                g2d.drawImage(titleImage, 0, 0, getWidth(), getHeight(), null);
+            }
 
-            Font subtitleFont = new Font("Arial", Font.BOLD, 20);
-            g2d.setFont(subtitleFont);
-            g2d.drawString("Press U To Begin", 300, 400);
+            // Draw the options
+            Font optionsFont = new Font("Arial", Font.BOLD, 30);
+            g2d.setColor(Color.RED);
+            g2d.setFont(optionsFont);
+            g2d.drawString("Press A to Start", getWidth() / 2 - 150, getHeight() - 200);
+            g2d.drawString("Press Y to See Controls", getWidth() / 2 - 150, getHeight() - 150);
+            g2d.drawString("Press X to Exit", getWidth() / 2 - 150, getHeight() - 100);
         }
     }
 }

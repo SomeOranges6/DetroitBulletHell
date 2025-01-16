@@ -4,10 +4,11 @@ import main.entities.EntityBase;
 import main.entities.interfaces.IUpdatable;
 import main.gameplay.CharacterList;
 import main.gameplay.Player;
+import main.gameplay.SpriteManager;
 import main.swing.GamePanel;
 import main.world.LevelManager;
 import main.world.levels.TestLevel;
-import main.gameplay.SpriteManager;
+import main.entities.enemies.BossEnemy;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,6 +23,7 @@ public class BulletHellLogic {
 	  Use the cache instead*/
 	private static ArrayList<EntityBase> entitiesToRender;
 	private static ArrayList<IUpdatable> entitiesToUpdate;
+	
 
 	public static final ArrayList<EntityBase>
 			renderableAddCache= new ArrayList<>(),
@@ -59,8 +61,8 @@ public class BulletHellLogic {
     public static final int maxWorldRow = 150;
 
 	/**How much tiles are shown at once in the screen **/
-    public static final int screenWidth = LevelManager.tileSize * 28;
-    public static final int screenHeight = LevelManager.tileSize * 20;
+    public static final int screenWidth = 1920 - 420;
+    public static final int screenHeight = 1080 - 250;
 
 
 	/**The JPanel the game  runs in **/
@@ -97,21 +99,32 @@ public class BulletHellLogic {
 	}
 
 	private static void renderSetup(){
-		//set up frame
-		JFrame window = new JFrame();
-		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.setResizable(false);
-		window.setTitle("Game Prototype");
-		//set up panel
-		gPanel = new GamePanel();
-		window.add(gPanel);
-		//fit the panel to the size of the windows
-		window.pack();
-		//more panel stuff
-		window.setLocationRelativeTo(null);
-		window.setVisible(true);
+	    // Set up frame
+	    JFrame window = new JFrame();
+	    window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    window.setUndecorated(true); // Remove title bar and borders
+	    window.setResizable(false);
+	    window.setTitle("Game Prototype");
 
+	    // Set up panel
+	    gPanel = new GamePanel();
+	    window.add(gPanel);
+
+	    // Set the frame to fullscreen
+	    GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+	    GraphicsDevice gd = ge.getDefaultScreenDevice();
+	    if (gd.isFullScreenSupported()) {
+	        gd.setFullScreenWindow(window);
+	    } else {
+	        System.err.println("Fullscreen mode is not supported.");
+	        window.setExtendedState(JFrame.MAXIMIZED_BOTH);
+	    }
+
+	    // More panel setup
+	    window.setLocationRelativeTo(null);
+	    window.setVisible(true);
 	}
+
 
 	private static void startGame() {
 		entitiesToUpdate = new ArrayList<>();
@@ -124,6 +137,8 @@ public class BulletHellLogic {
 		/** **/
 		entitiesToUpdate.add(player);
 		entitiesToRender.add(player);
+
+
 	}
 
 	/**Handles the actual game loop itself, calling all entities that need to be updated **/
@@ -131,6 +146,22 @@ public class BulletHellLogic {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			// Check if the game is running
+			if (!BossEnemy.isGameRunning) {
+				centralTick.stop();
+				renderTick.stop();
+				new Win();
+				return;
+			}
+			if (player.health < 0) {
+				centralTick.stop();
+				renderTick.stop();
+				new Death();
+				return;
+			}
+			
+
+
 			//updates the tick value for misc simple timers
 			if(e.getActionCommand().equals(centralActionCommand)) {
 				if (tick++ == Integer.MAX_VALUE) {

@@ -42,7 +42,6 @@ public class Trigger extends EntityBase {
 
     @Override
     public void render(Graphics2D g) {
-        g.setColor(Color.ORANGE);
-        g.fillRect(x - BulletHellLogic.player.x + Player.screenX, y - BulletHellLogic.player.y + Player.screenY,20,20);
+
     }
 }
