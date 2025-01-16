@@ -3,7 +3,7 @@ package main.world.levels;
 import java.util.Random;
 
 import main.BulletHellLogic;
-import main.entities.enemies.TestEnemy;
+import main.entities.enemies.NormalEnemy;
 import main.world.LevelBase;
 import main.world.LevelManager;
 import main.world.Trigger;

@@ -11,9 +11,9 @@ import main.MathUtil;
 import main.entities.EnemyBase;
 import main.entities.projectiles.enemy.EvilProjectile;
 import main.gameplay.Player;
+import main.swing.SpriteLoader;
 
 public class BossEnemy extends EnemyBase {
-    private Image sprite;
     public static boolean isGameRunning = true; // Game state variable
 
     public BossEnemy(int x, int y) {
@@ -22,12 +22,7 @@ public class BossEnemy extends EnemyBase {
         health = 100; // High health
 
         // Load the boss sprite
-        try {
-            sprite = ImageIO.read(getClass().getResource("/assets/enemySprites/Boss.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Failed to load sprite for BossEnemy.");
-        }
+        
     }
 
     @Override
@@ -78,9 +73,9 @@ public class BossEnemy extends EnemyBase {
 
     @Override
     public void render(Graphics2D g) {
-        if (sprite != null) {
+        if (SpriteLoader.bossSprite != null) {
             g.drawImage(
-                sprite,
+            		SpriteLoader.bossSprite,
                 x - BulletHellLogic.player.x + Player.screenX,
                 y - BulletHellLogic.player.y + Player.screenY,
                 width,

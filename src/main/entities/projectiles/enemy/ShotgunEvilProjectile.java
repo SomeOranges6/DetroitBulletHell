@@ -14,6 +14,7 @@ import main.entities.EnemyBase;
 import main.entities.EntityBase;
 import main.entities.ProjectileBase;
 import main.gameplay.Player;
+import main.swing.SpriteLoader;
 
 public class ShotgunEvilProjectile extends ProjectileBase {
 	  private BufferedImage sprite;
@@ -54,10 +55,10 @@ public class ShotgunEvilProjectile extends ProjectileBase {
                 y - height < BulletHellLogic.player.y + Player.screenY;
 
         if (boundsCheck) {
-            if (sprite != null) {
+            if (SpriteLoader.railgunProjectileSprite!= null) {
                 // Draw the sprite
                 g.drawImage(
-                        sprite,
+                		SpriteLoader.railgunProjectileSprite,
                         x - BulletHellLogic.player.x + Player.screenX,
                         y - BulletHellLogic.player.y + Player.screenY,
                         width +20,

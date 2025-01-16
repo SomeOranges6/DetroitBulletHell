@@ -6,6 +6,7 @@ import main.entities.projectiles.enemy.EvilProjectile;
 import main.entities.projectiles.enemy.RailgunEvilProjectile;
 import main.gameplay.Player;
 import main.gameplay.SpriteManager;
+import main.swing.SpriteLoader;
 
 import java.awt.*;
 
@@ -16,8 +17,7 @@ public class RailgunnerEnemy extends EnemyBase {
         super(x, y, 30, 30);
         speed = 12;
         health = 20;
-        
-		spriteManager = new SpriteManager("/assets/enemySprites/Enemy3.png");
+		spriteManager = new SpriteManager(SpriteLoader.railgunnerSprite);
     }
 
     @Override

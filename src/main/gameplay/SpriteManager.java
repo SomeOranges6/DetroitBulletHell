@@ -14,12 +14,8 @@ public class SpriteManager {
     private final int frameDelay = 150; // Milliseconds between frames
     private boolean isMoving = false;
 
-    public SpriteManager(String spriteSheetPath) {
-        try {
-            spriteSheet = ImageIO.read(getClass().getResource(spriteSheetPath));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public SpriteManager(BufferedImage spriteSheet) {
+        this.spriteSheet = spriteSheet;        
     }
 
     public void drawSprite(Graphics g, double facingAngle, int x, int y) {

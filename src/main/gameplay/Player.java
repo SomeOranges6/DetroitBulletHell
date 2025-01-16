@@ -4,6 +4,7 @@ import main.BulletHellLogic;
 import main.MathUtil;
 import main.entities.EntityBase;
 import main.entities.interfaces.IUpdatable;
+import main.swing.SpriteLoader;
 import main.world.LevelManager;
 
 import java.awt.*;
@@ -43,7 +44,7 @@ public class Player extends EntityBase implements IUpdatable, KeyListener{
 		for (Weapon weapon : weapons) {
 			weapon.setShooter(this);
 		}
-        spriteManager = new SpriteManager("/assets/playerSpriteSheets/Character1.png");
+        spriteManager = new SpriteManager(SpriteLoader.playerSprite);
 		currentWeapon = weapons.getFirst();
     }
 

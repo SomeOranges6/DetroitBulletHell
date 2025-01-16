@@ -13,17 +13,18 @@ import main.entities.projectiles.TestProjectile;
 import main.entities.projectiles.enemy.EvilProjectile;
 import main.gameplay.Player;
 import main.gameplay.SpriteManager;
+import main.swing.SpriteLoader;
 
 public class HeavyEnemy extends EnemyBase {
     private SpriteManager spriteManager;
-    int hypot = 0;
+ 
 	public HeavyEnemy(int x, int y) {
 
 		super(x, y, 45, 45);
 		speed = 8;
 		health = 40;
 		
-		spriteManager = new SpriteManager("/assets/enemySprites/Enemy2.png");
+		spriteManager = new SpriteManager(SpriteLoader.heavySprite);
 	}
 
 

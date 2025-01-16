@@ -6,6 +6,7 @@ import main.gameplay.CharacterList;
 import main.gameplay.Player;
 import main.gameplay.SpriteManager;
 import main.swing.GamePanel;
+import main.swing.SpriteLoader;
 import main.world.LevelManager;
 import main.world.levels.TestLevel;
 import main.entities.enemies.BossEnemy;
@@ -32,7 +33,6 @@ public class BulletHellLogic {
 	public static final ArrayList<IUpdatable>
 			updatableAddCache  = new ArrayList<>(),
 			updatableRemoveCache = new ArrayList<>();
-
 
 	/**What the player's projectiles can collide with outside of the general list, i.e enemies**/
 	public static final ArrayList<Rectangle> collidablesPlayerProjectile = new ArrayList<>();
@@ -70,6 +70,7 @@ public class BulletHellLogic {
 
 	/**Handles building and rendering the map itself **/
     public static LevelManager levelManager;
+    public static SpriteLoader spriteLoader;
 
 	public static TestLevel testLevel = new TestLevel();
 
@@ -104,7 +105,7 @@ public class BulletHellLogic {
 	    window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    window.setUndecorated(true); // Remove title bar and borders
 	    window.setResizable(false);
-	    window.setTitle("Game Prototype");
+	    window.setTitle("Detroit");
 
 	    // Set up panel
 	    gPanel = new GamePanel();
@@ -130,6 +131,8 @@ public class BulletHellLogic {
 		entitiesToUpdate = new ArrayList<>();
 		entitiesToRender = new ArrayList<>();
 		levelManager = new LevelManager(testLevel);
+		spriteLoader = new SpriteLoader();
+		
 		player = new Player(500,500, CharacterList.johnTest);
 		
 		// Initialize the player's SpriteManager

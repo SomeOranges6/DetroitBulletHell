@@ -9,16 +9,17 @@ import main.entities.EnemyBase;
 import main.entities.projectiles.enemy.EvilProjectile;
 import main.gameplay.Player;
 import main.gameplay.SpriteManager;
+import main.swing.SpriteLoader;
 
-public class TestEnemy extends EnemyBase {
+public class NormalEnemy extends EnemyBase {
     private SpriteManager spriteManager;
 
-	public TestEnemy(int x, int y) {
+	public NormalEnemy(int x, int y) {
 		super(x, y, 30, 30);
 		speed = 10;
 		health = 10;
 		
-		spriteManager = new SpriteManager("/assets/enemySprites/Enemy5.png");
+		spriteManager = new SpriteManager(SpriteLoader.enemySprite);
 	}
 	
 	@Override

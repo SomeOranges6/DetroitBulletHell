@@ -5,6 +5,7 @@ import main.MathUtil;
 import main.entities.EntityBase;
 import main.entities.ProjectileBase;
 import main.gameplay.Player;
+import main.swing.SpriteLoader;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -13,18 +14,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class Landmine extends ProjectileBase {
-	  private BufferedImage sprite;
-
-
     public Landmine(int x, int y) {
         super(x, y, 32, 32);
-        
-        try {
-            sprite = ImageIO.read(getClass().getResource("/assets/bulletSprites/Landmine.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Failed to load sprite for TestProjectile.");
-        }
     }
 
     //TODO: once enemy spawn is working, change the hitbox list to be the enemy-inclusive list
@@ -58,10 +49,10 @@ public class Landmine extends ProjectileBase {
                 y - height < BulletHellLogic.player.y + Player.screenY;
 
         if (boundsCheck) {
-            if (sprite != null) {
+            if (SpriteLoader.landmineProjectileSprite != null) {
                 // Draw the sprite
                 g.drawImage(
-                        sprite,
+                		SpriteLoader.landmineProjectileSprite,
                         x - BulletHellLogic.player.x + Player.screenX,
                         y - BulletHellLogic.player.y + Player.screenY,
                         width +20,

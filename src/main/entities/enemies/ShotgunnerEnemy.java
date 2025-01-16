@@ -12,6 +12,7 @@ import main.entities.projectiles.enemy.EvilProjectile;
 import main.entities.projectiles.enemy.ShotgunEvilProjectile;
 import main.gameplay.Player;
 import main.gameplay.SpriteManager;
+import main.swing.SpriteLoader;
 
 public class ShotgunnerEnemy extends EnemyBase { //Fast
     private SpriteManager spriteManager;
@@ -20,8 +21,7 @@ public class ShotgunnerEnemy extends EnemyBase { //Fast
 		super(x, y, 30, 30);
 		speed = 15;
 		health = 10;
-		
-		spriteManager = new SpriteManager("/assets/enemySprites/Enemy4.png");
+		spriteManager = new SpriteManager(SpriteLoader.shotgunnerSprite);
 	}
 	
 	@Override

@@ -4,15 +4,13 @@ import main.BulletHellLogic;
 import main.entities.EntityBase;
 import main.entities.enemies.HeavyEnemy;
 import main.entities.enemies.RailgunnerEnemy;
-import main.entities.enemies.TestEnemy;
+import main.entities.enemies.NormalEnemy;
 import main.entities.enemies.BossEnemy;
 import main.entities.enemies.ShotgunnerEnemy;
-import main.entities.enemies.EnemyB;
 
 import java.awt.*;
 import java.util.Random;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 import static main.BulletHellLogic.player;
 
@@ -34,7 +32,7 @@ public class TriggerFactory {
         spawn.y = y;
         spawn.action = (player) -> {
             for (int i = 0; i < 3; i++) {
-                BulletHellLogic.spawnEntity(new TestEnemy(spawn.x + rand.nextInt(10) * 20, spawn.y + (rand.nextInt(10) + 5) * 50));
+                BulletHellLogic.spawnEntity(new NormalEnemy(spawn.x + rand.nextInt(10) * 20, spawn.y + (rand.nextInt(10) + 5) * 50));
             }
             for (int i = 0; i < 2; i++) {
                BulletHellLogic.spawnEntity(new ShotgunnerEnemy(spawn.x + rand.nextInt(10) * 20, spawn.y + (rand.nextInt(10) + 5) * 50));
@@ -48,7 +46,7 @@ public class TriggerFactory {
         spawn.y = y;
         spawn.action = (player)-> {
             for (int i = 0; i < 5; i++) {
-                BulletHellLogic.spawnEntity(new TestEnemy(spawn.x + rand.nextInt(10) * 20, spawn.y + (rand.nextInt(10) + 5) * 50));
+                BulletHellLogic.spawnEntity(new NormalEnemy(spawn.x + rand.nextInt(10) * 20, spawn.y + (rand.nextInt(10) + 5) * 50));
             }
             BulletHellLogic.spawnEntity(new HeavyEnemy(spawn.x + rand.nextInt(10) * 20, spawn.y + (rand.nextInt(10) + 5) * 50));
         };
@@ -60,7 +58,7 @@ public class TriggerFactory {
         spawn.y = y;
         spawn.action = (player)-> {
             for (int i = 0; i < 5; i++) {
-                BulletHellLogic.spawnEntity(new TestEnemy(spawn.x + rand.nextInt(10) * 20, spawn.y + (rand.nextInt(10) + 5) * 50));
+                BulletHellLogic.spawnEntity(new NormalEnemy(spawn.x + rand.nextInt(10) * 20, spawn.y + (rand.nextInt(10) + 5) * 50));
             }
             BulletHellLogic.spawnEntity(new RailgunnerEnemy(spawn.x + rand.nextInt(10) * 20, spawn.y + (rand.nextInt(10) + 5) * 50));
         };
@@ -72,7 +70,7 @@ public class TriggerFactory {
         spawn.y = y;
         spawn.action = (player)-> {
             for (int i = 0; i < 5; i++) {
-                BulletHellLogic.spawnEntity(new TestEnemy(spawn.x + rand.nextInt(10) * 20, spawn.y + (rand.nextInt(10) + 5) * 50));
+                BulletHellLogic.spawnEntity(new NormalEnemy(spawn.x + rand.nextInt(10) * 20, spawn.y + (rand.nextInt(10) + 5) * 50));
             }
             BulletHellLogic.spawnEntity(new ShotgunnerEnemy(spawn.x + rand.nextInt(10) * 20, spawn.y + (rand.nextInt(10) + 5) * 50));
         };

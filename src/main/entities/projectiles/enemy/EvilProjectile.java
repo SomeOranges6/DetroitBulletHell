@@ -14,21 +14,15 @@ import main.entities.EnemyBase;
 import main.entities.EntityBase;
 import main.entities.ProjectileBase;
 import main.gameplay.Player;
+import main.swing.SpriteLoader;
 
 public class EvilProjectile extends ProjectileBase {
-	  private BufferedImage sprite;
-
     public EvilProjectile(int x, int y) {
         super(x, y, 8, 8);
         speed = 25.0;
         damage = 3;
         
-        try {
-            sprite = ImageIO.read(getClass().getResource("/assets/bulletSprites/EnemyBullet.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Failed to load sprite for TestProjectile.");
-        }
+        
     }
     //TODO: once enemy spawn is working, change the hitbox list to be the enemy-inclusive list
     /** Despawns the projectile if it has collided with a wall **/
@@ -54,10 +48,10 @@ public class EvilProjectile extends ProjectileBase {
                 y - height < BulletHellLogic.player.y + Player.screenY;
 
         if (boundsCheck) {
-            if (sprite != null) {
+            if (SpriteLoader.evilProjectileSprite != null) {
                 // Draw the sprite
                 g.drawImage(
-                        sprite,
+                		SpriteLoader.evilProjectileSprite,
                         x - BulletHellLogic.player.x + Player.screenX,
                         y - BulletHellLogic.player.y + Player.screenY,
                         width +20,
