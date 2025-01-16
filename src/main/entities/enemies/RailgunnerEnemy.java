@@ -11,13 +11,34 @@ import main.swing.SpriteLoader;
 import java.awt.*;
 
 public class RailgunnerEnemy extends EnemyBase {
-    private SpriteManager spriteManager;
+    private final SpriteManager spriteManager;
 
     public RailgunnerEnemy(int x, int y) {
         super(x, y, 30, 30);
         speed = 12;
         health = 20;
 		spriteManager = new SpriteManager(SpriteLoader.railgunnerSprite);
+    }
+
+    @Override
+    public void onUpdate() {
+        super.onUpdate();
+        if(health <= 0) onDead();
+        if(BulletHellLogic.tick % 120 == 0) {
+            attack();
+        }
+    }
+
+    /**
+     * Spawns projectiles at a one second interval
+     */
+    @Override
+    public void attack() {
+        RailgunEvilProjectile enemyProjectile = new RailgunEvilProjectile(x, y);
+        this.lookAtPlayer();
+        enemyProjectile.setShooter(this);
+        BulletHellLogic.spawnEntity(enemyProjectile);
+
     }
 
     @Override

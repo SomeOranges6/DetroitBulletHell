@@ -33,8 +33,7 @@ public class TitleScreen {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_U) {
-                    frame.dispose();
-                    new BulletHellLogic(); // Start the game
+                    frame.dispose();// Start the game
                 } else if (e.getKeyCode() == KeyEvent.VK_K) {
                 	new  HowToPlay();
                 }else if (e.getKeyCode() == KeyEvent.VK_J) {

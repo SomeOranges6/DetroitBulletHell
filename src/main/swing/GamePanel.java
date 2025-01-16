@@ -40,7 +40,7 @@ public class GamePanel extends JPanel {
         Graphics2D g2 = (Graphics2D) g;
 
         // Render the map and player
-        BulletHellLogic.levelManager.draw(g2, BulletHellLogic.playerSpriteManager);
+        BulletHellLogic.levelManager.draw(g2, BulletHellLogic.player.spriteManager);
 
         // Render entities
         for (EntityBase entity : BulletHellLogic.getEntitiesToRender()) {

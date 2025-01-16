@@ -19,7 +19,7 @@ public class Player extends EntityBase implements IUpdatable, KeyListener{
 	/**Used for locking your shooting direction **/
 	public boolean hasPressedLook, lookLock;
 
-    private final SpriteManager spriteManager; // Sprite 
+    public final SpriteManager spriteManager; // Sprite
 
 	Character character;
 
@@ -120,10 +120,6 @@ public class Player extends EntityBase implements IUpdatable, KeyListener{
 		
 		spriteManager.setMoving(vX != 0 || vY != 0);
 	}
-	
-    public SpriteManager getSpriteManager() {
-        return spriteManager;
-    }
 
 	@Override
 	public void keyTyped(KeyEvent e) {

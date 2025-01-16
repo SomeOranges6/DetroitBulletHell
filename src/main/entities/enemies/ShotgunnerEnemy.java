@@ -15,7 +15,7 @@ import main.gameplay.SpriteManager;
 import main.swing.SpriteLoader;
 
 public class ShotgunnerEnemy extends EnemyBase { //Fast
-    private SpriteManager spriteManager;
+    private final SpriteManager spriteManager;
 	
 	public ShotgunnerEnemy(int x, int y) {
 		super(x, y, 30, 30);

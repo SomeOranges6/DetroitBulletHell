@@ -16,14 +16,14 @@ import main.gameplay.SpriteManager;
 import main.swing.SpriteLoader;
 
 public class HeavyEnemy extends EnemyBase {
-    private SpriteManager spriteManager;
+    private final SpriteManager spriteManager;
  
 	public HeavyEnemy(int x, int y) {
 
 		super(x, y, 45, 45);
 		speed = 8;
 		health = 40;
-		
+
 		spriteManager = new SpriteManager(SpriteLoader.heavySprite);
 	}
 

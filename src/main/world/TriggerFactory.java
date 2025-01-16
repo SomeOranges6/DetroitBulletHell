@@ -26,7 +26,7 @@ public class TriggerFactory {
         return null;
     };
 
-    public static Trigger testSpawnTrigger(int x, int y) {
+    public static Trigger normalSpawnTrigger(int x, int y) {
         Trigger spawn = new Trigger(radiusCheck, null);
         spawn.x = x;
         spawn.y = y;
@@ -45,7 +45,7 @@ public class TriggerFactory {
         spawn.x = x;
         spawn.y = y;
         spawn.action = (player)-> {
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < 3; i++) {
                 BulletHellLogic.spawnEntity(new NormalEnemy(spawn.x + rand.nextInt(10) * 20, spawn.y + (rand.nextInt(10) + 5) * 50));
             }
             BulletHellLogic.spawnEntity(new HeavyEnemy(spawn.x + rand.nextInt(10) * 20, spawn.y + (rand.nextInt(10) + 5) * 50));
@@ -64,24 +64,15 @@ public class TriggerFactory {
         };
         return spawn;
     }
-    public static Trigger shotgunnerTrigger(int x, int y){
-        Trigger spawn = new Trigger(radiusCheck, null);
-        spawn.x = x;
-        spawn.y = y;
-        spawn.action = (player)-> {
-            for (int i = 0; i < 5; i++) {
-                BulletHellLogic.spawnEntity(new NormalEnemy(spawn.x + rand.nextInt(10) * 20, spawn.y + (rand.nextInt(10) + 5) * 50));
-            }
-            BulletHellLogic.spawnEntity(new ShotgunnerEnemy(spawn.x + rand.nextInt(10) * 20, spawn.y + (rand.nextInt(10) + 5) * 50));
-        };
-        return spawn;
-    }
     public static Trigger bossTrigger(int x, int y){
         Trigger spawn = new Trigger(radiusCheck, null);
         spawn.x = x;
         spawn.y = y;
         spawn.action = (player)-> {
-
+            for (int i = 0; i < 5; i++) {
+                BulletHellLogic.spawnEntity(new NormalEnemy(spawn.x + rand.nextInt(50) * 20, spawn.y + (rand.nextInt(50) + 5) * 50));
+            }
+            BulletHellLogic.spawnEntity(new RailgunnerEnemy(spawn.x + rand.nextInt(50) * 20, spawn.y + (rand.nextInt(50) + 5) * 50));
             BulletHellLogic.spawnEntity(new BossEnemy(spawn.x + rand.nextInt(10) * 20, spawn.y + (rand.nextInt(10) + 5) * 50));
         };
         return spawn;

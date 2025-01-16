@@ -12,7 +12,7 @@ import main.gameplay.SpriteManager;
 import main.swing.SpriteLoader;
 
 public class NormalEnemy extends EnemyBase {
-    private SpriteManager spriteManager;
+    private final SpriteManager spriteManager;
 
 	public NormalEnemy(int x, int y) {
 		super(x, y, 30, 30);

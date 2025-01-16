@@ -32,9 +32,8 @@ public class BossEnemy extends EnemyBase {
         if (health <= 0) {
             onDead();
         }
-        if (BulletHellLogic.tick % 1 == 0) { // Slower attack interval
-            attack();
-        }
+        // Slower attack interval
+        attack();
     }
 
     /**

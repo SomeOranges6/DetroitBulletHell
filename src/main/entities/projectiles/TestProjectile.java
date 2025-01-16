@@ -5,6 +5,7 @@ import main.MathUtil;
 import main.entities.EntityBase;
 import main.entities.ProjectileBase;
 import main.gameplay.Player;
+import main.swing.SpriteLoader;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -12,19 +13,9 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class TestProjectile extends ProjectileBase {
-    private BufferedImage sprite;
-
     public TestProjectile(int x, int y) {
         super(x, y, 8, 8);
         speed = 40.0;
-
-        // Load the sprite
-        try {
-            sprite = ImageIO.read(getClass().getResource("/assets/bulletSprites/Bullet1.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Failed to load sprite for TestProjectile.");
-        }
     }
 
     /** Despawns the projectile if it has collided with a wall **/
@@ -34,7 +25,7 @@ public class TestProjectile extends ProjectileBase {
         Rectangle collidedObject = MathUtil.checkForCollidedEntity(this, BulletHellLogic.collidablesPlayerProjectile);
         if (collidedObject != null && !collidedObject.equals(shooter)) {
             if (collidedObject instanceof EntityBase entity) {
-                entity.health -= 10;
+                entity.health -= damage;
             }
             onDead();
         }
@@ -50,10 +41,10 @@ public class TestProjectile extends ProjectileBase {
                 y - height < BulletHellLogic.player.y + Player.screenY;
 
         if (boundsCheck) {
-            if (sprite != null) {
+            if (SpriteLoader.normalProjectileSprite != null) {
                 // Draw the sprite
                 g.drawImage(
-                        sprite,
+                        SpriteLoader.normalProjectileSprite,
                         x - BulletHellLogic.player.x + Player.screenX,
                         y - BulletHellLogic.player.y + Player.screenY,
                         width +20,

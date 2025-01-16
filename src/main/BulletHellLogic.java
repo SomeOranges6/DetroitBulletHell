@@ -47,10 +47,6 @@ public class BulletHellLogic {
 	public static int tick = 0;
 	static Random rand = new Random();
 	public static Player player;
-	
-	// SpriteManager for the player
-	public static SpriteManager playerSpriteManager;
-	
 
 	/**Future variable used for pausing **/
     private static boolean running = true;
@@ -72,7 +68,7 @@ public class BulletHellLogic {
     public static LevelManager levelManager;
     public static SpriteLoader spriteLoader;
 
-	public static TestLevel testLevel = new TestLevel();
+	public static TestLevel testLevel;
 
 	/*TODO: The central tick timer does not need to tick anywhere near this quick for the game logic to work
 	 *  By using interpolation of the coordinates when rendering, it can still
@@ -91,8 +87,13 @@ public class BulletHellLogic {
 	}
 
 	BulletHellLogic(){
+		//Set up spriteloader
+		spriteLoader = new SpriteLoader();
+		spriteLoader.loadSprites();
+
 		centralTick.setActionCommand(centralActionCommand);
 		renderTick.setActionCommand(renderActionCommand);
+
 		startGame();
 		renderSetup();
 		centralTick.start();
@@ -100,7 +101,7 @@ public class BulletHellLogic {
 	}
 
 	private static void renderSetup(){
-	    // Set up frame
+		//set up frame
 	    JFrame window = new JFrame();
 	    window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    window.setUndecorated(true); // Remove title bar and borders
@@ -128,19 +129,15 @@ public class BulletHellLogic {
 
 
 	private static void startGame() {
+		testLevel  = new TestLevel();
 		entitiesToUpdate = new ArrayList<>();
 		entitiesToRender = new ArrayList<>();
 		levelManager = new LevelManager(testLevel);
-		spriteLoader = new SpriteLoader();
 		
 		player = new Player(500,500, CharacterList.johnTest);
-		
-		// Initialize the player's SpriteManager
-		playerSpriteManager = player.getSpriteManager();
-		/** **/
+
 		entitiesToUpdate.add(player);
 		entitiesToRender.add(player);
-
 
 	}
 

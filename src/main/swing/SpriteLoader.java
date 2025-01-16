@@ -1,6 +1,8 @@
 package main.swing;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.Objects;
 
 import javax.imageio.ImageIO;
 
@@ -22,23 +24,29 @@ public class SpriteLoader {
 	
 	public static BufferedImage railgunProjectileSprite;
 	public static BufferedImage evilProjectileSprite;
+	public static BufferedImage evilShotgunSprite;
 	
 	public void loadSprites() {
-		
-		playerSprite = ImageIO.read(getClass().getResource("/assets/playerSpriteSheets/Character1.png"));    
-		enemySprite = ImageIO.read(getClass().getResource("/assets/enemySprites/Enemy5.png"));    
-		shotgunnerSprite = ImageIO.read(getClass().getResource("/assets/enemySprites/Enemy4.png"));
-		heavySprite = ImageIO.read(getClass().getResource("/assets/enemySprites/Enemy2.png"));     
-		railgunnerSprite = ImageIO.read(getClass().getResource("/assets/enemySprites/Enemy3.png"));
-		bossSprite = ImageIO.read(getClass().getResource("/assets/enemySprites/Boss.png"));
-		
-		normalProjectileSprite = ImageIO.read(getClass().getResource("/assets/enemySprites/Bullet1.png"));  
-		shotgunProjectileSprite = ImageIO.read(getClass().getResource("/assets/bulletSprites/Bullet3.png")); 
-	    landmineProjectileSprite = ImageIO.read(getClass().getResource("/assets/enemySprites/Enemy5.png"));
-	                             
-	    railgunProjectileSprite = ImageIO.read(getClass().getResource("/assets/enemySprites/Enemy5.png")); 
-        evilProjectileSprite = ImageIO.read(getClass().getResource("/assets/bulletSprites/EnemyBullet.png"));
-        
+		try {
+			playerSprite = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/assets/playerSpriteSheets/Character1.png")));
+
+			enemySprite = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/assets/enemySprites/Enemy5.png")));
+			shotgunnerSprite = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/assets/enemySprites/Enemy4.png")));
+			heavySprite = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/assets/enemySprites/Enemy2.png")));
+			railgunnerSprite = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/assets/enemySprites/Enemy3.png")));
+			bossSprite = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/assets/enemySprites/Boss.png")));
+
+			normalProjectileSprite = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/assets/bulletSprites/Bullet1.png")));
+			shotgunProjectileSprite = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/assets/bulletSprites/Bullet3.png")));
+			landmineProjectileSprite = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/assets/bulletSprites/Landmine.png")));
+
+			railgunProjectileSprite = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/assets/bulletSprites/Bullet4.png")));
+			evilProjectileSprite = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/assets/bulletSprites/EnemyBullet.png")));
+			evilShotgunSprite = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/assets/bulletSprites/EnemyBullet.png")));
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
         
 	}
 	

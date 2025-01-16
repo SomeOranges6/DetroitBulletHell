@@ -3,10 +3,8 @@ package main.world.levels;
 import java.util.Random;
 
 import main.BulletHellLogic;
-import main.entities.enemies.NormalEnemy;
 import main.world.LevelBase;
 import main.world.LevelManager;
-import main.world.Trigger;
 import main.world.TriggerFactory;
 import main.world.tiles.Tile;
 
@@ -31,15 +29,14 @@ public class TestLevel extends LevelBase {
 
 
     public void setupTriggers(){
-        addTriggerCache(TriggerFactory.testSpawnTrigger(10 * LevelManager.tileSize,10 * LevelManager.tileSize));
-        addTriggerCache(TriggerFactory.testSpawnTrigger(20 * LevelManager.tileSize,20 * LevelManager.tileSize));
+        addTriggerCache(TriggerFactory.normalSpawnTrigger(20 * LevelManager.tileSize,30 * LevelManager.tileSize));
         addTriggerCache(TriggerFactory.heavyTrigger(20 * LevelManager.tileSize,60 * LevelManager.tileSize));
         addTriggerCache(TriggerFactory.railgunnerTrigger(20 * LevelManager.tileSize, 100 * LevelManager.tileSize));
         addTriggerCache(TriggerFactory.heavyTrigger(125 * LevelManager.tileSize,25 * LevelManager.tileSize));
-        addTriggerCache(TriggerFactory.shotgunnerTrigger(75 * LevelManager.tileSize,25 * LevelManager.tileSize));
-        addTriggerCache(TriggerFactory.shotgunnerTrigger(125 * LevelManager.tileSize,75 * LevelManager.tileSize));
+        addTriggerCache(TriggerFactory.normalSpawnTrigger(75 * LevelManager.tileSize,25 * LevelManager.tileSize));
+        addTriggerCache(TriggerFactory.normalSpawnTrigger(125 * LevelManager.tileSize,75 * LevelManager.tileSize));
         addTriggerCache(TriggerFactory.railgunnerTrigger(72 * LevelManager.tileSize,60 * LevelManager.tileSize));
-        addTriggerCache(TriggerFactory.shotgunnerTrigger(65 * LevelManager.tileSize,125 * LevelManager.tileSize));
+        addTriggerCache(TriggerFactory.normalSpawnTrigger(65 * LevelManager.tileSize,125 * LevelManager.tileSize));
         addTriggerCache(TriggerFactory.bossTrigger(125 * LevelManager.tileSize,100 * LevelManager.tileSize));
     }
 }
