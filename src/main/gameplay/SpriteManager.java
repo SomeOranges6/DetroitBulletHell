@@ -38,11 +38,21 @@ public class SpriteManager {
     }
 
     private int getRowFromAngle(double facingAngle) {
-        if (facingAngle == Math.toRadians(270)) return 3; // Up
-        if (facingAngle == Math.toRadians(90)) return 0;  // Down
-        if (facingAngle == Math.toRadians(180)) return 1; // Left
-        return 2; // Right
+        // Normalize the angle to the range [0, 2π)
+        facingAngle = (facingAngle + 2 * Math.PI) % (2 * Math.PI);
+
+        // Map angle ranges to sprite rows
+        if (facingAngle >= Math.toRadians(45) && facingAngle < Math.toRadians(135)) {
+            return 0; // Down
+        } else if (facingAngle >= Math.toRadians(135) && facingAngle < Math.toRadians(225)) {
+            return 1; // Left
+        } else if (facingAngle >= Math.toRadians(225) && facingAngle < Math.toRadians(315)) {
+            return 3; // Up
+        } else {
+            return 2; // Right
+        }
     }
+
 
     private void updateAnimationFrame() {
         long currentTime = System.currentTimeMillis();

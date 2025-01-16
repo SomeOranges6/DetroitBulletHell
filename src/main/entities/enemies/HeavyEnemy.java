@@ -1,7 +1,10 @@
 package main.entities.enemies;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Image;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import main.BulletHellLogic;
 import main.MathUtil;
@@ -9,14 +12,21 @@ import main.entities.EnemyBase;
 import main.entities.projectiles.TestProjectile;
 import main.entities.projectiles.enemy.EvilProjectile;
 import main.gameplay.Player;
+import main.gameplay.SpriteManager;
 
 public class HeavyEnemy extends EnemyBase {
-
+    private SpriteManager spriteManager;
+    int hypot = 0;
 	public HeavyEnemy(int x, int y) {
+
 		super(x, y, 45, 45);
 		speed = 8;
 		health = 40;
+		
+		spriteManager = new SpriteManager("/assets/enemySprites/Enemy2.png");
 	}
+
+
 	
 	@Override
 	public void onUpdate() {
@@ -58,7 +68,12 @@ public class HeavyEnemy extends EnemyBase {
 	
 	@Override
 	public void render(Graphics2D g) {
-		g.setColor(Color.RED);
-		g.fillRect(x - BulletHellLogic.player.x + Player.screenX, y - BulletHellLogic.player.y + Player.screenY, width, height);
-	}
+        // Use the sprite manager to draw the animated sprite
+        spriteManager.drawSprite(
+            g,
+            facingAngle,
+            x - BulletHellLogic.player.x + Player.screenX,
+            y - BulletHellLogic.player.y + Player.screenY
+        );
+    }
 }

@@ -11,13 +11,17 @@ import main.entities.projectiles.ShotgunProjectile;
 import main.entities.projectiles.enemy.EvilProjectile;
 import main.entities.projectiles.enemy.ShotgunEvilProjectile;
 import main.gameplay.Player;
+import main.gameplay.SpriteManager;
 
 public class ShotgunnerEnemy extends EnemyBase { //Fast
-
+    private SpriteManager spriteManager;
+	
 	public ShotgunnerEnemy(int x, int y) {
 		super(x, y, 30, 30);
 		speed = 15;
 		health = 10;
+		
+		spriteManager = new SpriteManager("/assets/enemySprites/Enemy4.png");
 	}
 	
 	@Override
@@ -59,7 +63,12 @@ public class ShotgunnerEnemy extends EnemyBase { //Fast
 	
 	@Override
 	public void render(Graphics2D g) {
-		g.setColor(Color.GREEN);
-		g.fillRect(x - BulletHellLogic.player.x + Player.screenX, y - BulletHellLogic.player.y + Player.screenY, width, height);
-	}
+        // Use the sprite manager to draw the animated sprite
+        spriteManager.drawSprite(
+            g,
+            facingAngle,
+            x - BulletHellLogic.player.x + Player.screenX,
+            y - BulletHellLogic.player.y + Player.screenY
+        );
+    }
 }

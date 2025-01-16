@@ -7,11 +7,24 @@ import main.entities.ProjectileBase;
 import main.gameplay.Player;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 public class Landmine extends ProjectileBase {
+	  private BufferedImage sprite;
+
 
     public Landmine(int x, int y) {
         super(x, y, 32, 32);
+        
+        try {
+            sprite = ImageIO.read(getClass().getResource("/assets/bulletSprites/Landmine.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Failed to load sprite for TestProjectile.");
+        }
     }
 
     //TODO: once enemy spawn is working, change the hitbox list to be the enemy-inclusive list
@@ -45,10 +58,26 @@ public class Landmine extends ProjectileBase {
                 y - height < BulletHellLogic.player.y + Player.screenY;
 
         if (boundsCheck) {
-            g.setColor(Color.ORANGE);
-            g.fillRect(x - BulletHellLogic.player.x + Player.screenX, y - BulletHellLogic.player.y + Player.screenY, width, height);
+            if (sprite != null) {
+                // Draw the sprite
+                g.drawImage(
+                        sprite,
+                        x - BulletHellLogic.player.x + Player.screenX,
+                        y - BulletHellLogic.player.y + Player.screenY,
+                        width +20,
+                        height+20,
+                        null
+                );
+            } else {
+                // Fallback to the blue square if the sprite fails to load
+                g.setColor(Color.BLUE);
+                g.fillRect(
+                        x - BulletHellLogic.player.x + Player.screenX,
+                        y - BulletHellLogic.player.y + Player.screenY,
+                        width,
+                        height
+                );
+            }
         }
     }
-
-
 }

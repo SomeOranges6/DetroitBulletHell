@@ -8,9 +8,14 @@ import main.entities.ProjectileBase;
 import main.gameplay.Player;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
+
 public class RailgunEvilProjectile extends ProjectileBase {
+	  private BufferedImage sprite;
     static final ArrayList<Rectangle> player = new ArrayList<>();
 
     static {
@@ -20,6 +25,13 @@ public class RailgunEvilProjectile extends ProjectileBase {
         super(x, y, 12, 12);
         speed = 50;
         damage = 6;
+        
+        try {
+            sprite = ImageIO.read(getClass().getResource("/assets/bulletSprites/EnemyBullet.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Failed to load sprite for TestProjectile.");
+        }
     }
     //TODO: once enemy spawn is working, change the hitbox list to be the enemy-inclusive list
     /** Despawns the projectile if it has collided with a wall **/
@@ -40,13 +52,31 @@ public class RailgunEvilProjectile extends ProjectileBase {
     public void render(Graphics2D g) {
         boolean boundsCheck =
                 x + width > BulletHellLogic.player.x - Player.screenX &&
-                        x - width < BulletHellLogic.player.x + Player.screenX &&
-                        y + height > BulletHellLogic.player.y - Player.screenY &&
-                        y - height < BulletHellLogic.player.y + Player.screenY;
+                x - width < BulletHellLogic.player.x + Player.screenX &&
+                y + height > BulletHellLogic.player.y - Player.screenY &&
+                y - height < BulletHellLogic.player.y + Player.screenY;
 
         if (boundsCheck) {
-            g.setColor(Color.MAGENTA);
-            g.fillRect(x - BulletHellLogic.player.x + Player.screenX, y - BulletHellLogic.player.y + Player.screenY, width, height);
+            if (sprite != null) {
+                // Draw the sprite
+                g.drawImage(
+                        sprite,
+                        x - BulletHellLogic.player.x + Player.screenX,
+                        y - BulletHellLogic.player.y + Player.screenY,
+                        width +20,
+                        height+20,
+                        null
+                );
+            } else {
+                // Fallback to the blue square if the sprite fails to load
+                g.setColor(Color.BLUE);
+                g.fillRect(
+                        x - BulletHellLogic.player.x + Player.screenX,
+                        y - BulletHellLogic.player.y + Player.screenY,
+                        width,
+                        height
+                );
+            }
         }
     }
 }
