@@ -19,7 +19,7 @@ public class BossEnemy extends EnemyBase {
     public BossEnemy(int x, int y) {
         super(x, y, 100, 100); // Boss size
         speed = 2; // Very slow
-        health = 170; // High health
+        health = 100; // High health
 
         // Load the boss sprite
         try {

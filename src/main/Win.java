@@ -59,7 +59,6 @@ public class Win {
 		
 			Font subtitleFont = new Font("Arial", Font.BOLD, 20);
             g2d.setFont(subtitleFont);
-            g2d.drawString("Press A to Restart", 675, 400);
             g2d.drawString("Press X to Exit", 675, 500);
             
 		}
@@ -76,11 +75,7 @@ public class Win {
 			if (press == KeyEvent.VK_J) {
 				frame.setVisible(false);
 				deathVisible = false;
-				System.exit(0);
-			} else if(press == KeyEvent.VK_U){
-				frame.setVisible(false);
-				deathVisible = false;
-				new BulletHellLogic();
+				System.exit(0);;
 			}
 		}
 
