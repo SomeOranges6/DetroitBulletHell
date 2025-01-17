@@ -14,40 +14,13 @@ public class HowToPlay extends JPanel{
 		this.setPreferredSize(BulletHellLogic.screenDim);
 		this.setDoubleBuffered(true);
 		this.setBackground(Color.black);
-		this.addKeyListener(new KeyListener() {
 
-			@Override
-			public void keyTyped(KeyEvent e) {
-				// TODO Auto-generated method stub
-			}
-
-			@Override
-			public void keyPressed(KeyEvent e) {
-
-				if (e.getKeyCode() == KeyEvent.VK_U) {
-					dispose();
-					window.revalidate();
-					window.repaint();
-					BulletHellLogic.window.setContentPane(BulletHellLogic.gPanel);
-					BulletHellLogic.gPanel.setVisible(true);
-					BulletHellLogic.startGame();
-					setVisible(false);
-				}
-			}
-
-			@Override
-			public void keyReleased(KeyEvent e) {
-				// TODO Auto-generated method stub
-			}
-			
-		});
 		this.setFocusable(true);
 	}
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D)g;
-
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
 		g2d.setColor(Color.RED);

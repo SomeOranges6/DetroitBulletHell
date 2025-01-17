@@ -12,10 +12,13 @@ import main.world.LevelManager;
 import main.world.levels.TestLevel;
 import main.gameplay.SpriteManager;
 
+import javax.smartcardio.Card;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -68,7 +71,10 @@ public class BulletHellLogic {
 	public static final Dimension screenDim = new Dimension(BulletHellLogic.screenWidth, BulletHellLogic.screenHeight);
 
 	/**The JFrame the game uses **/
-	public volatile static JFrame window = new JFrame();
+	public static JFrame window = new JFrame();
+
+	public static CardLayout layout = new CardLayout();
+	public static JPanel mainPanel = new JPanel(layout);
 
 	/**The JPanels the game use **/
     public static IntroScreen iPanel; //intro panel
@@ -92,6 +98,8 @@ public class BulletHellLogic {
 	public static Timer renderTick = new Timer(1000/60, new CentralClock());
 	public static final String renderActionCommand = "render";
 
+	static SwitchScreenAction action = new SwitchScreenAction();
+
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(BulletHellLogic::new);
 	}
@@ -113,15 +121,19 @@ public class BulletHellLogic {
 		hPanel = new HowToPlay();
 		gPanel = new GamePanel();
 
-
 		gPanel.setVisible(false);
-		window.add(gPanel);
+		mainPanel.add(gPanel, "gamePanel");
 		hPanel.setVisible(false);
-		window.add(hPanel);
+		mainPanel.add(hPanel, "howPanel");
 		iPanel.setVisible(true);
-		window.add(iPanel);
+		mainPanel.add(iPanel, "introPanel");
 
-		
+		layout.show(mainPanel, "introPanel");
+
+		mainPanel.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_U, 0), "switchScreen");
+		mainPanel.getActionMap().put("switchScreen", action);
+
+		window.add(mainPanel);
 		//fit the panel to the size of the windows
 		window.pack();
 		//more panel stuff
@@ -139,7 +151,7 @@ public class BulletHellLogic {
 		
 		// Initialize the player's SpriteManager
 		playerSpriteManager = player.getSpriteManager();
-		/** **/
+
 		entitiesToUpdate.add(player);
 		entitiesToRender.add(player);
 	}
@@ -179,6 +191,30 @@ public class BulletHellLogic {
 				renderableAddCache.clear();
 
 				gPanel.onUpdate();
+			}
+		}
+	}
+
+	static boolean isHowPanel;
+	static boolean isGamePanel;
+
+	static class SwitchScreenAction extends AbstractAction {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (e.getActionCommand().equals("u")){
+				if(!isHowPanel) {
+					layout.show(mainPanel, "howPanel");
+					mainPanel.revalidate();
+					mainPanel.repaint();
+					isHowPanel = true;
+				} else if (!isGamePanel) {
+					layout.show(mainPanel, "gamePanel");
+					mainPanel.revalidate();
+					mainPanel.repaint();
+					startGame();
+					isGamePanel = true;
+				}
 			}
 		}
 	}
