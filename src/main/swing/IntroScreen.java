@@ -51,7 +51,7 @@ public class IntroScreen extends JPanel {
 
 		Font subtitleFont = new Font("Arial", Font.BOLD, 20);
 		g2d.setFont(subtitleFont);
-		g2d.drawString("Press A To Begin", 300, 400);
+		g2d.drawString("Press A To Begin", 700, 600);
 	}
 
 	public void dispose(){

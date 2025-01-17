@@ -112,9 +112,10 @@ public class BulletHellLogic {
 
 	private static void renderSetup(){
 		//set up frame
-		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.setResizable(false);
-		window.setTitle("Detroit");
+	    window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    window.setUndecorated(true); // Remove title bar and borders for fullscreen
+	    window.setResizable(false);
+	    window.setTitle("Bullet Hell Game");
 
 		//set up panel
 		iPanel = new IntroScreen();

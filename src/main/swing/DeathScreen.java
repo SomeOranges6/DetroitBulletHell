@@ -27,7 +27,6 @@ public class DeathScreen extends JPanel {
 
 		Font subtitleFont = new Font("Arial", Font.BOLD, 20);
 		g2d.setFont(subtitleFont);
-		g2d.drawString("Press A to Restart", 675, 400);
 		g2d.drawString("Press X to Exit", 675, 500);
 
 	}
