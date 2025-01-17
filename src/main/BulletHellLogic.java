@@ -4,24 +4,17 @@ import main.entities.EntityBase;
 import main.entities.interfaces.IUpdatable;
 import main.gameplay.CharacterList;
 import main.gameplay.Player;
-import main.gameplay.SpriteManager;
-import main.swing.GamePanel;
-
-import main.swing.SpriteLoader;
-import main.swing.IntroScreen;
-import main.swing.HowToPlay;
+import main.swing.*;
 
 import main.world.LevelManager;
 import main.world.levels.TestLevel;
 import main.entities.enemies.BossEnemy;
 
-import javax.smartcardio.Card;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -73,12 +66,15 @@ public class BulletHellLogic {
 	public static JFrame window = new JFrame();
 
 	public static CardLayout layout = new CardLayout();
+	/**Contains all other panels, used for card layout */
 	public static JPanel mainPanel = new JPanel(layout);
 
 	/**The JPanels the game use **/
     public static IntroScreen iPanel; //intro panel
     public static HowToPlay hPanel; //tutorial panel
     public static GamePanel gPanel;
+	public static WinScreen wScreen;
+	public static DeathScreen dScreen;
 
 	/**Handles building and rendering the map itself **/
     public static LevelManager levelManager;
@@ -118,22 +114,36 @@ public class BulletHellLogic {
 		//set up frame
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setResizable(false);
-		window.setTitle("Game Prototype");
+		window.setTitle("Detroit");
+
 		//set up panel
 		iPanel = new IntroScreen();
 		hPanel = new HowToPlay();
 		gPanel = new GamePanel();
+		wScreen = new WinScreen();
+		dScreen = new DeathScreen();
 
-		gPanel.setVisible(false);
+		mainPanel.add(wScreen, "winScreen");
+		mainPanel.add(dScreen, "deathScreen");
 		mainPanel.add(gPanel, "gamePanel");
-		hPanel.setVisible(false);
 		mainPanel.add(hPanel, "howPanel");
+
+		//setting up main panel
+		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+		gd.setFullScreenWindow(window);
+
+		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+		mainPanel.setPreferredSize(dimension);
+
+		//setting up title screen
 		iPanel.setVisible(true);
 		mainPanel.add(iPanel, "introPanel");
-
 		layout.show(mainPanel, "introPanel");
 
+		//setting up misc screen keybinds, uses a weird system else everything explodes
 		mainPanel.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_U, 0), "switchScreen");
+		mainPanel.getActionMap().put("switchScreen", action);
+		mainPanel.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_J, 0), "switchScreen");
 		mainPanel.getActionMap().put("switchScreen", action);
 
 		window.add(mainPanel);
@@ -145,6 +155,7 @@ public class BulletHellLogic {
 	}
 
 	public static void startGame() {
+		testLevel  = new TestLevel();
 		centralTick.start();
 		renderTick.start();
 		entitiesToUpdate = new ArrayList<>();
@@ -153,7 +164,6 @@ public class BulletHellLogic {
 		player = new Player(500,500, CharacterList.johnTest);
 		entitiesToUpdate.add(player);
 		entitiesToRender.add(player);
-
 	}
 
 	/**Handles the actual game loop itself, calling all entities that need to be updated **/
@@ -165,17 +175,21 @@ public class BulletHellLogic {
 			if (!BossEnemy.isGameRunning) {
 				centralTick.stop();
 				renderTick.stop();
-				new Win();
+				currentScreen = Screen.WIN;
+				layout.show(mainPanel, "winScreen");
+				mainPanel.revalidate();
+				mainPanel.repaint();
 				return;
 			}
 			if (player.health < 0) {
 				centralTick.stop();
 				renderTick.stop();
-				new Death();
+				currentScreen = Screen.DEATH;
+				layout.show(mainPanel, "deathScreen");
+				mainPanel.revalidate();
+				mainPanel.repaint();
 				return;
 			}
-			
-
 
 			//updates the tick value for misc simple timers
 			if(e.getActionCommand().equals(centralActionCommand)) {
@@ -211,25 +225,47 @@ public class BulletHellLogic {
 		}
 	}
 
-	static boolean isHowPanel;
-	static boolean isGamePanel;
+	public enum Screen {
+		INTRO,
+		HOWTO,
+		WIN,
+		DEATH,
+		GAME
+	}
+
+	public static Enum<Screen> currentScreen = Screen.INTRO;
+
 
 	static class SwitchScreenAction extends AbstractAction {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (e.getActionCommand().equals("u")){
-				if(!isHowPanel) {
-					layout.show(mainPanel, "howPanel");
+			if(!currentScreen.equals(Screen.GAME)) {
+				if (e.getActionCommand().equals("u")) {
+
+					switch (currentScreen) {
+						case Screen.INTRO -> {
+							layout.show(mainPanel, "howPanel");
+							currentScreen = Screen.HOWTO;
+						}
+						case Screen.HOWTO, Screen.DEATH -> {
+							layout.show(mainPanel, "gamePanel");
+							currentScreen = Screen.GAME;
+							startGame();
+							mainPanel.addKeyListener(player);
+						}
+                        default -> {
+						}
+					}
+
 					mainPanel.revalidate();
 					mainPanel.repaint();
-					isHowPanel = true;
-				} else if (!isGamePanel) {
-					layout.show(mainPanel, "gamePanel");
-					mainPanel.revalidate();
-					mainPanel.repaint();
-					startGame();
-					isGamePanel = true;
+
+
+				} else if (e.getActionCommand().equals("j")) {
+					if(currentScreen.equals(Screen.DEATH) || currentScreen.equals(Screen.WIN)){
+						System.exit(0);
+					}
 				}
 			}
 		}

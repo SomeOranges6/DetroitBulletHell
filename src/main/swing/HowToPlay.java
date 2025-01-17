@@ -14,7 +14,6 @@ public class HowToPlay extends JPanel{
 		this.setPreferredSize(BulletHellLogic.screenDim);
 		this.setDoubleBuffered(true);
 		this.setBackground(Color.black);
-
 		this.setFocusable(true);
 	}
 
