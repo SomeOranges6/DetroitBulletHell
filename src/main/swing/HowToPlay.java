@@ -26,9 +26,9 @@ public class HowToPlay extends JPanel{
 		Font tutorialFont = new Font("Arial", Font.BOLD, 40);
 		g2d.setFont(tutorialFont);
 
-		g2d.drawString("Press U to Attack and Start Game", 20, 100);
-		g2d.drawString("Press I to Switch Weapons", 20, 300);
-		g2d.drawString("Press J to Lock Your Shooting Direction", 20, 500);
+		g2d.drawString("Press A to Attack and Start Game", 20, 100);
+		g2d.drawString("Press Y to Switch Weapons", 20, 300);
+		g2d.drawString("Press X to Lock Your Shooting Direction", 20, 500);
 	}
 
 	public void dispose(){
