@@ -110,57 +110,49 @@ public class BulletHellLogic {
 		renderSetup();
 	}
 
-	private static void renderSetup() {
-	    // Set up the JFrame
-	    window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    window.setUndecorated(true); // Remove title bar and borders for fullscreen
-	    window.setResizable(false);
-	    window.setTitle("Bullet Hell Game");
-	    
-	    // Get the default screen device for fullscreen mode
-	    GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-	    gd.setFullScreenWindow(window);
+	private static void renderSetup(){
+		//set up frame
+		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		window.setResizable(false);
+		window.setTitle("Detroit");
 
-	    // Get screen dimensions dynamically
-	    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	    mainPanel.setPreferredSize(screenSize);
-	    
-	    // Set up panels
-	    iPanel = new IntroScreen();
-	    hPanel = new HowToPlay();
-	    gPanel = new GamePanel();
-	    wScreen = new WinScreen();
-	    dScreen = new DeathScreen();
+		//set up panel
+		iPanel = new IntroScreen();
+		hPanel = new HowToPlay();
+		gPanel = new GamePanel();
+		wScreen = new WinScreen();
+		dScreen = new DeathScreen();
 
-	    mainPanel.add(iPanel, "introPanel");
-	    mainPanel.add(hPanel, "howPanel");
-	    mainPanel.add(gPanel, "gamePanel");
-	    mainPanel.add(wScreen, "winScreen");
-	    mainPanel.add(dScreen, "deathScreen");
+		mainPanel.add(wScreen, "winScreen");
+		mainPanel.add(dScreen, "deathScreen");
+		mainPanel.add(gPanel, "gamePanel");
+		mainPanel.add(hPanel, "howPanel");
 
-	    // Show intro panel by default
-	    layout.show(mainPanel, "introPanel");
+		//setting up main panel
+		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+		gd.setFullScreenWindow(window);
 
-	    // Set key bindings for switching screens
-	    mainPanel.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_U, 0), "switchScreen");
-	    mainPanel.getActionMap().put("switchScreen", action);
-	    mainPanel.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_J, 0), "exitGame");
-	    mainPanel.getActionMap().put("exitGame", new AbstractAction() {
-	        @Override
-	        public void actionPerformed(ActionEvent e) {
-	            System.exit(0);
-	        }
-	    });
+		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+		mainPanel.setPreferredSize(dimension);
 
-	    // Add main panel to the frame
-	    window.add(mainPanel);
+		//setting up title screen
+		iPanel.setVisible(true);
+		mainPanel.add(iPanel, "introPanel");
+		layout.show(mainPanel, "introPanel");
 
-	    // Pack, center, and display the frame
-	    window.pack();
-	    window.setLocationRelativeTo(null);
-	    window.setVisible(true);
+		//setting up misc screen keybinds, uses a weird system else everything explodes
+		mainPanel.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_U, 0), "switchScreen");
+		mainPanel.getActionMap().put("switchScreen", action);
+		mainPanel.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_J, 0), "switchScreen");
+		mainPanel.getActionMap().put("switchScreen", action);
+
+		window.add(mainPanel);
+		//fit the panel to the size of the windows
+		window.pack();
+		//more panel stuff
+		window.setLocationRelativeTo(null);
+		window.setVisible(true);
 	}
-
 
 	public static void startGame() {
 		testLevel  = new TestLevel();
@@ -196,7 +188,6 @@ public class BulletHellLogic {
 				layout.show(mainPanel, "deathScreen");
 				mainPanel.revalidate();
 				mainPanel.repaint();
-				player.health = 300;
 				return;
 			}
 

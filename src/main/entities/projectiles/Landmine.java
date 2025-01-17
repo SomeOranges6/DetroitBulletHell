@@ -27,7 +27,7 @@ public class Landmine extends ProjectileBase {
         if(collidedObject != null && !collidedObject.equals(shooter)) {
             for (int i = -9; i < 11; i++) {
                 ProjectileBase yesProjectile = new TestProjectile(x, y);
-                yesProjectile.damage = 7;
+                yesProjectile.damage /= 3;
                 //yesProjectile.setShooter(shooter);
 
                 double spreadAngle = yesProjectile.facingAngle - Math.toRadians(18) * i;
