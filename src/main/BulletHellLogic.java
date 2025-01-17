@@ -234,7 +234,7 @@ public class BulletHellLogic {
 		GAME
 	}
 
-	public static Enum<Screen> currentScreen = Screen.INTRO;
+	public static Screen currentScreen = Screen.INTRO;
 
 
 	static class SwitchScreenAction extends AbstractAction {
@@ -245,11 +245,11 @@ public class BulletHellLogic {
 				if (e.getActionCommand().equals("u")) {
 
 					switch (currentScreen) {
-						case Screen.INTRO -> {
+						case INTRO -> {
 							layout.show(mainPanel, "howPanel");
 							currentScreen = Screen.HOWTO;
 						}
-						case Screen.HOWTO, Screen.DEATH -> {
+						case HOWTO, DEATH -> {
 							layout.show(mainPanel, "gamePanel");
 							currentScreen = Screen.GAME;
 							startGame();
