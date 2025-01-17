@@ -6,15 +6,22 @@ import main.gameplay.CharacterList;
 import main.gameplay.Player;
 import main.gameplay.SpriteManager;
 import main.swing.GamePanel;
+
 import main.swing.SpriteLoader;
+import main.swing.IntroScreen;
+import main.swing.HowToPlay;
+
 import main.world.LevelManager;
 import main.world.levels.TestLevel;
 import main.entities.enemies.BossEnemy;
 
+import javax.smartcardio.Card;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -60,8 +67,17 @@ public class BulletHellLogic {
     public static final int screenWidth = 1920 - 420;
     public static final int screenHeight = 1080 - 250;
 
+	public static final Dimension screenDim = new Dimension(BulletHellLogic.screenWidth, BulletHellLogic.screenHeight);
 
-	/**The JPanel the game  runs in **/
+	/**The JFrame the game uses **/
+	public static JFrame window = new JFrame();
+
+	public static CardLayout layout = new CardLayout();
+	public static JPanel mainPanel = new JPanel(layout);
+
+	/**The JPanels the game use **/
+    public static IntroScreen iPanel; //intro panel
+    public static HowToPlay hPanel; //tutorial panel
     public static GamePanel gPanel;
 
 	/**Handles building and rendering the map itself **/
@@ -82,6 +98,8 @@ public class BulletHellLogic {
 	public static Timer renderTick = new Timer(1000/60, new CentralClock());
 	public static final String renderActionCommand = "render";
 
+	static SwitchScreenAction action = new SwitchScreenAction();
+
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(BulletHellLogic::new);
 	}
@@ -93,49 +111,46 @@ public class BulletHellLogic {
 
 		centralTick.setActionCommand(centralActionCommand);
 		renderTick.setActionCommand(renderActionCommand);
-
-		startGame();
 		renderSetup();
-		centralTick.start();
-		renderTick.start();
 	}
 
 	private static void renderSetup(){
 		//set up frame
-	    JFrame window = new JFrame();
-	    window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    window.setUndecorated(true); // Remove title bar and borders
-	    window.setResizable(false);
-	    window.setTitle("Detroit");
+		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		window.setResizable(false);
+		window.setTitle("Game Prototype");
+		//set up panel
+		iPanel = new IntroScreen();
+		hPanel = new HowToPlay();
+		gPanel = new GamePanel();
 
-	    // Set up panel
-	    gPanel = new GamePanel();
-	    window.add(gPanel);
+		gPanel.setVisible(false);
+		mainPanel.add(gPanel, "gamePanel");
+		hPanel.setVisible(false);
+		mainPanel.add(hPanel, "howPanel");
+		iPanel.setVisible(true);
+		mainPanel.add(iPanel, "introPanel");
 
-	    // Set the frame to fullscreen
-	    GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-	    GraphicsDevice gd = ge.getDefaultScreenDevice();
-	    if (gd.isFullScreenSupported()) {
-	        gd.setFullScreenWindow(window);
-	    } else {
-	        System.err.println("Fullscreen mode is not supported.");
-	        window.setExtendedState(JFrame.MAXIMIZED_BOTH);
-	    }
+		layout.show(mainPanel, "introPanel");
 
-	    // More panel setup
-	    window.setLocationRelativeTo(null);
-	    window.setVisible(true);
+		mainPanel.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_U, 0), "switchScreen");
+		mainPanel.getActionMap().put("switchScreen", action);
+
+		window.add(mainPanel);
+		//fit the panel to the size of the windows
+		window.pack();
+		//more panel stuff
+		window.setLocationRelativeTo(null);
+		window.setVisible(true);
 	}
 
-
-	private static void startGame() {
-		testLevel  = new TestLevel();
+	public static void startGame() {
+		centralTick.start();
+		renderTick.start();
 		entitiesToUpdate = new ArrayList<>();
 		entitiesToRender = new ArrayList<>();
 		levelManager = new LevelManager(testLevel);
-		
 		player = new Player(500,500, CharacterList.johnTest);
-
 		entitiesToUpdate.add(player);
 		entitiesToRender.add(player);
 
@@ -192,6 +207,30 @@ public class BulletHellLogic {
 				renderableAddCache.clear();
 
 				gPanel.onUpdate();
+			}
+		}
+	}
+
+	static boolean isHowPanel;
+	static boolean isGamePanel;
+
+	static class SwitchScreenAction extends AbstractAction {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (e.getActionCommand().equals("u")){
+				if(!isHowPanel) {
+					layout.show(mainPanel, "howPanel");
+					mainPanel.revalidate();
+					mainPanel.repaint();
+					isHowPanel = true;
+				} else if (!isGamePanel) {
+					layout.show(mainPanel, "gamePanel");
+					mainPanel.revalidate();
+					mainPanel.repaint();
+					startGame();
+					isGamePanel = true;
+				}
 			}
 		}
 	}
